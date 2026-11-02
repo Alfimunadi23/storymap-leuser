@@ -34,8 +34,8 @@ window.ISI = {
   },
 
   /* ---------- 2. BAGIAN-BAGIAN CERITA (urut dari atas ke bawah) ----------
-     Warna latar bagian berganti otomatis: hutan, sungai, tanah, kanopi.
-     Untuk memilih sendiri, tambahkan misalnya  warna: 'sungai',  di dalam bagian. */
+     Warna latar bagian berganti otomatis: hutan (gelap), kabut (terang), gambut (gelap), lumut (terang).
+     Untuk memilih sendiri, tambahkan misalnya  warna: 'kabut',  di dalam bagian. */
   bagian: [
 
     { jenis: 'teks',

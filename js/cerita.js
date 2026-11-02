@@ -4,7 +4,7 @@
   'use strict';
   var I = window.ISI || {};
   document.documentElement.classList.add('js');
-  var WARNA = ['hutan', 'sungai', 'tanah', 'kanopi'];
+  var WARNA = ['hutan', 'kabut', 'gambut', 'lumut'];
   var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
   var pad2 = function (n) { return (n < 10 ? '0' : '') + n; };
   var sorotKata = function (s) { return esc(s).replace(/\*(.+?)\*/g, '<em>$1</em>'); };
@@ -127,8 +127,9 @@
     var bw = (w - m.l - m.r) / n, x = function (k) { return m.l + bw * k + bw / 2; };
     var fmt = function (v) { return (+v).toLocaleString('id-ID'); };
     var cs = getComputedStyle(fig), AK = cs.getPropertyValue('--aksen').trim() || '#9fcf7a', BR = cs.getPropertyValue('--bara').trim() || '#ee6b4d';
+    var GR = 'rgba(' + (cs.getPropertyValue('--g').trim() || '241,234,216') + ',.16)';
     var s = '';
-    for (var v = 0; v <= top + 1e-9; v += step) s += '<line x1="' + m.l + '" x2="' + (w - m.r) + '" y1="' + y(v) + '" y2="' + y(v) + '" stroke="rgba(241,234,216,.14)"/><text x="' + (m.l - 8) + '" y="' + (y(v) + 4) + '" text-anchor="end">' + fmt(v) + '</text>';
+    for (var v = 0; v <= top + 1e-9; v += step) s += '<line x1="' + m.l + '" x2="' + (w - m.r) + '" y1="' + y(v) + '" y2="' + y(v) + '" stroke="' + GR + '"/><text x="' + (m.l - 8) + '" y="' + (y(v) + 4) + '" text-anchor="end">' + fmt(v) + '</text>';
     var lewat = n > 12 ? Math.ceil(n / 8) : 1;
     d.forEach(function (p, k) { if (k % lewat === 0 || k === n - 1) s += '<text x="' + x(k) + '" y="' + (h - 10) + '" text-anchor="middle">' + esc(p[0]) + '</text>'; });
     var sorot = String(b.sorot || '');
