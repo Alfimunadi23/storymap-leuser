@@ -1,170 +1,170 @@
 /* =====================================================================
-   ISI STORYMAP — HANYA FILE INI YANG PERLU DIUBAH
+   ISI STORYMAP — cukup file ini yang diubah
    ---------------------------------------------------------------------
-   Cara mengisi:
-   • Ganti teks di antara tanda kutip '...'. Jangan hapus tanda kutip,
-     koma, atau kurung { } [ ].
-   • Peta  : simpan gambar hasil ekspor QGIS (PNG/JPG) ke folder "peta/",
-             lalu tulis nama filenya di bawah (misal 'peta/peta-1.png').
-   • Foto  : simpan ke folder "foto/".
-   • Kalau file gambar belum ada, halaman menampilkan kotak penanda
-     berisi nama file yang harus kamu tambahkan.
-   • Jenis bagian yang tersedia: 'teks', 'peta-scroll', 'angka',
-     'grafik', 'perbandingan', 'kutipan', 'kartu', 'tabel', 'galeri',
-     'peta-web'. Hapus bagian yang tidak dipakai, atau salin untuk menambah.
+   • Ganti tulisan di antara tanda kutip '...'. Tanda kutip, koma, dan
+     kurung { } [ ] jangan ikut dihapus.
+   • Peta : ekspor dari QGIS (PNG/JPG), taruh di folder "peta/", lalu tulis
+            namanya di bawah, misal 'peta/peta-1.png'.
+   • Foto : taruh di folder "foto/".
+   • Kalau gambarnya belum ada, di website muncul kotak kosong bertuliskan
+     nama file yang perlu kamu taruh.
+   • Jenis bagian: 'teks', 'peta-scroll', 'angka', 'grafik', 'perbandingan',
+     'kutipan', 'kartu', 'tabel', 'galeri', 'peta-web'.
+     Yang tidak dipakai hapus saja, yang kurang tinggal salin.
+   • Kata yang diapit *bintang* akan berwarna, contoh: 'Air dari *Hulu*'.
    ===================================================================== */
 
 window.ISI = {
 
-  /* ---------- 1. IDENTITAS (elemen wajib lomba) ---------- */
-  judul: 'Judul *Storymap*',          // kata di antara *bintang* diberi warna aksen
-  subjudul: 'Satu kalimat yang merangkum pesan utama karya kalian.',
+  /* ---------- 1. IDENTITAS (wajib ada untuk lomba) ---------- */
+  judul: 'Judul *Cerita* Kalian',
+  subjudul: 'Satu kalimat yang bikin orang paham ini cerita tentang apa.',
   kegiatan: 'Leuser GeoStory Challenge | Festival Rimba Leuser 2026',
   subtema: 'Mitigasi Bencana Hidrometeorologi',
-  wilayah: 'Nama wilayah kajian, misal DAS ... , Aceh',
+  wilayah: 'Nama tempat yang kalian bahas, misal DAS Tamiang',
   tim: {
     nama: 'Nama Tim',
-    anggota: ['Nama Anggota 1', 'Nama Anggota 2', 'Nama Anggota 3'],
-    instansi: 'Kampus / Komunitas'
+    anggota: ['Nama 1', 'Nama 2', 'Nama 3'],
+    instansi: 'Kampus atau komunitas'
   },
-  logo: 'foto/logo-haka.png',          // logo penyelenggara
+  logo: 'foto/logo-haka.png',
   sampul: {
-    gambar: 'foto/sampul.jpg',         // foto atau peta besar untuk pembuka
-    keterangan: 'Keterangan foto sampul. Sumber: ...'
+    gambar: 'foto/sampul.jpg',          // foto atau peta paling kuat untuk pembuka
+    keterangan: 'Foto apa ini, diambil di mana. Sumber: ...'
   },
 
-  /* ---------- 2. BAGIAN-BAGIAN CERITA (urut dari atas ke bawah) ----------
-     Warna latar bagian berganti otomatis: hutan (gelap), kabut (terang), gambut (gelap), lumut (terang).
-     Untuk memilih sendiri, tambahkan misalnya  warna: 'kabut',  di dalam bagian. */
+  /* ---------- 2. ISI CERITA (urut dari atas ke bawah) ----------
+     Warna latar berganti sendiri: hutan, kabut, gambut, lumut.
+     Mau pilih sendiri? Tambahkan  warna: 'kabut',  di bagian itu. */
   bagian: [
 
     { jenis: 'teks',
       label: 'Pembuka',
-      judul: 'Kalimat pembuka yang membuat pembaca ingin terus membaca',
+      judul: 'Mulai dari momen yang paling bikin penasaran',
       paragraf: [
-        'Paragraf 1: ceritakan peristiwa atau fakta yang paling menarik perhatian. Dua sampai tiga kalimat cukup.',
-        'Paragraf 2: ajukan pertanyaan yang akan dijawab storymap ini.'
+        'Ceritakan kejadiannya dulu: kapan, di mana, apa yang terjadi. Dua atau tiga kalimat sudah cukup.',
+        'Lalu ajukan pertanyaan yang mau kalian jawab lewat peta-peta di bawah.'
       ]
     },
 
     { jenis: 'angka',
       label: 'Sekilas',
-      judul: 'Angka-angka kunci',
+      judul: 'Beberapa angka dulu',
       isi: [
-        { nilai: '000.000', satuan: 'ha',   keterangan: 'Contoh: luas wilayah kajian', sumber: 'Sumber data' },
-        { nilai: '00',      satuan: '%',    keterangan: 'Contoh: persentase tutupan hutan', sumber: 'Sumber data' },
-        { nilai: '0.000',   satuan: 'ha',   keterangan: 'Contoh: hutan yang hilang', sumber: 'Sumber data' },
-        { nilai: '000',     satuan: 'jiwa', keterangan: 'Contoh: warga terdampak', sumber: 'Sumber data' }
+        { nilai: '000.000', satuan: 'ha',   keterangan: 'Misal: luas wilayah yang dibahas', sumber: 'Sumber: ...' },
+        { nilai: '00',      satuan: '%',    keterangan: 'Misal: hutan yang masih tersisa', sumber: 'Sumber: ...' },
+        { nilai: '0.000',   satuan: 'ha',   keterangan: 'Misal: hutan yang hilang', sumber: 'Sumber: ...' },
+        { nilai: '000',     satuan: 'jiwa', keterangan: 'Misal: warga yang terdampak', sumber: 'Sumber: ...' }
       ]
     },
 
     { jenis: 'peta-scroll',
       label: 'Wilayah',
-      judul: 'Mengenal wilayah kajian',
-      pengantar: 'Satu kalimat pengantar sebelum peta mulai bergerak.',
+      judul: 'Kenalan dulu dengan tempatnya',
+      pengantar: 'Gulir pelan-pelan, petanya ikut berganti.',
       langkah: [
-        { peta: 'peta/peta-1.png', judul: 'Lokasi', teks: 'Jelaskan posisi wilayah kajian di Aceh dan di Kawasan Ekosistem Leuser.', sumber: 'Sumber: batas administrasi BIG 2025' },
-        { peta: 'peta/peta-2.png', judul: 'Hulu dan hilir', teks: 'Jelaskan pembagian hulu, tengah, dan hilir.', sumber: 'Sumber: DEMNAS, BIG' },
-        { peta: 'peta/peta-3.png', judul: 'Siapa yang tinggal di sini', teks: 'Jelaskan permukiman dan jumlah penduduk.', sumber: 'Sumber: BPS' }
+        { peta: 'peta/peta-1.png', judul: 'Letaknya di mana', teks: 'Tunjukkan posisinya di Aceh dan di Kawasan Ekosistem Leuser.', sumber: 'Sumber: batas administrasi BIG 2025' },
+        { peta: 'peta/peta-2.png', judul: 'Hulu sampai hilir', teks: 'Bagian mana yang pegunungan, mana yang dataran, di mana sungainya bermuara.', sumber: 'Sumber: DEMNAS, BIG' },
+        { peta: 'peta/peta-3.png', judul: 'Siapa yang tinggal di sana', teks: 'Desa dan kecamatan yang ada di sepanjang aliran sungai.', sumber: 'Sumber: BPS' }
       ]
     },
 
     { jenis: 'peta-scroll',
-      label: 'Masalah',
+      label: 'Perubahan',
       judul: 'Apa yang berubah',
-      pengantar: 'Pengantar bagian masalah.',
+      pengantar: 'Bandingkan dulu dan sekarang.',
       langkah: [
-        { peta: 'peta/peta-4.png', judul: 'Kondisi awal', teks: 'Peta kondisi tahun awal.', sumber: 'Sumber: ...' },
-        { peta: 'peta/peta-5.png', judul: 'Kondisi sekarang', teks: 'Peta kondisi terbaru dan apa yang hilang.', sumber: 'Sumber: ...' }
+        { peta: 'peta/peta-4.png', judul: 'Dulu', teks: 'Seperti apa kondisinya di tahun awal.', sumber: 'Sumber: ...' },
+        { peta: 'peta/peta-5.png', judul: 'Sekarang', teks: 'Apa yang hilang, dan paling banyak di mana.', sumber: 'Sumber: ...' }
       ]
     },
 
     { jenis: 'grafik',
       label: 'Data',
-      judul: 'Judul grafik',
-      tipe: 'garis',                    // 'garis' atau 'batang'
+      judul: 'Kalau dilihat dari tahun ke tahun',
+      tipe: 'garis',                     // 'garis' atau 'batang'
       satuan: 'ha',
-      sorot: '2025',                     // label yang ingin ditonjolkan (boleh dikosongkan '')
+      sorot: '2025',                      // tahun yang mau ditonjolkan, boleh dikosongkan ''
       data: [
         ['2019', 100], ['2020', 120], ['2021', 90], ['2022', 80],
         ['2023', 95],  ['2024', 110], ['2025', 300]
       ],
-      catatan: 'Contoh data. Ganti dengan angka hasil olahan kalian.',
+      catatan: 'Angka contoh, ganti dengan hasil olahan kalian.',
       sumber: 'Sumber: ...'
     },
 
     { jenis: 'perbandingan',
-      label: 'Sebelum dan sesudah',
-      judul: 'Geser untuk membandingkan',
-      kiri:  { gambar: 'peta/sebelum.png', label: 'Sebelum (tahun ...)' },
-      kanan: { gambar: 'peta/sesudah.png', label: 'Sesudah (tahun ...)' },
+      label: 'Sebelum–sesudah',
+      judul: 'Geser dan lihat bedanya',
+      kiri:  { gambar: 'peta/sebelum.png', label: 'Sebelum' },
+      kanan: { gambar: 'peta/sesudah.png', label: 'Sesudah' },
       sumber: 'Sumber: citra satelit ...'
     },
 
     { jenis: 'teks',
       label: 'Analisis',
-      judul: 'Apa yang ditunjukkan data',
+      judul: 'Jadi, apa artinya?',
       paragraf: [
-        'Jelaskan metode analisis singkat (overlay, perhitungan luas, dsb.).',
-        'Jelaskan temuan utama beserta angkanya. Tulis sebagai keterkaitan, bukan klaim mutlak.'
+        'Ceritakan singkat cara kalian mengolah datanya, misalnya ditumpuk dengan peta lereng lalu dihitung luasnya.',
+        'Lalu sampaikan temuannya pakai angka. Hati-hati: tulis sebagai "berkaitan", jangan langsung "menyebabkan".'
       ],
-      gambar: { file: 'peta/peta-analisis.png', keterangan: 'Peta hasil analisis. Sumber: diolah tim.' }
+      gambar: { file: 'peta/peta-analisis.png', keterangan: 'Peta hasil olahan tim. Sumber: ...' }
     },
 
     { jenis: 'galeri',
       label: 'Dampak',
-      judul: 'Dampak di lapangan',
-      paragraf: ['Ceritakan dampak terhadap warga.'],
+      judul: 'Yang dirasakan warga',
+      paragraf: ['Apa yang terjadi di lapangan. Foto sendiri lebih kuat daripada foto dari internet.'],
       foto: [
-        { file: 'foto/foto-1.jpg', keterangan: 'Keterangan foto 1. Sumber: ...' },
-        { file: 'foto/foto-2.jpg', keterangan: 'Keterangan foto 2. Sumber: ...' },
-        { file: 'foto/foto-3.jpg', keterangan: 'Keterangan foto 3. Sumber: ...' }
+        { file: 'foto/foto-1.jpg', keterangan: 'Keterangan foto. Sumber: ...' },
+        { file: 'foto/foto-2.jpg', keterangan: 'Keterangan foto. Sumber: ...' },
+        { file: 'foto/foto-3.jpg', keterangan: 'Keterangan foto. Sumber: ...' }
       ]
     },
 
     { jenis: 'kutipan',
       label: 'Ekoteologi',
-      teks: 'Tulis ayat, hadis, petuah adat, atau kutipan narasumber di sini.',
-      sumber: 'Sumber kutipan',
-      paragraf: ['Jelaskan hubungan kutipan dengan menjaga hutan dan keseimbangan alam (mizan).']
+      teks: 'Tulis ayat, petuah adat, atau omongan warga yang paling mengena.',
+      sumber: 'Dari siapa atau dari mana',
+      paragraf: ['Kaitkan dengan kenapa hutan perlu dijaga, dan apa hubungannya dengan keseimbangan (mizan).']
     },
 
     { jenis: 'kartu',
       label: 'Solusi',
-      judul: 'Rekomendasi',
-      gambar: { file: 'peta/peta-zonasi.png', keterangan: 'Peta zonasi rekomendasi. Sumber: diolah tim.' },
+      judul: 'Terus, harus bagaimana?',
+      gambar: { file: 'peta/peta-zonasi.png', keterangan: 'Peta zonasi usulan tim. Sumber: ...' },
       isi: [
-        { warna: 'merah', judul: 'Zona 1', teks: 'Rekomendasi untuk zona ini.' },
-        { warna: 'hijau', judul: 'Zona 2', teks: 'Rekomendasi untuk zona ini.' },
-        { warna: 'biru',  judul: 'Zona 3', teks: 'Rekomendasi untuk zona ini.' }
+        { warna: 'merah', judul: 'Pulihkan', teks: 'Daerah yang paling rusak dan perlu ditanami lagi.' },
+        { warna: 'hijau', judul: 'Jaga', teks: 'Hutan yang masih ada dan harus dilindungi.' },
+        { warna: 'biru',  judul: 'Siaga', teks: 'Permukiman yang rawan dan butuh peringatan dini.' }
       ]
     },
 
     { jenis: 'peta-web',
       label: 'Peta interaktif',
-      judul: 'Jelajahi peta sendiri',
-      teks: 'Opsional. Ekspor proyek QGIS dengan plugin qgis2web, taruh hasilnya di folder "peta-web/", lalu isi alamat di bawah dengan "peta-web/index.html". Kosongkan untuk menyembunyikan bagian ini.',
+      judul: 'Jelajahi sendiri',
+      teks: 'Opsional. Ekspor proyek QGIS pakai plugin qgis2web, taruh hasilnya di folder "peta-web/", lalu isi alamatnya jadi "peta-web/index.html". Kalau dikosongkan, bagian ini tidak tampil.',
       alamat: ''
     },
 
     { jenis: 'tabel',
       label: 'Metodologi',
-      judul: 'Data dan cara pengolahan',
-      paragraf: ['Alur kerja: Data → Pengolahan di QGIS → Analisis → Storymap.'],
-      kolom: ['Data', 'Sumber', 'Tahun', 'Dipakai untuk'],
+      judul: 'Datanya dari mana',
+      paragraf: ['Alurnya: kumpulkan data, olah di QGIS, analisis, lalu susun jadi cerita ini.'],
+      kolom: ['Data', 'Sumber', 'Tahun', 'Dipakai di'],
       baris: [
         ['Batas administrasi', 'BIG', '2025', 'Semua peta'],
-        ['Tutupan & kehilangan hutan', 'HAkA (data dasar panitia)', '2006–2025', 'Bagian masalah'],
+        ['Tutupan dan kehilangan hutan', 'HAkA (data dasar panitia)', '2006–2025', 'Bagian perubahan'],
         ['...', '...', '...', '...']
       ],
-      catatanAI: 'Pernyataan penggunaan AI: tulis bagian mana yang dibantu AI, sesuai Surat Pernyataan Orisinalitas.'
+      catatanAI: 'Soal AI: tulis jujur bagian mana yang dibantu AI, sama seperti di Surat Pernyataan Orisinalitas.'
     }
   ],
 
   /* ---------- 3. PENUTUP ---------- */
   penutup: {
-    judul: 'Kalimat ajakan penutup',
-    teks: 'Satu paragraf penutup: pesan yang ingin diingat pembaca.'
+    judul: 'Kalimat terakhir yang mau diingat pembaca',
+    teks: 'Satu paragraf pendek: ajakan, harapan, atau pengingat.'
   },
   sumberData: [
     'Data dasar panitia: Yayasan HAkA',

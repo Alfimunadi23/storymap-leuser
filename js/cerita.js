@@ -17,7 +17,7 @@
       '<rect width="100%" height="100%" fill="#eef0ec"/><rect width="100%" height="100%" fill="url(#g)"/>' +
       '<path d="M' + (w / 2 - 26) + ' ' + h / 2 + 'h52M' + w / 2 + ' ' + (h / 2 - 26) + 'v52" stroke="#57616b" stroke-width="2"/>' +
       '<circle cx="' + w / 2 + '" cy="' + h / 2 + '" r="16" fill="none" stroke="#57616b" stroke-width="2"/>' +
-      '<text x="50%" y="' + (h / 2 + 70) + '" text-anchor="middle" font-family="Menlo,monospace" font-size="26" fill="#17202a">TAMBAHKAN FILE</text>' +
+      '<text x="50%" y="' + (h / 2 + 70) + '" text-anchor="middle" font-family="Menlo,monospace" font-size="26" fill="#17202a">TARUH FILE INI DI SINI</text>' +
       '<text x="50%" y="' + (h / 2 + 108) + '" text-anchor="middle" font-family="Menlo,monospace" font-size="24" fill="#1d5f8a">' + esc(file) + '</text></svg>';
     return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
   }
@@ -50,7 +50,7 @@
     '<dl class="meta"><dt>Subtema</dt><dd>' + esc(I.subtema) + '</dd><dt>Wilayah</dt><dd>' + esc(I.wilayah) + '</dd>' +
     '<dt>Tim</dt><dd>' + esc(t.nama) + '</dd><dt>Anggota</dt><dd>' + esc((t.anggota || []).join(' · ')) + '</dd>' +
     (t.instansi ? '<dt>Instansi</dt><dd>' + esc(t.instansi) + '</dd>' : '') + '</dl>' +
-    '<a class="gulir" href="#b1">Mulai membaca</a></div>' +
+    '<a class="gulir" href="#b1">Mulai baca</a></div>' +
     '<figure style="margin:0"><div class="bingkai">' + img((I.sampul || {}).gambar, 'Sampul', 'zoom', 0.78) + '</div><figcaption>' + esc((I.sampul || {}).keterangan) + '</figcaption></figure></div>';
 
   /* --- bagian --- */
