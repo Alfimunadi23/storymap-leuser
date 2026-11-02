@@ -4,8 +4,8 @@
 :root{
   /* warna latar per bagian */
   --hutan:#163a2c;   --hutan-2:#1d4a38;
-  --sungai:#123a4a;  --sungai-2:#18495c;
-  --tanah:#3d2a1c;   --tanah-2:#4d3624;
+  --sungai:#143e37;  --sungai-2:#1b4d44;
+  --tanah:#2f2b1b;   --tanah-2:#3d3823;
   --kanopi:#24321f;  --kanopi-2:#2f4128;
   /* warna isi */
   --krim:#f1ead8;       /* teks utama di latar gelap */
@@ -13,7 +13,7 @@
   --kertas:#ede6d2;     /* lembar peta */
   --tinta:#1c2420;      /* teks di atas kertas */
   --daun:#9fcf7a;       /* aksen hutan */
-  --air:#7cc3d8;        /* aksen sungai */
+  --air:#8fd1b8;        /* aksen sungai (hijau toska lembut) */
   --oker:#e0a85a;       /* aksen tanah */
   --bara:#ee6b4d;       /* sorotan / bahaya */
   --f-judul:"Schibsted Grotesk","Helvetica Neue",Arial,sans-serif;
