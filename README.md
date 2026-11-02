@@ -49,3 +49,9 @@ yang diinginkan. Nomor "LEMBAR" di setiap bagian dibuat otomatis.
 
 Nama tim dan anggota, logo HAkA (`foto/logo-haka.png`), nama kegiatan, dan sumber
 data sudah punya tempat di `js/isi.js`. Pastikan semuanya diisi.
+
+## Kalau perubahan belum muncul di HP
+
+HP dan browser menyimpan file lama (cache) sampai sekitar 10 menit. Agar langsung
+diperbarui setelah mengubah `js/isi.js` atau `css/gaya.css`, buka `index.html` lalu
+naikkan angka versinya, misalnya `?v=2` menjadi `?v=3` (ada di 3 baris), lalu commit.
