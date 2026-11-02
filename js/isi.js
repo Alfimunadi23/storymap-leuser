@@ -17,7 +17,7 @@
 window.ISI = {
 
   /* ---------- 1. IDENTITAS (elemen wajib lomba) ---------- */
-  judul: 'Judul Storymap',
+  judul: 'Judul *Storymap*',          // kata di antara *bintang* diberi warna aksen
   subjudul: 'Satu kalimat yang merangkum pesan utama karya kalian.',
   kegiatan: 'Leuser GeoStory Challenge | Festival Rimba Leuser 2026',
   subtema: 'Mitigasi Bencana Hidrometeorologi',
@@ -33,7 +33,9 @@ window.ISI = {
     keterangan: 'Keterangan foto sampul. Sumber: ...'
   },
 
-  /* ---------- 2. BAGIAN-BAGIAN CERITA (urut dari atas ke bawah) ---------- */
+  /* ---------- 2. BAGIAN-BAGIAN CERITA (urut dari atas ke bawah) ----------
+     Warna latar bagian berganti otomatis: hutan, sungai, tanah, kanopi.
+     Untuk memilih sendiri, tambahkan misalnya  warna: 'sungai',  di dalam bagian. */
   bagian: [
 
     { jenis: 'teks',
