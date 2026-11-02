@@ -1,0 +1,1 @@
+Taruh hasil ekspor qgis2web di folder ini (opsional).

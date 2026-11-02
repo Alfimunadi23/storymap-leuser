@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Storymap</title>
+<meta name="description" content="Storymap interaktif Leuser GeoStory Challenge | Festival Rimba Leuser 2026">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Spline+Sans+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/gaya.css">
+</head>
+<body>
+<!-- Tampilan dibangun otomatis dari js/isi.js. Untuk mengubah isi, edit js/isi.js saja. -->
+<div class="lembar-bar" aria-hidden="true">
+  <div class="lembar-in">
+    <span class="lb-kiri" id="lbJudul"></span>
+    <span class="lb-kanan"><span id="lbLabel">Sampul</span><span class="lb-no" id="lbNo">00 / 00</span></span>
+  </div>
+  <div class="lb-progres"><i id="lbProgres"></i></div>
+</div>
+
+<header class="sampul" id="sampul"></header>
+<main id="cerita"></main>
+<footer class="tepi" id="tepi"></footer>
+
+<div class="lightbox" id="lightbox" hidden><button type="button" aria-label="Tutup">Tutup ✕</button><img alt=""><p></p></div>
+
+<script src="js/isi.js"></script>
+<script src="js/cerita.js"></script>
+</body>
+</html>
