@@ -33,7 +33,7 @@
       if (!el.dataset.file) gagal();
     });
   }
-  function paragraf(arr) { return (arr || []).map(function (p) { return '<p>' + esc(p) + '</p>'; }).join(''); }
+  function paragraf(arr) { return (arr || []).map(function (p) { return '<p>' + esc(p).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<em>$1</em>') + '</p>'; }).join(''); }
   function gambarBingkai(g) {
     if (!g || !g.file) return '';
     return '<figure class="isi-lebar" style="margin:36px 0 0 174px"><div class="bingkai">' + img(g.file, g.keterangan, 'zoom') + '</div><figcaption>' + esc(g.keterangan) + '</figcaption></figure>';
@@ -102,6 +102,16 @@
           '<button type="button" class="ptab-putar">▶ Putar</button></div>' +
           '<div class="ptab-badan"><div class="bingkai"><div class="peta-leaflet" role="application" aria-label="Peta interaktif"></div></div><div class="pint-info ptab-isi"><p class="kode">Memuat peta…</p></div></div>' +
           (b.legenda ? '<div class="legenda">' + b.legenda.map(function (l) { return '<span><i style="background:' + esc(l.warna) + '"></i>' + esc(l.label) + '</span>'; }).join('') + '</div>' : '') +
+          (b.sumber ? '<div class="sumber">' + esc(b.sumber) + '</div>' : '') + '</div>';
+      case 'peta-lereng':
+        PINT.push(b); var TL = b.tahun || [];
+        return (b.paragraf ? '<div class="isi-kolom" style="margin-bottom:28px">' + paragraf(b.paragraf) + '</div>' : '') +
+          '<div class="ptab waktu pint plg isi-lebar" data-plg="' + (PINT.length - 1) + '">' +
+          (b.subjudul ? '<h3 class="sub-blok">' + sorotKata(b.subjudul) + '</h3>' : '') +
+          '<div class="ptab-nav" role="tablist">' + TL.map(function (y, k) { return '<button type="button" role="tab" data-k="' + k + '">' + y + '</button>'; }).join('') +
+          '<button type="button" class="ptab-putar">▶ Putar</button></div>' +
+          '<div class="ptab-badan"><div class="bingkai"><div class="peta-leaflet" role="application" aria-label="Peta interaktif deforestasi lereng"></div></div><div class="pint-info ptab-isi"><p class="kode">Memuat peta…</p></div></div>' +
+          '<div class="plg-batang" aria-label="Luas hutan hilang per kelas lereng per tahun"></div>' +
           (b.sumber ? '<div class="sumber">' + esc(b.sumber) + '</div>' : '') + '</div>';
       case 'grafik':
         GRAFIK.push(b);
@@ -318,7 +328,7 @@
 
   /* --- peta interaktif (Leaflet) --- */
   (function () {
-    var boxes = document.querySelectorAll('[data-pint]'); if (!boxes.length) return;
+    var boxes = document.querySelectorAll('[data-pint]'), boxL = document.querySelectorAll('[data-plg]'); if (!boxes.length && !boxL.length) return;
     function muat(src, css) {
       return new Promise(function (ok, gagal) {
         var el = document.createElement(css ? 'link' : 'script');
@@ -332,7 +342,78 @@
       if (i >= cdn.length) return Promise.reject();
       return muat(cdn[i] + 'leaflet.css', true).catch(function () {}).then(function () { return muat(cdn[i] + 'leaflet.js'); }).catch(function () { return muatLeaflet(i + 1); });
     };
+    var WL = ['#F3E9B8', '#DDA15E', '#C2461B'];
+    function petaLereng(box) {
+      var cfg = PINT[+box.dataset.plg], folder = cfg.folder || 'data/', T = cfg.tahun || [];
+      var map = L.map(box.querySelector('.peta-leaflet'), { scrollWheelZoom: false });
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom: 18, attribution: 'Citra: Esri World Imagery' }).addTo(map);
+      var info = box.querySelector('.pint-info'), btn = [].slice.call(box.querySelectorAll('.ptab-nav [data-k]')), play = box.querySelector('.ptab-putar'), strip = box.querySelector('.plg-batang');
+      var R = null, lap = {}, aktif = null, cur = 0, timer = null, nyala = [true, true, true];
+      function gaya(f) { var i = f.properties.i; return { color: WL[i], weight: i === 2 ? 1.2 : .7, fillColor: WL[i], fillOpacity: nyala[i] ? (i === 0 ? .7 : .88) : 0, opacity: nyala[i] ? 1 : 0 }; }
+      function pop(p, y) {
+        var d = R.info[p.kelas] || {}, tot = R.total[y].reduce(function (a, b) { return a + b; }, 0);
+        return '<div class="pint-pop"><b>' + esc(p.kelas) + ' · ' + y + '</b><span>Kemiringan ' + esc(d.rentang) + ' (' + esc(d.derajat) + ')</span>' +
+          '<div class="pop-baris"><em>Hutan hilang</em><strong>' + fmt(p.ha) + ' ha</strong></div>' +
+          '<div class="pop-baris"><em>Porsi tahun ini</em><strong>' + Math.round(p.ha / tot * 100) + '%</strong></div>' +
+          '<p class="pop-risiko">Risiko: ' + esc(d.risiko) + '</p></div>';
+      }
+      function isiInfo(y) {
+        var t = R.total[y], tot = t[0] + t[1] + t[2];
+        info.innerHTML = '<div class="ptab-besar">' + y + '</div>' +
+          '<dl><div><dt>Hutan hilang di lereng DAS</dt><dd><b>' + fmt(tot) + '</b> ha</dd></div></dl>' +
+          '<div class="plg-kelas">' + R.kelas.map(function (k, i) {
+            var d = R.info[k] || {};
+            return '<label class="' + (nyala[i] ? '' : 'mati') + '"><input type="checkbox" data-i="' + i + '"' + (nyala[i] ? ' checked' : '') + '>' +
+              '<i style="background:' + WL[i] + '"></i><span>' + esc(k) + '<small>' + esc(d.rentang) + '</small></span>' +
+              '<b>' + fmt(t[i]) + ' ha<small>' + Math.round(t[i] / tot * 100) + '%</small></b></label>';
+          }).join('') + '</div>' +
+          '<p class="kode" style="margin-top:10px">Kecamatan terbanyak</p><ol class="pint-top">' +
+          R.kec[y].slice(0, 4).map(function (r) { var n = r[0].split('|'), s3 = r[1] + r[2] + r[3];
+            return '<li><span>' + esc(n[0]) + '<small>' + esc(n[1]) + ' · ' + Math.round(r[3] / s3 * 100) + '% sangat curam</small></span><b>' + fmt(s3) + ' ha</b></li>'; }).join('') + '</ol>' +
+          '<p class="pint-petunjuk">Centang/hapus centang kelas lereng untuk menyaring peta. Klik area berwarna untuk detail risikonya.</p>';
+        [].forEach.call(info.querySelectorAll('input[data-i]'), function (c) {
+          c.addEventListener('change', function () { nyala[+c.dataset.i] = c.checked; c.parentNode.classList.toggle('mati', !c.checked); if (aktif) aktif.setStyle(gaya); });
+        });
+      }
+      function batang() {
+        var maks = Math.max.apply(null, T.map(function (y) { return R.total[y].reduce(function (a, b) { return a + b; }, 0); }));
+        strip.innerHTML = '<p class="kode">Luas hutan hilang per kelas lereng (ha) · klik batangnya</p><div class="plg-kolom">' + T.map(function (y, k) {
+          var t = R.total[y], tot = t[0] + t[1] + t[2];
+          return '<button type="button" data-k="' + k + '" title="' + y + ': ' + fmt(tot) + ' ha"><span class="plg-nilai">' + fmt(tot) + '</span><span class="plg-tumpuk" style="height:' + Math.max(2, tot / maks * 100) + '%">' +
+            [2, 1, 0].map(function (i) { return '<i style="flex:' + t[i] + ';background:' + WL[i] + '"></i>'; }).join('') + '</span><em>' + y + '</em></button>';
+        }).join('') + '</div>';
+        [].forEach.call(strip.querySelectorAll('button'), function (b) { b.addEventListener('click', function () { stop(); pilih(+b.dataset.k); }); });
+      }
+      function pilih(k) {
+        cur = k; var y = T[k];
+        btn.forEach(function (b, j) { b.classList.toggle('aktif', j === k); b.classList.toggle('lewat', j < k); b.setAttribute('aria-selected', j === k); });
+        [].forEach.call(strip.querySelectorAll('button'), function (b, j) { b.classList.toggle('aktif', j === k); });
+        isiInfo(y);
+        var tampil = function () { if (aktif) map.removeLayer(aktif); aktif = lap[y].addTo(map); aktif.setStyle(gaya); };
+        if (lap[y]) { tampil(); return; }
+        info.classList.add('memuat');
+        fetch(folder + 'lereng-' + y + '.geojson').then(function (r) { return r.json(); }).then(function (gj) {
+          gj.features.sort(function (a, b) { return a.properties.i - b.properties.i; });
+          lap[y] = L.geoJSON(gj, { style: gaya, onEachFeature: function (f, l) { l.bindPopup(pop(f.properties, y), { maxWidth: 280 }); } });
+          info.classList.remove('memuat'); if (T[cur] === y) tampil();
+        });
+      }
+      Promise.all([fetch(folder + 'lereng.json').then(function (r) { return r.json(); }), fetch(folder + 'kabupaten.geojson').then(function (r) { return r.json(); })]).then(function (d) {
+        R = d[0];
+        var kab = L.geoJSON(d[1], { interactive: false, style: function (f) { var t = f.properties.kab === (cfg.sorotKab || ''); return { color: t ? '#DDA15E' : '#FEFAE0', weight: t ? 3 : 1.4, dashArray: t ? null : '6 5', fill: false }; } }).addTo(map);
+        var bb = L.latLngBounds([[3.72, 97.31], [4.49, 97.97]]);
+        map.fitBounds(bb); setTimeout(function () { map.invalidateSize(); map.fitBounds(bb); }, 400);
+        batang(); pilih(T.length - 1);
+      });
+      btn.forEach(function (b) { b.addEventListener('click', function () { stop(); pilih(+b.dataset.k); }); });
+      function stop() { if (timer) { clearInterval(timer); timer = null; play.textContent = '▶ Putar'; } }
+      play.addEventListener('click', function () {
+        if (timer) { stop(); return; } play.textContent = '❚❚ Jeda'; pilih(0);
+        timer = setInterval(function () { if (cur >= T.length - 1) { stop(); return; } pilih(cur + 1); }, 2200);
+      });
+    }
     muatLeaflet(0).then(function () {
+      boxL.forEach(petaLereng);
       boxes.forEach(function (box) {
         var cfg = PINT[+box.dataset.pint], folder = cfg.folder || 'data/', T = cfg.tahun || [];
         var map = L.map(box.querySelector('.peta-leaflet'), { scrollWheelZoom: false, zoomControl: true, attributionControl: true });
@@ -396,7 +477,7 @@
           timer = setInterval(function () { if (cur >= T.length - 1) { stop(); return; } pilih(cur + 1); }, 2200);
         });
       });
-    }).catch(function () { boxes.forEach(function (b) { b.querySelector('.peta-leaflet').innerHTML = '<p style="padding:24px">Peta interaktif gagal dimuat. Periksa koneksi internet.</p>'; }); });
+    }).catch(function () { [].slice.call(boxes).concat([].slice.call(boxL)).forEach(function (b) { b.querySelector('.peta-leaflet').innerHTML = '<p style="padding:24px">Peta interaktif gagal dimuat. Periksa koneksi internet.</p>'; }); });
   })();
 
   /* --- perbesar gambar --- */

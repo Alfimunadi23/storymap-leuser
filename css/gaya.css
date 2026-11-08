@@ -322,3 +322,30 @@ body,html{background:#606C38}
   .riwayat li::before{left:8px}
   .riwayat .r-tahun{text-align:left}
 }
+/* peta deforestasi lereng */
+.plg-kelas{display:grid;gap:6px;margin-top:4px}
+.plg-kelas label{display:grid;grid-template-columns:18px 14px 1fr auto;gap:8px;align-items:center;padding:8px 10px;border:1px solid rgba(254,250,224,.18);border-radius:6px;cursor:pointer;transition:opacity .2s,background .2s}
+.plg-kelas label:hover{background:rgba(254,250,224,.06)}
+.plg-kelas label.mati{opacity:.45}
+.plg-kelas input{accent-color:#DDA15E;margin:0}
+.plg-kelas i{width:14px;height:14px;border-radius:3px;display:block}
+.plg-kelas span{display:grid;font-size:.98rem;line-height:1.2}
+.plg-kelas small{font-family:var(--f-kode);font-size:.64rem;color:var(--krim-2);letter-spacing:.04em}
+.plg-kelas b{font-family:var(--f-judul);text-align:right;display:grid;line-height:1.15;white-space:nowrap}
+.plg-batang{margin-top:22px}
+.plg-batang .kode{margin:0 0 10px}
+.plg-kolom{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;height:190px;align-items:end;border-bottom:1px solid rgba(254,250,224,.3)}
+.plg-kolom button{all:unset;cursor:pointer;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:stretch;position:relative;padding-bottom:22px;box-sizing:border-box}
+.plg-tumpuk{display:flex;flex-direction:column;border-radius:3px 3px 0 0;overflow:hidden;opacity:.62;transition:opacity .2s,transform .2s;min-height:2px}
+.plg-tumpuk i{display:block;min-height:1px}
+.plg-kolom button:hover .plg-tumpuk,.plg-kolom button.aktif .plg-tumpuk{opacity:1}
+.plg-kolom button.aktif .plg-tumpuk{outline:2px solid #FEFAE0;outline-offset:2px}
+.plg-nilai{font-family:var(--f-kode);font-size:.66rem;text-align:center;margin-bottom:4px;color:var(--krim-2)}
+.plg-kolom button.aktif .plg-nilai{color:#FEFAE0;font-weight:600}
+.plg-kolom em{position:absolute;bottom:2px;left:0;right:0;text-align:center;font-style:normal;font-family:var(--f-kode);font-size:.72rem}
+.plg-kolom button:focus-visible{outline:2px dashed #DDA15E}
+.pint-pop .pop-baris{display:flex;justify-content:space-between;gap:12px;border-bottom:1px dashed #d8d2a8;padding:3px 0}
+.pint-pop .pop-baris em{font-style:normal}
+.pop-risiko{margin:6px 0 0;font-family:"Newsreader",Georgia,serif;font-size:13px;line-height:1.35;color:#BC6C25}
+@media (max-width:640px){.plg-kolom{gap:4px;height:160px}.plg-nilai{font-size:.56rem}.plg-kolom em{font-size:.62rem}}
+@media (max-width:640px){.plg.waktu .ptab-nav button[data-k]{flex-basis:42px;font-size:.84rem}}

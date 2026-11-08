@@ -133,15 +133,37 @@ window.ISI = {
           catatan: 'Angka dari tabel data dasar panitia (lembar DAS). Ganti kalau hasil olahan kalian berbeda.',
           sumber: 'Sumber: HAkA'
         },
-        { jenis: 'peta-tab',
-          subjudul: 'Hutan hilang di lereng mana',
-          tab: [
-            { label: 'Landai', peta: 'peta/03-lereng-landai.png', angka: [ { keterangan: 'Hutan hilang 2025', nilai: '…', satuan: 'ha' } ] },
-            { label: 'Curam', peta: 'peta/03-lereng-curam.png', angka: [ { keterangan: 'Hutan hilang 2025', nilai: '…', satuan: 'ha' } ] },
-            { label: 'Sangat curam', peta: 'peta/03-lereng-sangat-curam.png', angka: [ { keterangan: 'Hutan hilang 2025', nilai: '…', satuan: 'ha' } ],
-              teks: 'Di lereng seperti ini, tanah gampang longsor dan ikut terbawa ke sungai.' }
-          ],
-          sumber: 'Sumber: deforestasi lereng kritis 2025, olahan tim'
+        { jenis: 'teks',
+          subjudul: 'Hutan hilang di *lereng* mana',
+          paragraf: [
+            'Luas saja belum cukup. Yang lebih penting: hutannya hilang di tanah yang seperti apa. Kami bagi lereng DAS Tamiang jadi tiga kelas, lalu kami tumpuk dengan peta kehilangan hutan tiap tahun.',
+            'Landai (di bawah 25%) itu dataran dan kaki bukit. Curam (25–40%) mulai rawan erosi. Sangat curam (di atas 40%, lebih dari 21,8°) adalah lereng yang kalau hutannya hilang, tanahnya gampang longsor dan ikut hanyut ke sungai.'
+          ]
+        },
+        { jenis: 'peta-lereng',
+          subjudul: 'Klik tahunnya: hutan hilang per kelas lereng',
+          folder: 'data/',
+          tahun: [2019, 2020, 2021, 2022, 2023, 2024, 2025],
+          sorotKab: 'Aceh Tamiang',
+          sumber: 'Sumber: Kehilangan Tutupan Hutan KEL (HAkA) ditumpang-susun dengan kelas lereng dari DEMNAS (BIG), olahan tim (Deforestasi_Lereng_Kritis 2019–2025). Garis emas: batas Kab. Aceh Tamiang.'
+        },
+        { jenis: 'angka',
+          isi: [
+            { nilai: '8.352', satuan: 'ha', keterangan: 'Hutan hilang di lereng DAS tahun 2025, dua kali lipat total enam tahun sebelumnya (4.057 ha)', sumber: 'Olahan tim' },
+            { nilai: '52', satuan: '%', keterangan: 'Porsi lereng sangat curam pada 2025. Tahun 2019–2024 hanya 11–24%', sumber: 'Olahan tim' },
+            { nilai: '4.339', satuan: 'ha', keterangan: 'Hutan hilang di lereng sangat curam 2025, 117 kali lipat tahun 2024 (37 ha)', sumber: 'Olahan tim' },
+            { nilai: '3.270', satuan: 'ha', keterangan: 'Kec. Pining (Gayo Lues) saja, 61% di antaranya lereng sangat curam', sumber: 'Olahan tim' }
+          ]
+        },
+        { jenis: 'teks',
+          subjudul: 'Apa yang *berubah* di 2025',
+          paragraf: [
+            '**2019–2024: hilangnya di dataran.** Selama enam tahun, sekitar enam dari sepuluh hektare hutan yang hilang ada di lereng landai. Pusatnya di Birem Bayeun (Aceh Timur) dan Sekerak (Aceh Tamiang), pola yang cocok dengan pembukaan lahan untuk kebun di kaki bukit. Jumlahnya juga terus turun, dari 1.340 ha di 2020 sampai sekitar 230–340 ha di 2023–2024.',
+            '**2025: polanya terbalik.** Luasnya melonjak jadi 8.352 ha dan pindah ke atas. Lereng sangat curam menyumbang lebih dari separuh (4.339 ha), ditambah 2.208 ha lereng curam. Artinya hampir 8 dari 10 hektare yang hilang ada di lereng yang rawan longsor dan erosi.',
+            '**Titik panasnya di hulu.** Pining (Gayo Lues) dan Serbajadi (Aceh Timur) mendominasi, dua kecamatan di punggung pegunungan tempat anak-anak Sungai Tamiang bermula. Dari sinilah air dan lumpur turun ke Kuala Simpang dan Karang Baru di hilir.',
+            '**Satu catatan penting.** Data kehilangan hutan mencatat semua tajuk yang hilang, termasuk yang tersapu longsor saat hujan ekstrem akhir November. Jadi sebagian angka 2025 di lereng sangat curam bisa jadi *akibat* bencana, bukan hanya penyebabnya. Coba bandingkan di peta bagian sebelumnya: warna cokelat tua menandai hutan yang hilang tepat pada November–Desember 2025.',
+            'Apa pun urutannya, pesannya sama: lereng sangat curam di hulu adalah bagian DAS yang paling tidak boleh kehilangan hutan. Begitu tutupannya terbuka, tanah tidak lagi ditahan akar, dan hujan berikutnya punya jalan yang lebih cepat menuju hilir.'
+          ]
         }
       ]
     },
