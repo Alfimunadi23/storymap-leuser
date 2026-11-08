@@ -42,7 +42,7 @@
   document.title = (I.judul || 'Storymap').replace(/\*/g, '');
   document.getElementById('lbJudul').textContent = (I.judul || '').replace(/\*/g, '') + ' · ' + (I.kegiatan || '');
   var t = I.tim || {};
-  var lg = function (l) { return img(l.file, l.nama || 'Logo', l.bentuk === 'persegi' ? 'persegi' : '', 1); };
+  var lg = function (l) { return img(l.file, l.nama || 'Logo', l.bentuk || '', 1); };
   var logoHtml = function () { return '<div class="logo-atas"><div class="kiri">' + [].concat(I.logoKiri || []).map(lg).join('') + '</div><div class="kanan">' + [].concat(I.logoKanan || []).map(lg).join('') + '</div></div>'; };
   document.getElementById('sampul').innerHTML = '<canvas id="kontur" aria-hidden="true"></canvas>' +
     '<div class="wrap">' + logoHtml() + '<div>' +

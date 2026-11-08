@@ -32,7 +32,7 @@ window.ISI = {
     instansi: 'Universitas Syiah Kuala'
   },
   logoKiri:  [ { file: 'foto/logo-haka.png', nama: 'Logo Yayasan HAkA' } ],
-  logoKanan: [ { file: 'foto/logo-usk.png', nama: 'Logo Universitas Syiah Kuala' },
+  logoKanan: [ { file: 'foto/logo-usk.png', nama: 'Logo Universitas Syiah Kuala', bentuk: 'polos' },
                { file: 'foto/logo-cru.png', nama: 'Logo CRU Aceh', bentuk: 'persegi' } ],
   sampul: {
     gambar: 'peta/00-sampul.png',        // peta paling kuat atau foto banjir

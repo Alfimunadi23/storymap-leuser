@@ -300,3 +300,7 @@ body,html{background:#606C38}
 .pint-pop .bar i{display:block;height:9px;background:#BC6C25;min-width:1px}
 .pint-pop .bar strong{text-align:right;font-weight:500}
 .leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#FEFAE0}
+
+/* revisi logo: USK tanpa latar, CRU sudut tegas */
+.logo-atas img.polos,.tepi .logo-atas img.polos{background:none;border-radius:0;padding:0;width:auto;height:64px}
+.logo-atas img.persegi,.tepi .logo-atas img.persegi{border-radius:0}
