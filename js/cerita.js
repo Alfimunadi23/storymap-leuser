@@ -103,6 +103,18 @@
           '<div class="ptab-badan"><div class="bingkai"><div class="peta-leaflet" role="application" aria-label="Peta interaktif"></div></div><div class="pint-info ptab-isi"><p class="kode">Memuat peta…</p></div></div>' +
           (b.legenda ? '<div class="legenda">' + b.legenda.map(function (l) { return '<span><i style="background:' + esc(l.warna) + '"></i>' + esc(l.label) + '</span>'; }).join('') + '</div>' : '') +
           (b.sumber ? '<div class="sumber">' + esc(b.sumber) + '</div>' : '') + '</div>';
+      case 'peta-web':
+        PINT.push(b); var TW = b.tab || [];
+        return (b.paragraf ? '<div class="isi-kolom" style="margin-bottom:28px">' + paragraf(b.paragraf) + '</div>' : '') +
+          '<div class="ptab pint pweb isi-lebar' + (b.waktu ? ' waktu' : '') + '" data-pweb="' + (PINT.length - 1) + '">' +
+          (b.subjudul ? '<h3 class="sub-blok">' + sorotKata(b.subjudul) + '</h3>' : '') +
+          (TW.length > 1 ? '<div class="ptab-nav" role="tablist">' + TW.map(function (t, k) { return '<button type="button" role="tab" data-k="' + k + '">' + esc(t.label) + '</button>'; }).join('') +
+          (b.waktu ? '<button type="button" class="ptab-putar">▶ Putar</button>' : '') + '</div>' : '') +
+          '<div class="ptab-badan"><div class="bingkai"><div class="pweb-wadah"><div class="peta-leaflet" role="application" aria-label="Peta interaktif"></div>' +
+          (b.pilihDasar !== false ? '<div class="pweb-dasar">' + ['citra', 'relief', 'topo'].map(function (d) { return '<button type="button" data-d="' + d + '">' + { citra: 'Citra', relief: 'Relief', topo: 'Topografi' }[d] + '</button>'; }).join('') + '</div>' : '') +
+          (TW.some(function (t) { return t.geser; }) ? '<div class="pweb-geser" hidden tabindex="0" role="slider" aria-label="Geser perbandingan"><span class="gk"></span><span class="gn"></span><i></i></div>' : '') +
+          '</div></div><div class="pint-info ptab-isi"><p class="kode">Memuat peta…</p></div></div>' +
+          (b.sumber ? '<div class="sumber">' + esc(b.sumber) + '</div>' : '') + '</div>';
       case 'peta-lereng':
         PINT.push(b); var TL = b.tahun || [];
         return (b.paragraf ? '<div class="isi-kolom" style="margin-bottom:28px">' + paragraf(b.paragraf) + '</div>' : '') +
@@ -329,7 +341,7 @@
 
   /* --- peta interaktif (Leaflet) --- */
   (function () {
-    var boxes = document.querySelectorAll('[data-pint]'), boxL = document.querySelectorAll('[data-plg]'); if (!boxes.length && !boxL.length) return;
+    var boxes = document.querySelectorAll('[data-pint]'), boxL = document.querySelectorAll('[data-plg]'), boxW = document.querySelectorAll('[data-pweb]'); if (!boxes.length && !boxL.length && !boxW.length) return;
     function muat(src, css) {
       return new Promise(function (ok, gagal) {
         var el = document.createElement(css ? 'link' : 'script');
@@ -433,7 +445,124 @@
         timer = setInterval(function () { if (cur >= T.length - 1) { stop(); return; } pilih(cur + 1); }, 2200);
       });
     }
+    /* ===== peta-web: mesin peta umum (tab / tahun / geser / dasar) ===== */
+    var CACHE = {};
+    function ambil(f) { if (!CACHE[f]) CACHE[f] = fetch(f).then(function (r) { if (!r.ok) throw new Error(f); return r.json(); }); return CACHE[f]; }
+    var DASAR = {
+      citra: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom: 18, attribution: 'Citra: Esri World Imagery' }],
+      relief: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}', { maxZoom: 18, maxNativeZoom: 13, attribution: 'Relief: Esri' }],
+      topo: ['https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', { maxZoom: 17, subdomains: 'abc', attribution: 'Topografi: OpenTopoMap (CC-BY-SA)' }]
+    };
+    var NAMA_DASAR = { citra: 'Citra', relief: 'Relief', topo: 'Topografi' };
+    function nilaiF(p, k) { return typeof k === 'function' ? k(p) : p[k]; }
+    function angkaF(v, d) { if (v == null || v === '') return '–'; if (typeof v !== 'number') return esc(v); return v.toLocaleString('id-ID', { maximumFractionDigits: d == null ? 1 : d }); }
+    function warnaDari(L0, p) {
+      if (L0.warnaDari) { var v = p[L0.warnaDari.field]; return L0.warnaDari.nilai[v] || L0.warnaDari.lain || '#999'; }
+      if (L0.skala) { var x = +p[L0.skala.field] || 0, b = L0.skala.batas, i = 0; while (i < b.length && x >= b[i]) i++; return L0.skala.warna[i]; }
+      return L0.warna || '#DDA15E';
+    }
+    function gayaLapis(L0) {
+      return function (f) {
+        var p = f.properties, w = warnaDari(L0, p);
+        if (L0.tipe === 'garis') {
+          var t = L0.tebalDari ? (L0.tebalDari.nilai[p[L0.tebalDari.field]] || 1) : (L0.tebal || 1.5);
+          return { color: w, weight: t, opacity: L0.opasitas == null ? .95 : L0.opasitas, lineCap: 'round' };
+        }
+        return { color: L0.garis || w, weight: L0.tebal == null ? .8 : L0.tebal, opacity: 1, fillColor: w, fillOpacity: L0.isi == null ? .65 : L0.isi, dashArray: L0.putus || null };
+      };
+    }
+    function popupLapis(L0, p) {
+      var P = L0.popup; if (!P) return null;
+      return '<div class="pint-pop"><b>' + esc(nilaiF(p, P.judul)) + '</b>' + (P.sub ? '<span>' + esc(nilaiF(p, P.sub)) + '</span>' : '') +
+        (P.baris || []).map(function (r) { var v = nilaiF(p, r[1]); return '<div class="pop-baris"><em>' + esc(r[0]) + '</em><strong>' + angkaF(v, r[3]) + (r[2] && v != null ? ' ' + esc(r[2]) : '') + '</strong></div>'; }).join('') +
+        (P.catatan ? '<p class="pop-risiko">' + esc(nilaiF(p, P.catatan)) + '</p>' : '') + '</div>';
+    }
+    function petaWeb(box) {
+      var cfg = PINT[+box.dataset.pweb], folder = cfg.folder || 'data/', TAB = cfg.tab || [], LAP = cfg.lapis || {};
+      var el = box.querySelector('.peta-leaflet');
+      var map = L.map(el, { scrollWheelZoom: false, zoomSnap: 0.25 });
+      var dasar = {}, dAktif = null;
+      function pakaiDasar(k) { if (dAktif) map.removeLayer(dasar[dAktif]); if (!dasar[k]) dasar[k] = L.tileLayer(DASAR[k][0], DASAR[k][1]); dasar[k].addTo(map).bringToBack(); dAktif = k; [].forEach.call(box.querySelectorAll('.pweb-dasar button'), function (b) { b.classList.toggle('aktif', b.dataset.d === k); }); }
+      pakaiDasar(cfg.dasar || 'citra');
+      [].forEach.call(box.querySelectorAll('.pweb-dasar button'), function (b) { L.DomEvent.disableClickPropagation(b); b.addEventListener('click', function () { pakaiDasar(b.dataset.d); }); });
+      map.createPane('geser'); map.getPane('geser').style.zIndex = 450;
+      var info = box.querySelector('.pint-info'), btn = [].slice.call(box.querySelectorAll('.ptab-nav [data-k]')), play = box.querySelector('.ptab-putar');
+      var inst = {}, tampil = [], cur = -1, timer = null, bbDas = null, gs = box.querySelector('.pweb-geser'), gx = .5;
+      function lapis(id, sisi) {
+        var key = id + (sisi ? '@' + sisi : '');
+        if (inst[key]) return Promise.resolve(inst[key]);
+        var L0 = LAP[id];
+        return ambil(folder + L0.file).then(function (gj) {
+          if (L0.urut) gj.features.sort(function (a, b) { return (a.properties[L0.urut] || 0) - (b.properties[L0.urut] || 0); });
+          var st = gayaLapis(L0);
+          var lyr = L.geoJSON(gj, { pane: sisi ? 'geser' : 'overlayPane', style: st, interactive: !!(L0.popup || L0.tooltip), filter: L0.saring ? function (f) { return L0.saring(f.properties); } : null,
+            onEachFeature: function (f, l) {
+              if (L0.popup) l.bindPopup(popupLapis(L0, f.properties), { maxWidth: 300 });
+              if (L0.tooltip) l.bindTooltip(String(nilaiF(f.properties, L0.tooltip)), { sticky: true, className: 'pweb-tip' });
+              if (L0.popup && L0.tipe !== 'garis') { l.on('mouseover', function () { l.setStyle({ weight: (st(f).weight || 1) + 1.6, color: '#FEFAE0' }); }); l.on('mouseout', function () { l.setStyle(st(f)); }); }
+              if (L0.popup && L0.tipe === 'garis') { l.on('mouseover', function () { l.setStyle({ weight: st(f).weight + 2.5 }); }); l.on('mouseout', function () { l.setStyle(st(f)); }); }
+            } });
+          inst[key] = lyr; return lyr;
+        });
+      }
+      function klip() {
+        if (!gs || gs.hidden) { map.getPane('geser').style.clip = ''; return; }
+        var sz = map.getSize(), nw = map.containerPointToLayerPoint([0, 0]), se = map.containerPointToLayerPoint(sz), x = map.containerPointToLayerPoint([sz.x * gx, 0]).x;
+        map.getPane('geser').style.clip = 'rect(' + [nw.y, se.x, se.y, x].join('px,') + 'px)';
+        gs.style.left = (gx * 100) + '%';
+      }
+      map.on('move zoom resize', klip);
+      if (gs) {
+        var seret = false;
+        L.DomEvent.disableClickPropagation(gs); L.DomEvent.disableScrollPropagation(gs);
+        gs.addEventListener('pointerdown', function (e) { seret = true; gs.setPointerCapture(e.pointerId); map.dragging.disable(); e.preventDefault(); });
+        gs.addEventListener('pointermove', function (e) { if (!seret) return; var r = el.getBoundingClientRect(); gx = Math.min(.97, Math.max(.03, (e.clientX - r.left) / r.width)); klip(); });
+        gs.addEventListener('pointerup', function () { seret = false; map.dragging.enable(); });
+        gs.addEventListener('keydown', function (e) { if (e.key === 'ArrowLeft') gx = Math.max(.03, gx - .05); else if (e.key === 'ArrowRight') gx = Math.min(.97, gx + .05); else return; klip(); e.preventDefault(); });
+      }
+      function isiInfo(T) {
+        info.innerHTML = '<div class="ptab-besar">' + esc(T.besar || T.label) + '</div>' +
+          (T.judul ? '<h4 class="pweb-judul">' + esc(T.judul) + '</h4>' : '') +
+          (T.angka ? '<dl>' + T.angka.map(function (a) { return '<div><dt>' + esc(a.keterangan) + '</dt><dd><b>' + esc(a.nilai) + '</b> ' + esc(a.satuan || '') + '</dd></div>'; }).join('') + '</dl>' : '') +
+          (T.legenda ? '<div class="pweb-legenda">' + T.legenda.map(function (l) { return '<span><i class="' + (l.garis ? 'g' : '') + '" style="' + (l.garis ? 'border-color:' : 'background:') + esc(l.warna) + '"></i>' + esc(l.label) + '</span>'; }).join('') + '</div>' : '') +
+          (T.teks ? '<p class="pweb-teks">' + esc(T.teks).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>') + '</p>' : '') +
+          (T.petunjuk || cfg.petunjuk ? '<p class="pint-petunjuk">' + esc(T.petunjuk || cfg.petunjuk) + '</p>' : '');
+      }
+      function pilih(k) {
+        cur = k; var T = TAB[k]; if (T.dasar && T.dasar !== dAktif) pakaiDasar(T.dasar);
+        btn.forEach(function (b, j) { b.classList.toggle('aktif', j === k); b.classList.toggle('lewat', j < k); b.setAttribute('aria-selected', j === k); });
+        isiInfo(T); info.classList.add('memuat');
+        var ids = (T.lapis || []).map(function (i) { return [i, null]; });
+        if (T.geser) ids = T.geser.kiri.map(function (i) { return [i, null]; }).concat(T.geser.kanan.map(function (i) { return [i, 'kanan']; }));
+        if (gs) { gs.hidden = !T.geser; if (T.geser) { gs.querySelector('.gk').textContent = T.geser.labelKiri || ''; gs.querySelector('.gn').textContent = T.geser.labelKanan || ''; } }
+        var k0 = k;
+        Promise.all(ids.map(function (x) { return lapis(x[0], x[1]); })).then(function (ls) {
+          if (cur !== k0) return;
+          tampil.forEach(function (l) { map.removeLayer(l); }); tampil = ls;
+          ls.forEach(function (l) { l.addTo(map); });
+          if (inst.__das) inst.__das.bringToFront();
+          info.classList.remove('memuat'); klip();
+          if (T.fit) map.flyToBounds(T.fit === 'das' ? bbDas : T.fit, { duration: .8, padding: [8, 8] });
+        }).catch(function () { info.classList.remove('memuat'); });
+      }
+      var siap = cfg.das === false ? Promise.resolve() : Promise.all([ambil(folder + 'das-tamiang.geojson'), ambil(folder + 'masker-das.geojson')]).then(function (d) {
+        L.geoJSON(d[1], { interactive: false, style: { stroke: false, fillColor: '#283618', fillOpacity: cfg.masker == null ? .6 : cfg.masker } }).addTo(map);
+        inst.__das = L.geoJSON(d[0], { interactive: false, style: { color: '#DC143C', weight: 2.6, fill: false } }).addTo(map);
+        bbDas = inst.__das.getBounds();
+      });
+      siap.then(function () {
+        var bb = cfg.awal || bbDas; if (bb) { map.fitBounds(bb, { padding: [8, 8] }); setTimeout(function () { map.invalidateSize(); map.fitBounds(bb, { padding: [8, 8] }); }, 400); }
+        pilih(cfg.mulai == null ? 0 : cfg.mulai);
+      });
+      btn.forEach(function (b) { b.addEventListener('click', function () { stop(); pilih(+b.dataset.k); }); });
+      function stop() { if (timer) { clearInterval(timer); timer = null; if (play) play.textContent = '▶ Putar'; } }
+      if (play) play.addEventListener('click', function () {
+        if (timer) { stop(); return; } play.textContent = '❚❚ Jeda'; pilih(0);
+        timer = setInterval(function () { if (cur >= TAB.length - 1) { stop(); return; } pilih(cur + 1); }, cfg.jeda || 2400);
+      });
+    }
     muatLeaflet(0).then(function () {
+      boxW.forEach(petaWeb);
       boxL.forEach(petaLereng);
       boxes.forEach(function (box) {
         var cfg = PINT[+box.dataset.pint], folder = cfg.folder || 'data/', T = cfg.tahun || [];
@@ -450,8 +579,8 @@
         function isiInfo(y) {
           var top = kecData.features.slice().sort(function (a, b) { return (b.properties['h' + y] || 0) - (a.properties['h' + y] || 0); }).slice(0, 5);
           info.innerHTML = '<div class="ptab-besar">' + y + '</div>' +
-            '<dl><div><dt>Hutan hilang di wilayah peta</dt><dd><b>' + fmt(ringkas.total[y] || 0) + '</b> ha</dd></div></dl>' +
-            '<p class="kode" style="margin-top:6px">Kecamatan terbanyak</p><ol class="pint-top">' +
+            '<dl>' + (ringkas.das ? '<div><dt>Di dalam DAS Tamiang</dt><dd><b>' + fmt(ringkas.das[y] || 0) + '</b> ha</dd></div>' : '') + '<div><dt>Seluruh KEL di peta (termasuk luar DAS)</dt><dd><b>' + fmt(ringkas.total[y] || 0) + '</b> ha</dd></div></dl>' +
+            '<p class="kode" style="margin-top:6px">Kecamatan terbanyak (seluruh peta)</p><ol class="pint-top">' +
             top.map(function (f) { return '<li><span>' + esc(f.properties.kec) + '<small>' + esc(f.properties.kab) + '</small></span><b>' + fmt(f.properties['h' + y]) + ' ha</b></li>'; }).join('') + '</ol>' +
             '<p class="pint-petunjuk">Klik kecamatan di peta untuk melihat datanya per tahun.</p>';
         }
@@ -487,8 +616,14 @@
             l.on('mouseout', function () { lapKec.resetStyle(l); });
           } }).addTo(map);
           L.geoJSON(d[2], { interactive: false, style: function (f) { var t = f.properties.kab === (cfg.sorotKab || ''); return { color: t ? '#DDA15E' : '#FEFAE0', weight: t ? 3.5 : 1.8, dashArray: t ? null : '6 5', fill: false }; } }).addTo(map);
-          map.fitBounds(lapKec.getBounds(), { padding: [10, 10] });
-          setTimeout(function () { map.invalidateSize(); map.fitBounds(lapKec.getBounds(), { padding: [10, 10] }); }, 400);
+          var bbK = lapKec.getBounds();
+          map.fitBounds(bbK, { padding: [10, 10] });
+          setTimeout(function () { map.invalidateSize(); map.fitBounds(bbK, { padding: [10, 10] }); }, 400);
+          if (cfg.das) Promise.all([ambil(folder + 'das-tamiang.geojson'), ambil(folder + 'masker-das.geojson')]).then(function (dd) {
+            L.geoJSON(dd[1], { interactive: false, style: { stroke: false, fillColor: '#283618', fillOpacity: .55 } }).addTo(map);
+            var dl = L.geoJSON(dd[0], { interactive: false, style: { color: '#DC143C', weight: 2.8, fill: false } }).addTo(map);
+            bbK = dl.getBounds(); map.fitBounds(bbK, { padding: [8, 8] });
+          });
           pilih(T.length - 1);
         });
         btn.forEach(function (b) { b.addEventListener('click', function () { stop(); pilih(+b.dataset.k); }); });
@@ -498,7 +633,7 @@
           timer = setInterval(function () { if (cur >= T.length - 1) { stop(); return; } pilih(cur + 1); }, 2200);
         });
       });
-    }).catch(function () { [].slice.call(boxes).concat([].slice.call(boxL)).forEach(function (b) { b.querySelector('.peta-leaflet').innerHTML = '<p style="padding:24px">Peta interaktif gagal dimuat. Periksa koneksi internet.</p>'; }); });
+    }).catch(function () { [].slice.call(boxes).concat([].slice.call(boxL), [].slice.call(boxW)).forEach(function (b) { b.querySelector('.peta-leaflet').innerHTML = '<p style="padding:24px">Peta interaktif gagal dimuat. Periksa koneksi internet.</p>'; }); });
   })();
 
   /* --- perbesar gambar --- */

@@ -354,3 +354,26 @@ body,html{background:#606C38}
 .plg-wil button.aktif{background:#FEFAE0;color:#283618;font-weight:600}
 .plg-wil button:focus-visible{outline:2px dashed #DDA15E}
 .pint-pop .pop-baris strong{text-align:right;max-width:190px}
+/* peta-web umum */
+.pweb-wadah{position:relative}
+.pweb-dasar{position:absolute;top:10px;right:10px;z-index:800;display:flex;background:rgba(40,54,24,.86);border-radius:999px;padding:3px;gap:2px;backdrop-filter:blur(4px)}
+.pweb-dasar button{all:unset;cursor:pointer;font-family:var(--f-kode);font-size:.66rem;letter-spacing:.05em;text-transform:uppercase;padding:6px 10px;border-radius:999px;color:#FEFAE0}
+.pweb-dasar button.aktif{background:#FEFAE0;color:#283618;font-weight:600}
+.pweb-geser{position:absolute;top:0;bottom:0;left:50%;width:0;z-index:790;cursor:ew-resize;touch-action:none}
+.pweb-geser::before{content:"";position:absolute;top:0;bottom:0;left:-1.5px;width:3px;background:#FEFAE0;box-shadow:0 0 0 1px rgba(40,54,24,.4)}
+.pweb-geser i{position:absolute;top:50%;left:-19px;width:38px;height:38px;margin-top:-19px;border-radius:50%;background:#FEFAE0;box-shadow:0 2px 10px rgba(0,0,0,.35)}
+.pweb-geser i::before{content:"◂ ▸";position:absolute;inset:0;display:grid;place-items:center;color:#283618;font-size:13px;letter-spacing:-1px}
+.pweb-geser span{position:absolute;top:12px;font-family:var(--f-kode);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;background:rgba(40,54,24,.88);color:#FEFAE0;padding:5px 9px;border-radius:4px;white-space:nowrap}
+.pweb-geser .gk{right:12px}.pweb-geser .gn{left:12px}
+.pweb-geser:focus-visible i{outline:3px dashed #DDA15E}
+.pweb-judul{font-family:var(--f-judul);font-size:1.15rem;margin:-4px 0 10px;line-height:1.2}
+.pweb-legenda{display:grid;gap:6px;margin:14px 0 4px;font-size:.92rem}
+.pweb-legenda span{display:flex;align-items:center;gap:9px;line-height:1.25}
+.pweb-legenda i{flex:0 0 16px;height:12px;border-radius:2px;display:block}
+.pweb-legenda i.g{height:0;border-top:3px solid;border-radius:0}
+.pweb-teks{font-size:1rem;line-height:1.5;margin:12px 0}
+.pweb-tip{font-family:"Spline Sans Mono",monospace;font-size:11px}
+.pweb .ptab-nav button[data-k]{white-space:nowrap}
+@media (max-width:640px){.pweb-dasar{top:auto;bottom:24px;right:8px}.pweb-dasar button{padding:5px 8px;font-size:.6rem}}
+.pweb-geser span{top:auto;bottom:28px}
+@media (max-width:640px){.pweb-geser span{top:12px;bottom:auto}}
