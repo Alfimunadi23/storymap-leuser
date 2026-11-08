@@ -55,7 +55,7 @@
 
   /* --- bagian --- */
   var B = (I.bagian || []).filter(function (b) { return !(b.jenis === 'peta-web' && !b.alamat); });
-  var GRAFIK = [], PINT = [], nBanding = 0, nomor = 0;
+  var GRAFIK = [], GPLUS = [], PINT = [], nBanding = 0, nomor = 0;
   var WK = { merah: '#BC6C25', hijau: '#606C38', biru: '#DDA15E', kuning: '#DDA15E', oranye: '#BC6C25', olive: '#606C38', emas: '#DDA15E' };
 
   function blok(b) {
@@ -126,6 +126,17 @@
           '<div class="ptab-badan"><div class="bingkai"><div class="peta-leaflet" role="application" aria-label="Peta interaktif deforestasi lereng"></div></div><div class="pint-info ptab-isi"><p class="kode">Memuat peta…</p></div></div>' +
           '<div class="plg-batang" aria-label="Luas hutan hilang per kelas lereng per tahun"></div>' +
           (b.sumber ? '<div class="sumber">' + esc(b.sumber) + '</div>' : '') + '</div>';
+      case 'grafik-plus':
+        GPLUS.push(b); var TP = b.tampilan || [];
+        return (b.subjudul ? '<h3 class="sub-blok isi-lebar">' + sorotKata(b.subjudul) + '</h3>' : '') +
+          (b.paragraf ? '<div class="isi-kolom" style="margin-bottom:22px">' + paragraf(b.paragraf) + '</div>' : '') +
+          '<figure class="gplus isi-lebar muncul" data-gplus="' + (GPLUS.length - 1) + '">' +
+          (b.ringkas ? '<div class="gp-ringkas">' + b.ringkas.map(function (a) { return '<div><b>' + esc(a.nilai) + '<small>' + esc(a.satuan || '') + '</small></b><span>' + esc(a.keterangan) + '</span></div>'; }).join('') + '</div>' : '') +
+          '<div class="gp-atas">' + (TP.length > 1 ? '<div class="gp-ganti" role="group">' + TP.map(function (t, i) { return '<button type="button" aria-pressed="' + (i === 0) + '"' + (i === 0 ? ' class="aktif"' : '') + '>' + esc(t.label) + '</button>'; }).join('') + '</div>' : '') +
+          '<div class="gp-legenda"></div></div>' +
+          '<div class="gp-kanvas"><svg></svg><div class="tip"></div></div><p class="gp-ket" hidden></p>' +
+          '<details class="gp-detail"><summary>Lihat tabel angka</summary><div class="gp-tabel"></div></details>' +
+          '<figcaption>' + esc(b.catatan ? b.catatan + ' ' : '') + esc(b.sumber || '') + '</figcaption></figure>';
       case 'grafik':
         GRAFIK.push(b);
         return (b.subjudul ? '<h3 class="sub-blok isi-lebar">' + sorotKata(b.subjudul) + '</h3>' : '') +
@@ -237,6 +248,114 @@
   }
   function semuaGrafik() { main.querySelectorAll('[data-grafik]').forEach(function (f) { grafik(f, GRAFIK[+f.dataset.grafik]); }); }
   semuaGrafik(); var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(semuaGrafik, 150); });
+
+  /* --- grafik-plus: grafik interaktif multi-seri --- */
+  function gplus(fig, b) {
+    var st = fig._st || (fig._st = { v: 0, mati: {} });
+    var V = b.tampilan[st.v], kat = b.kategori || [], svg = fig.querySelector('svg'), tip = fig.querySelector('.tip');
+    var W = Math.max(300, fig.querySelector('.gp-kanvas').clientWidth), datar = V.tipe === 'mendatar';
+    var H = datar ? Math.max(170, kat.length * 64 + 40) : (W < 520 ? 270 : 330);
+    var pjg = Math.max.apply(null, kat.map(function (c) { return String(c).length; }));
+    var m = { t: 26, r: datar ? 150 : 18, b: 34, l: datar ? Math.min(170, pjg * 7.6 + 16) : 58 };
+    if (W < 520 && datar) { m.r = 118; m.l = Math.min(120, pjg * 6.6 + 12); }
+    var seri = V.seri.map(function (s, i) { return { s: s, i: i, on: !st.mati[s.nama] }; }), aktif = seri.filter(function (x) { return x.on; });
+    var dec = V.desimal == null ? 0 : V.desimal, f = function (v, d) { return (+v).toLocaleString('id-ID', { minimumFractionDigits: d == null ? dec : d, maximumFractionDigits: d == null ? dec : d }); };
+    var tumpuk = V.tipe === 'tumpuk';
+    var vals = [];
+    kat.forEach(function (_, k) { if (tumpuk) vals.push(aktif.reduce(function (a, x) { return a + (+x.s.nilai[k] || 0); }, 0)); else aktif.forEach(function (x) { vals.push(+x.s.nilai[k]); }); });
+    if (V.rujukan) vals.push(V.rujukan.nilai);
+    var maks = Math.max.apply(null, vals.concat([0])), min0 = 0;
+    if (V.tipe === 'garis' && V.nolBebas) { var mn = Math.min.apply(null, vals); min0 = mn - (maks - mn) * .15; }
+    var nT = datar ? (W < 520 ? 3 : 6) : 6;
+    function bulat(lo, hi) { var r = hi - lo || 1, st0 = Math.pow(10, Math.floor(Math.log10(r))), c = [1, 2, 2.5, 5, 10]; for (var i = 0; i < c.length; i++) { if (r / (st0 * c[i]) <= nT) { st0 *= c[i]; break; } } return { lo: Math.floor(lo / st0) * st0, hi: Math.ceil(hi / st0) * st0, st: st0 }; }
+    var sk = bulat(min0, maks * (datar ? 1 : 1.08));
+    var GR = 'rgba(254,250,224,.12)', s = '';
+    if (datar) {
+      var X = function (v) { return m.l + (W - m.l - m.r) * (v - sk.lo) / (sk.hi - sk.lo); }, bh = (H - m.t - m.b) / kat.length;
+      for (var v = sk.lo; v <= sk.hi + 1e-9; v += sk.st) s += '<line x1="' + X(v) + '" x2="' + X(v) + '" y1="' + m.t + '" y2="' + (H - m.b) + '" stroke="' + GR + '"/><text x="' + X(v) + '" y="' + (H - m.b + 18) + '" text-anchor="middle">' + f(v, 0) + '</text>';
+      kat.forEach(function (c, k) {
+        var x = aktif[0] || seri[0], val = +x.s.nilai[k], y0 = m.t + bh * k + bh * .18, hh = bh * .64, col = (x.s.warnaPer || [])[k] || x.s.warna;
+        s += '<text x="' + (m.l - 10) + '" y="' + (y0 + hh / 2 + 4) + '" text-anchor="end" class="gp-kat">' + esc(c) + '</text>';
+        s += '<path class="gp-m tumbuh-x" d="M' + X(0) + ',' + y0 + 'H' + (X(val) - 4) + 'a4,4 0 0 1 4,4V' + (y0 + hh - 4) + 'a4,4 0 0 1 -4,4H' + X(0) + 'Z" fill="' + col + '"/>';
+        s += '<text x="' + (X(val) + 8) + '" y="' + (y0 + hh / 2 + 5) + '" class="nilai">' + f(val) + (V.labelBatang ? '<tspan class="gp-sub"> ' + esc(V.labelBatang[k]) + '</tspan>' : '') + '</text>';
+        s += '<rect class="hit" data-k="' + k + '" x="' + m.l + '" y="' + (m.t + bh * k) + '" width="' + (W - m.l - m.r) + '" height="' + bh + '"/>';
+      });
+    } else {
+      var n = kat.length, bw = (W - m.l - m.r) / n, X = function (k) { return m.l + bw * k + bw / 2; }, Y = function (v) { return m.t + (H - m.t - m.b) * (1 - (v - sk.lo) / (sk.hi - sk.lo)); };
+      for (var v = sk.lo; v <= sk.hi + 1e-9; v += sk.st) s += '<line x1="' + m.l + '" x2="' + (W - m.r) + '" y1="' + Y(v) + '" y2="' + Y(v) + '" stroke="' + GR + '"/><text x="' + (m.l - 8) + '" y="' + (Y(v) + 4) + '" text-anchor="end">' + f(v, sk.st < 1 ? 1 : 0) + '</text>';
+      var lewat = n > 14 ? Math.ceil(n / 9) : 1;
+      kat.forEach(function (c, k) { if (k % lewat === 0) s += '<text x="' + X(k) + '" y="' + (H - 12) + '" text-anchor="middle"' + (String(c) === String(V.sorot) ? ' class="gp-sorot"' : '') + '>' + esc(c) + '</text>'; });
+      if (V.rujukan) s += '<line x1="' + m.l + '" x2="' + (W - m.r) + '" y1="' + Y(V.rujukan.nilai) + '" y2="' + Y(V.rujukan.nilai) + '" stroke="#FEFAE0" stroke-width="1.5" stroke-dasharray="6 5" opacity=".7"/><text x="' + (W - m.r) + '" y="' + (Y(V.rujukan.nilai) - 7) + '" text-anchor="end" class="gp-ruj">' + esc(V.rujukan.label) + '</text>';
+      if (V.tipe === 'garis') {
+        aktif.forEach(function (x) {
+          var pts = x.s.nilai.map(function (v, k) { return X(k) + ',' + Y(v); }).join(' ');
+          s += '<polyline class="gp-garis" points="' + pts + '" fill="none" stroke="' + x.s.warna + '" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>';
+          x.s.nilai.forEach(function (v, k) { s += '<circle cx="' + X(k) + '" cy="' + Y(v) + '" r="4.5" fill="' + x.s.warna + '" stroke="#283618" stroke-width="2"/>'; });
+        });
+        if (aktif.length > 1 || V.labelAkhir) {
+          var kL = n - 1, lb = aktif.map(function (x) { return { y: Y(x.s.nilai[kL]) - 10, t: f(x.s.nilai[kL]) }; }).sort(function (a, b2) { return a.y - b2.y; });
+          for (var q = 1; q < lb.length; q++) if (lb[q].y - lb[q - 1].y < 15) lb[q].y = lb[q - 1].y + 15;
+          lb.forEach(function (l) { s += '<text x="' + (X(kL) - 10) + '" y="' + l.y + '" text-anchor="end" class="nilai">' + l.t + '</text>'; });
+        }
+      } else {
+        var g = tumpuk ? 1 : aktif.length, gw = bw * .7 / g;
+        kat.forEach(function (c, k) {
+          var acc = 0;
+          aktif.forEach(function (x, j) {
+            var v = +x.s.nilai[k] || 0, on = !V.sorot || String(c) === String(V.sorot), col = (x.s.warnaPer || [])[k] || x.s.warna;
+            if (tumpuk) {
+              var yT = Y(acc + v), yB = Y(acc), hgt = Math.max(0, yB - yT - (acc > 0 ? 2 : 0)), top = j === aktif.length - 1;
+              if (hgt > 0) s += top ? '<path class="gp-m tumbuh" d="M' + (X(k) - bw * .35) + ',' + (yT + hgt) + 'V' + (yT + Math.min(4, hgt)) + 'a4,4 0 0 1 4,-4H' + (X(k) + bw * .35 - 4) + 'a4,4 0 0 1 4,4V' + (yT + hgt) + 'Z" fill="' + col + '"/>' : '<rect class="gp-m tumbuh" x="' + (X(k) - bw * .35) + '" y="' + yT + '" width="' + bw * .7 + '" height="' + hgt + '" fill="' + col + '"/>';
+              acc += v;
+            } else {
+              var x0 = X(k) - bw * .35 + gw * j + (g > 1 ? 1 : 0), ww = gw - (g > 1 ? 2 : 0), yv = Y(v), hb = Y(sk.lo) - yv;
+              if (hb > 0) s += '<path class="gp-m tumbuh" d="M' + x0 + ',' + (yv + hb) + 'V' + (yv + Math.min(4, hb)) + 'a4,4 0 0 1 4,-4H' + (x0 + ww - 4) + 'a4,4 0 0 1 4,4V' + (yv + hb) + 'Z" fill="' + col + '" opacity="' + (on ? 1 : .45) + '"/>';
+              if (g === 1 && (V.labelNilai === 'semua' || (V.sorot ? String(c) === String(V.sorot) : false))) s += '<text x="' + X(k) + '" y="' + (yv - 8) + '" text-anchor="middle" class="nilai">' + f(v) + '</text>';
+            }
+          });
+          if (tumpuk && (String(c) === String(V.sorot) || V.labelNilai === 'semua')) s += '<text x="' + X(k) + '" y="' + (Y(acc) - 8) + '" text-anchor="middle" class="nilai">' + f(acc) + '</text>';
+        });
+      }
+      s += '<line class="gp-x" x1="0" x2="0" y1="' + m.t + '" y2="' + (H - m.b) + '" stroke="#FEFAE0" stroke-opacity=".45" style="display:none"/>';
+      kat.forEach(function (c, k) { s += '<rect class="hit" data-k="' + k + '" x="' + (X(k) - bw / 2) + '" y="' + m.t + '" width="' + bw + '" height="' + (H - m.t - m.b) + '"/>'; });
+    }
+    s += '<text x="' + (datar ? m.l : m.l) + '" y="13" class="gp-sat">' + esc(V.satuan ? 'Satuan: ' + V.satuan : '') + '</text>';
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H); svg.setAttribute('role', 'img'); svg.setAttribute('aria-label', (b.subjudul || 'Grafik').replace(/\*/g, '')); svg.innerHTML = s;
+    var cx = svg.querySelector('.gp-x');
+    svg.querySelectorAll('.hit').forEach(function (r) {
+      var k = +r.dataset.k, show = function (ev) {
+        var sc = svg.getBoundingClientRect().width / W, tot = 0;
+        var baris = aktif.map(function (x) { var v = +x.s.nilai[k] || 0; tot += v; return '<div><i style="background:' + ((x.s.warnaPer || [])[k] || x.s.warna) + '"></i>' + esc(x.s.nama) + '<b>' + f(v) + ' ' + esc(V.satuanTip || V.satuan || '') + '</b></div>'; }).join('');
+        if (tumpuk) baris += '<div class="tot">Total<b>' + f(tot) + ' ' + esc(V.satuan || '') + '</b></div>';
+        if (V.labelBatang && datar) baris += '<div class="tot">Porsi: ' + esc(V.labelBatang[k]) + '</div>';
+        tip.innerHTML = '<strong>' + esc(kat[k]) + '</strong>' + baris;
+        var bx = +r.getAttribute('x') + +r.getAttribute('width') / 2, by = +r.getAttribute('y');
+        if (cx) { cx.setAttribute('x1', bx); cx.setAttribute('x2', bx); cx.style.display = ''; }
+        var kv = fig.querySelector('.gp-kanvas').getBoundingClientRect(), px = ev && ev.clientX != null ? ev.clientX - kv.left : bx * sc, py = ev && ev.clientY != null ? ev.clientY - kv.top : by * sc + 20;
+        tip.classList.add('on'); var tw = tip.offsetWidth || 200;
+        var left = px + 18; if (left + tw > kv.width) left = px - tw - 18; left = Math.max(0, Math.min(left, kv.width - tw));
+        tip.style.left = left + 'px'; tip.style.top = Math.max(0, py - 30) + 'px'; tip.classList.add('on');
+      };
+      r.addEventListener('mousemove', show); r.addEventListener('touchstart', function (e) { show(e.touches[0]); }, { passive: true }); r.addEventListener('click', show);
+      r.addEventListener('mouseleave', function () { tip.classList.remove('on'); if (cx) cx.style.display = 'none'; });
+    });
+    var lg = fig.querySelector('.gp-legenda');
+    lg.innerHTML = V.seri.length > 1 ? V.seri.map(function (x) { return '<button type="button" aria-pressed="' + !st.mati[x.nama] + '" data-n="' + esc(x.nama) + '"><i style="background:' + x.warna + '"></i>' + esc(x.nama) + '</button>'; }).join('') + '<span class="gp-pet">klik untuk sembunyikan/tampilkan</span>' : '';
+    lg.querySelectorAll('button').forEach(function (bt) { bt.addEventListener('click', function () {
+      var nm = bt.dataset.n, sisa = V.seri.filter(function (x) { return !st.mati[x.nama]; }).length;
+      if (!st.mati[nm] && sisa <= 1) return; st.mati[nm] = !st.mati[nm]; gplus(fig, b);
+    }); });
+    var tb = fig.querySelector('.gp-tabel');
+    tb.innerHTML = '<table><thead><tr><th></th>' + V.seri.map(function (x) { return '<th>' + esc(x.nama) + '</th>'; }).join('') + '</tr></thead><tbody>' +
+      kat.map(function (c, k) { return '<tr><th>' + esc(c) + '</th>' + V.seri.map(function (x) { return '<td>' + f(x.nilai[k]) + '</td>'; }).join('') + '</tr>'; }).join('') + '</tbody></table>';
+    var ket = fig.querySelector('.gp-ket'); ket.innerHTML = V.ket ? esc(V.ket).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>') : ''; ket.hidden = !V.ket;
+  }
+  function semuaGplus() { main.querySelectorAll('[data-gplus]').forEach(function (fg) { gplus(fg, GPLUS[+fg.dataset.gplus]); }); }
+  main.querySelectorAll('[data-gplus]').forEach(function (fg) {
+    var b = GPLUS[+fg.dataset.gplus];
+    fg.querySelectorAll('.gp-ganti button').forEach(function (bt, i) { bt.addEventListener('click', function () { fg._st = { v: i, mati: {} }; fg.querySelectorAll('.gp-ganti button').forEach(function (x, j) { x.classList.toggle('aktif', j === i); x.setAttribute('aria-pressed', j === i); }); gplus(fg, b); }); });
+  });
+  semuaGplus(); var rtg; window.addEventListener('resize', function () { clearTimeout(rtg); rtg = setTimeout(semuaGplus, 150); });
 
   /* --- peta scroll --- */
   if ('IntersectionObserver' in window) {

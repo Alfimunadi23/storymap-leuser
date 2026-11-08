@@ -377,3 +377,50 @@ body,html{background:#606C38}
 @media (max-width:640px){.pweb-dasar{top:auto;bottom:24px;right:8px}.pweb-dasar button{padding:5px 8px;font-size:.6rem}}
 .pweb-geser span{top:auto;bottom:28px}
 @media (max-width:640px){.pweb-geser span{top:12px;bottom:auto}}
+/* grafik-plus */
+.gplus{position:relative;margin:0;background:#283618;border:1px solid rgba(254,250,224,.14);border-radius:6px;padding:22px 22px 16px;color:#FEFAE0}
+.gp-ringkas{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
+.gp-ringkas div{border-left:3px solid #DDA15E;padding:4px 0 4px 12px;display:grid;gap:2px}
+.gp-ringkas b{font-family:var(--f-judul);font-size:clamp(1.5rem,3vw,2.1rem);line-height:1}
+.gp-ringkas small{font-size:.5em;margin-left:4px;color:#d9d6b6;font-weight:500}
+.gp-ringkas span{font-size:.88rem;color:#d9d6b6;line-height:1.3}
+.gp-atas{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:space-between;margin-bottom:10px}
+.gp-ganti{display:inline-flex;border:1px solid rgba(254,250,224,.3);border-radius:999px;padding:3px;gap:2px;flex-wrap:wrap}
+.gp-ganti button{all:unset;cursor:pointer;font-family:var(--f-kode);font-size:.7rem;letter-spacing:.05em;text-transform:uppercase;padding:7px 12px;border-radius:999px}
+.gp-ganti button.aktif{background:#FEFAE0;color:#283618;font-weight:600}
+.gp-ganti button:focus-visible,.gp-legenda button:focus-visible{outline:2px dashed #DDA15E}
+.gp-legenda{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
+.gp-legenda button{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:7px;font-size:.92rem;padding:3px 2px}
+.gp-legenda button i{width:12px;height:12px;border-radius:3px;display:block}
+.gp-legenda button[aria-pressed="false"]{opacity:.38;text-decoration:line-through}
+.gp-pet{font-family:var(--f-kode);font-size:.62rem;color:#bdb995;text-transform:uppercase;letter-spacing:.05em}
+.gp-kanvas{position:relative}
+.gplus svg{width:100%;height:auto;display:block;overflow:visible}
+.gplus text{font-family:var(--f-kode);font-size:11px;fill:#cfcba8}
+.gplus .nilai{font-family:var(--f-judul);font-size:13px;font-weight:700;fill:#FEFAE0}
+.gplus .gp-sub{font-family:var(--f-kode);font-weight:400;font-size:11px;fill:#cfcba8}
+.gplus .gp-kat{font-family:var(--f-isi);font-size:14px;fill:#FEFAE0}
+.gplus .gp-sorot{fill:#FEFAE0;font-weight:700}
+.gplus .gp-ruj{fill:#FEFAE0;font-size:11px}
+.gplus .hit{fill:transparent;cursor:crosshair}
+.gplus .tip{position:absolute;pointer-events:none;background:#FEFAE0;color:#283618;border-radius:6px;padding:9px 11px;font-size:.84rem;min-width:170px;box-shadow:0 6px 20px rgba(0,0,0,.35);opacity:0;transition:opacity .15s;z-index:5}
+.gplus .tip.on{opacity:1}
+.gplus .tip strong{display:block;font-family:var(--f-judul);margin-bottom:4px}
+.gplus .tip div{display:flex;align-items:center;gap:7px;justify-content:space-between;line-height:1.5}
+.gplus .tip div i{width:9px;height:9px;border-radius:2px;flex:0 0 9px}
+.gplus .tip div b{margin-left:auto;font-weight:700}
+.gplus .tip .tot{border-top:1px solid rgba(40,54,24,.2);margin-top:3px;padding-top:3px}
+.gp-ket{margin:12px 0 0;font-size:1rem;line-height:1.5;border-left:3px solid #DDA15E;padding-left:12px}
+.gp-detail{margin-top:12px;font-size:.88rem}
+.gp-detail summary{cursor:pointer;font-family:var(--f-kode);font-size:.7rem;letter-spacing:.05em;text-transform:uppercase;color:#d9d6b6}
+.gp-tabel{overflow-x:auto;margin-top:8px}
+.gp-tabel table{border-collapse:collapse;width:100%;font-family:var(--f-kode);font-size:.78rem}
+.gp-tabel th,.gp-tabel td{padding:5px 8px;border-bottom:1px solid rgba(254,250,224,.12);text-align:right;white-space:nowrap}
+.gp-tabel th:first-child{text-align:left}
+.gplus figcaption{margin-top:10px;font-family:var(--f-kode);font-size:.68rem;color:#bdb995}
+.gplus .tumbuh{transform-box:fill-box;transform-origin:bottom;animation:gpT .7s cubic-bezier(.2,.7,.2,1) both}
+.gplus .tumbuh-x{transform-box:fill-box;transform-origin:left;animation:gpX .7s cubic-bezier(.2,.7,.2,1) both}
+.gplus .gp-garis{stroke-dasharray:4000;stroke-dashoffset:4000;animation:gpG 1.2s ease forwards}
+@keyframes gpT{from{transform:scaleY(0)}}@keyframes gpX{from{transform:scaleX(0)}}@keyframes gpG{to{stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce){.gplus .tumbuh,.gplus .tumbuh-x,.gplus .gp-garis{animation:none;stroke-dashoffset:0}}
+@media (max-width:640px){.gplus{padding:16px 12px 12px}}

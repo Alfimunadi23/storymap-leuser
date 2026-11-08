@@ -63,6 +63,9 @@
     genanganTipis: { file: 'genangan.geojson', warna: '#5BB8FF', garis: '#5BB8FF', tebal: 0, isi: .35 }
   };
   var HILIR = [[4.16, 97.86], [4.58, 98.30]];
+  var WZ = { hulu: '#26A69A', tengah: '#D27330', hilir: '#6F8FF0' };
+  var WK = ['#628AD0', '#CF7A27', '#E4477A'];
+  var THN = ['2019', '2020', '2021', '2022', '2023', '2024', '2025'];
 
 window.ISI = {
 
@@ -170,6 +173,13 @@ window.ISI = {
               teks: 'Arahkan kursor ke garis sungai untuk melihat namanya.' }
           ],
           sumber: 'Sumber: aliran turunan DEMNAS (olahan tim); sungai OpenStreetMap; relief Esri; topografi OpenTopoMap.'
+        },
+        { jenis: 'grafik-plus',
+          subjudul: 'Seberapa *curam* DAS Tamiang',
+          paragraf: [ 'Separuh DAS landai, tapi hampir sepertiganya sangat curam (di atas 40%). Lereng seperti ini yang paling cepat longsor kalau hutannya dibuka.' ],
+          kategori: ['Landai (<25%)', 'Curam (25–40%)', 'Sangat curam (>40%)'],
+          tampilan: [ { label: 'Luas', tipe: 'mendatar', satuan: 'ha', seri: [ { nama: 'Luas kelas lereng', warna: WK[0], warnaPer: WK, nilai: [277007.37, 102884.00, 177538.44] } ], labelBatang: ['49,69%', '18,46%', '31,85%'] } ],
+          sumber: 'Sumber: kelas lereng turunan DEMNAS, olahan tim.'
         }
       ]
     },
@@ -210,12 +220,42 @@ window.ISI = {
           legenda: [ { warna: '#DDA15E', label: 'Hutan hilang' }, { warna: '#BC6C25', label: 'Hilang Nov–Des 2025 (saat bencana)' }, { warna: 'rgba(221,161,94,.35)', label: 'Warna kecamatan: makin pekat, makin banyak hilang' }, { warna: '#DC143C', label: 'Garis merah: batas DAS Tamiang' } ],
           sumber: 'Sumber: Kehilangan Tutupan Hutan KEL (HAkA, data dasar panitia); batas kecamatan BIG 2025; olahan tim.'
         },
-        { jenis: 'grafik',
-          subjudul: 'Kalau dijadikan grafik',
-          tipe: 'batang', satuan: 'ha', sorot: '2025',
-          data: [ ['2019', 1060], ['2020', 1340], ['2021', 785], ['2022', 302], ['2023', 229], ['2024', 340], ['2025', 8352] ],
-          catatan: 'Hutan hilang di dalam batas DAS Tamiang (ha).',
-          sumber: 'Sumber: Kehilangan Tutupan Hutan KEL (HAkA), dipotong batas DAS, olahan tim'
+        { jenis: 'grafik-plus',
+          subjudul: 'Hutan yang hilang, *tahun demi tahun*',
+          ringkas: [ { nilai: '8.352', satuan: 'ha', keterangan: 'Hilang di 2025' }, { nilai: '4.057', satuan: 'ha', keterangan: 'Total enam tahun sebelumnya (2019–2024)' }, { nilai: '2×', satuan: '', keterangan: 'Satu tahun 2025 = dua kali enam tahun sebelumnya' } ],
+          kategori: THN,
+          tampilan: [
+            { label: 'Total DAS', tipe: 'batang', satuan: 'ha', desimal: 0, sorot: '2025', labelNilai: 'semua',
+              seri: [ { nama: 'Hutan hilang di DAS', warna: '#DDA15E', warnaPer: ['#DDA15E', '#DDA15E', '#DDA15E', '#DDA15E', '#DDA15E', '#DDA15E', '#E4477A'], nilai: [1060.36, 1340.19, 785.53, 302.56, 228.70, 339.56, 8352.48] } ],
+              ket: 'Enam tahun berturut-turut angkanya turun, lalu melonjak di 2025.' },
+            { label: 'Per zona', tipe: 'tumpuk', satuan: 'ha', sorot: '2025',
+              seri: [ { nama: 'Hulu', warna: WZ.hulu, nilai: [375.88, 421.97, 258.52, 129.07, 97.18, 84.31, 6776.81] }, { nama: 'Tengah', warna: WZ.tengah, nilai: [390.14, 551.37, 224.30, 82.88, 81.19, 114.01, 1260.52] }, { nama: 'Hilir', warna: WZ.hilir, nilai: [295.14, 366.58, 303.88, 91.52, 50.67, 143.47, 321.27] } ],
+              ket: '**81%** hutan yang hilang di 2025 ada di zona hulu (6.777 ha). Sebelumnya, hulu justru paling sedikit kehilangan.' },
+            { label: 'Akumulasi', tipe: 'garis', satuan: 'ha', labelAkhir: true,
+              seri: [ { nama: 'Hulu', warna: WZ.hulu, nilai: [0, 421.97, 680.49, 809.56, 906.74, 991.05, 7767.86] }, { nama: 'Tengah', warna: WZ.tengah, nilai: [0, 551.37, 775.67, 858.55, 939.74, 1053.75, 2314.27] }, { nama: 'Hilir', warna: WZ.hilir, nilai: [0, 366.58, 670.46, 761.98, 812.65, 956.12, 1277.39] } ],
+              ket: 'Dihitung dari 2019 sebagai titik nol. Sampai 2024 ketiga zona berjalan beriringan, lalu garis hulu melompat sendirian.' },
+            { label: 'Laju (%)', tipe: 'garis', satuan: '% hutan zona per tahun', satuanTip: '%', desimal: 2, labelAkhir: true,
+              seri: [ { nama: 'Hulu', warna: WZ.hulu, nilai: [0, 0.17, 0.11, 0.05, 0.04, 0.03, 2.77] }, { nama: 'Tengah', warna: WZ.tengah, nilai: [0, 0.78, 0.32, 0.12, 0.12, 0.16, 1.81] }, { nama: 'Hilir', warna: WZ.hilir, nilai: [0, 10.26, 9.47, 3.15, 1.80, 5.19, 12.27] } ],
+              ket: 'Laju = hutan hilang dibagi hutan yang tersisa tahun sebelumnya. Hilir kecil luasnya tapi lajunya paling tinggi: **12%** hutannya yang tersisa habis di 2025. Laju hulu naik sekitar **80 kali** dari 2024 ke 2025.' }
+          ],
+          catatan: '2019 dipakai sebagai tahun dasar untuk akumulasi dan laju.',
+          sumber: 'Sumber: Kehilangan Tutupan Hutan KEL (HAkA) dipotong batas DAS dan zona, olahan tim.'
+        },
+        { jenis: 'grafik-plus',
+          subjudul: 'Berapa hutan yang *tersisa*',
+          kategori: THN,
+          tampilan: [
+            { label: 'Total DAS', tipe: 'garis', nolBebas: true, satuan: 'ha', labelAkhir: true,
+              seri: [ { nama: 'Luas hutan DAS', warna: '#26A69A', nilai: [319738.63, 318398.91, 317612.48, 317309.17, 317080.27, 316739.00, 308380.76] } ],
+              ket: 'Sumbu tegak tidak mulai dari nol supaya perubahannya terlihat. Dari 2019 ke 2025 hutan DAS berkurang **11.358 ha** (3,6%).' },
+            { label: 'Per zona (ha)', tipe: 'garis', satuan: 'ha', labelAkhir: true,
+              seri: [ { nama: 'Hulu', warna: WZ.hulu, nilai: [245392.94, 244970.97, 244712.45, 244583.38, 244486.20, 244401.89, 237625.08] }, { nama: 'Tengah', warna: WZ.tengah, nilai: [70772.85, 70221.48, 69997.18, 69914.30, 69833.11, 69719.10, 68458.58] }, { nama: 'Hilir', warna: WZ.hilir, nilai: [3574.48, 3207.90, 2904.02, 2812.50, 2761.83, 2618.36, 2297.09] } ],
+              ket: '77% hutan DAS ada di zona hulu. Itu sebabnya kehilangan di hulu paling berpengaruh ke seluruh DAS.' },
+            { label: '% berhutan', tipe: 'kelompok', satuan: '% luas zona', satuanTip: '%', desimal: 2,
+              seri: [ { nama: 'Hulu', warna: WZ.hulu, nilai: [89.30, 89.15, 89.06, 89.01, 88.97, 88.94, 86.48] }, { nama: 'Tengah', warna: WZ.tengah, nilai: [40.54, 40.22, 40.10, 40.05, 40.00, 39.94, 39.21] }, { nama: 'Hilir', warna: WZ.hilir, nilai: [3.17, 2.84, 2.57, 2.49, 2.45, 2.32, 2.04] } ],
+              ket: 'Hulu 86% masih berhutan, tengah 39%, hilir tinggal 2%. Arahkan kursor ke batang untuk angka tepatnya.' }
+          ],
+          sumber: 'Sumber: Tutupan Hutan KEL 2019–2025 (HAkA), olahan tim.'
         },
         { jenis: 'teks',
           subjudul: 'Hutan hilang di *lereng* mana',
@@ -238,6 +278,29 @@ window.ISI = {
             { nilai: '604', satuan: 'ha', keterangan: 'Bagiannya di Kab. Aceh Tamiang, 11 kali lipat tahun 2024 (55 ha)', sumber: 'Olahan tim' },
             { nilai: '3.270', satuan: 'ha', keterangan: 'Kec. Pining (Gayo Lues), hulu terparah, 61% di lereng sangat curam', sumber: 'Olahan tim' }
           ]
+        },
+        { jenis: 'grafik-plus',
+          subjudul: 'Lereng mana yang *paling* kena',
+          kategori: THN,
+          tampilan: [
+            { label: 'Per tahun', tipe: 'tumpuk', satuan: 'ha', sorot: '2025',
+              seri: [ { nama: 'Landai (<25%)', warna: WK[0], nilai: [659.0, 852.3, 460.3, 178.5, 146.0, 264.0, 1805.72] }, { nama: 'Curam (25–40%)', warna: WK[1], nilai: [241.1, 302.4, 134.4, 67.5, 48.0, 38.6, 2207.72] }, { nama: 'Sangat curam (>40%)', warna: WK[2], nilai: [160.3, 185.5, 190.7, 56.5, 34.8, 37.0, 4339.03] } ],
+              ket: 'Sembunyikan kelas Landai lewat legenda: terlihat lereng curam dan sangat curam nyaris diam selama enam tahun, lalu meledak di 2025.' }
+          ],
+          sumber: 'Sumber: Deforestasi_Lereng_Kritis 2019–2025, olahan tim.'
+        },
+        { jenis: 'grafik-plus',
+          subjudul: '2025: luas dan *intensitasnya*',
+          kategori: ['Landai', 'Curam', 'Sangat curam'],
+          tampilan: [
+            { label: 'Luas hilang', tipe: 'mendatar', satuan: 'ha', desimal: 2, labelBatang: ['21,62%', '26,43%', '51,95%'],
+              seri: [ { nama: 'Hutan hilang 2025', warna: WK[0], warnaPer: WK, nilai: [1805.72, 2207.72, 4339.03] } ],
+              ket: 'Lebih dari separuh hutan yang hilang di 2025 ada di lereng sangat curam.' },
+            { label: 'Intensitas', tipe: 'batang', satuan: '% luas kelas lereng', satuanTip: '%', desimal: 2, labelNilai: 'semua',
+              seri: [ { nama: 'Intensitas deforestasi 2025', warna: WK[0], warnaPer: WK, nilai: [0.65, 2.15, 2.44] } ],
+              ket: 'Dibandingkan luas masing-masing kelas, lereng sangat curam kehilangan hutan **3,8 kali** lebih cepat daripada lereng landai (2,44% vs 0,65%).' }
+          ],
+          sumber: 'Sumber: Deforestasi_Lereng_Kritis 2025 dan kelas lereng DEMNAS, olahan tim.'
         },
         { jenis: 'teks',
           subjudul: 'Apa yang *berubah* di 2025',
@@ -297,24 +360,32 @@ window.ISI = {
       judul: 'Hujannya memang *ekstrem*',
       pengantar: 'Hilangnya hutan memperparah, tapi pemicunya tetap hujan. Bagian ini membuat analisisnya adil.',
       blok: [
-        { jenis: 'grafik',
+        { jenis: 'grafik-plus',
           subjudul: 'Curah hujan tahunan (CHIRPS)',
-          tipe: 'batang', satuan: 'mm', sorot: '2025',
-          data: [ ['2018', 0], ['2019', 0], ['2020', 0], ['2021', 0], ['2022', 0], ['2023', 0], ['2024', 0], ['2025', 0] ],
-          catatan: 'Isi dengan rata-rata curah hujan tahunan DAS dari raster CHIRPS.',
-          sumber: 'Sumber: CHIRPS'
-        },
-        { jenis: 'grafik',
-          subjudul: 'Hujan harian sekitar kejadian (IMERG)',
-          tipe: 'garis', satuan: 'mm', sorot: '26 Nov',
-          data: [ ['20 Nov', 0], ['21 Nov', 0], ['22 Nov', 0], ['23 Nov', 0], ['24 Nov', 0], ['25 Nov', 0], ['26 Nov', 0], ['27 Nov', 0], ['28 Nov', 0] ],
-          catatan: 'Isi dengan hujan harian rata-rata DAS dari IMERG.',
-          sumber: 'Sumber: NASA GPM IMERG'
+          ringkas: [ { nilai: '3.549', satuan: 'mm', keterangan: 'Hujan 2025, kedua tertinggi sejak 2019' }, { nilai: '3.154', satuan: 'mm', keterangan: 'Rata-rata 2019–2025' }, { nilai: '+12', satuan: '%', keterangan: '2025 di atas rata-rata' } ],
+          kategori: THN,
+          tampilan: [ { label: 'Tahunan', tipe: 'batang', satuan: 'mm/tahun', sorot: '2025', labelNilai: 'semua', rujukan: { nilai: 3154, label: 'Rata-rata 3.154 mm' },
+              seri: [ { nama: 'Curah hujan rata-rata DAS', warna: '#6F8FF0', warnaPer: ['#6F8FF0', '#6F8FF0', '#6F8FF0', '#6F8FF0', '#6F8FF0', '#6F8FF0', '#E4477A'], nilai: [2453, 3014, 3251, 3933, 3054, 2820, 3549] } ],
+              ket: 'Tahun 2022 malah lebih basah (3.933 mm), tapi hutan yang hilang tahun itu cuma 303 ha, dan banjirnya tidak sebesar 2025. Jadi **jumlah hujan setahun saja tidak cukup** menjelaskan banjir 2025. Yang membedakan adalah hujan ekstrem dalam beberapa hari.' } ],
+          sumber: 'Sumber: CHIRPS, rata-rata spasial DAS Tamiang, olahan tim.'
         },
         { jenis: 'teks',
-          subjudul: 'Akumulasi hujan tiga hari, 24–26 November 2025',
-          paragraf: [ 'Jelaskan di sub-DAS mana hujan paling deras turun, dan berapa milimeter totalnya.' ],
-          gambar: { file: 'peta/05-imerg-3hari.png', keterangan: 'Akumulasi hujan 24–26 November 2025. Sumber: IMERG, olahan tim.' }
+          subjudul: 'Hujan *harian* dan bulanan',
+          paragraf: [
+            'Dari data harian CHIRPS, selama 2019–2024 puncak hujan rata-rata DAS tidak pernah lebih dari sekitar 56 mm per hari. Tahun 2025 dua kali jauh melampauinya: sekitar April 2025 (hampir 90 mm) dan akhir November 2025, **lebih dari 100 mm dalam sehari**, tertinggi selama tujuh tahun.',
+            'Secara bulanan, November 2025 juga jadi bulan terbasah dalam periode 2019–2025, sekitar 570 mm dalam sebulan. Itu hampir seperlima hujan setahun yang turun hanya dalam satu bulan.'
+          ]
+        },
+        { jenis: 'angka', isi: [
+          { nilai: '35,15', satuan: 'mm/jam', keterangan: 'Puncak intensitas hujan rata-rata DAS, 26 Nov 2025 pukul 04.30 WIB', sumber: 'IMERG Late V07B' },
+          { nilai: '7,60', satuan: 'mm/jam', keterangan: 'Rata-rata intensitas selama periode pengamatan 24–28 Nov 2025', sumber: 'IMERG Late V07B' }
+        ]},
+        { jenis: 'teks',
+          subjudul: 'Detik-detik 24–27 November 2025 (IMERG)',
+          paragraf: [
+            'Data IMERG per 30 menit memperlihatkan hujan datang bergelombang. Mulai 25 November pagi intensitasnya naik ke 20–23 mm/jam, malamnya menembus 30 mm/jam, lalu puncaknya **35,15 mm/jam pada 26 November pukul 04.30 WIB**. Siangnya masih ada gelombang 25 mm/jam sebelum mereda.',
+            'Hujan selebat ini selama hampir dua hari jatuh di atas lereng hulu yang hutannya baru saja terbuka. Air tidak sempat meresap. Ia langsung mengalir ke sungai, membawa tanah, lalu menumpuk di dataran hilir.'
+          ]
         }
       ]
     },
