@@ -267,3 +267,36 @@ tbody tr:hover{background:rgba(var(--g),.05)}
 .tepi .peran dt{font-family:var(--f-kode);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--sorot);padding-top:4px}
 .tepi .peran dd{margin:0;color:var(--latar)}
 .tepi .catatan-kecil{margin-top:14px;font-size:.82rem;color:#b9bb98}
+
+/* ---------- revisi: satu warna olive ---------- */
+body,html{background:#606C38}
+.bagian{border-top:1px solid rgba(254,250,224,.14)}
+.sampul{background:radial-gradient(110% 90% at 85% 0%,#6f7c42 0%,#606C38 55%,#535e2f 100%)}
+.penutup{background:linear-gradient(180deg,#606C38 0%,#535e2f 100%)}
+.tepi{background:#535e2f;border-top:1px solid rgba(254,250,224,.14)}
+.lembar-bar{background:rgba(40,54,24,.92)}
+.tepi .catatan-kecil{color:#e6e3c2}
+/* logo: HAkA kiri, USK & CRU kanan */
+.logo-atas{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:18px}
+.logo-atas .kanan{display:flex;gap:12px;align-items:center}
+.logo-atas img,.tepi .logo-atas img{height:60px;width:60px;object-fit:contain;background:#fff;border-radius:50%;padding:4px}
+.logo-atas img.persegi{width:auto;height:52px;border-radius:6px;padding:0;background:#000}
+.sampul .logo-atas{grid-column:1/-1}
+/* peta interaktif */
+.peta-leaflet{height:clamp(380px,62vh,600px);width:100%;background:#2b3417}
+.pint .leaflet-container{font-family:var(--f-isi)}
+.pint-info.memuat{opacity:.6}
+.pint-top{margin:0;padding:0;list-style:none;display:grid;gap:8px;counter-reset:n}
+.pint-top li{display:flex;justify-content:space-between;gap:10px;align-items:baseline;border-bottom:1px dashed rgba(var(--g),.22);padding-bottom:7px;counter-increment:n}
+.pint-top li span{display:grid;font-size:1rem}
+.pint-top li span::before{content:counter(n,decimal-leading-zero);font-family:var(--f-kode);font-size:.65rem;color:var(--aksen)}
+.pint-top li small{font-family:var(--f-kode);font-size:.65rem;color:var(--krim-2);text-transform:uppercase;letter-spacing:.06em}
+.pint-top li b{font-family:var(--f-judul);white-space:nowrap}
+.pint-petunjuk{font-size:.92rem;color:var(--krim-2);border-left:3px solid var(--aksen);padding-left:12px}
+.pint-pop{font-family:"Spline Sans Mono",monospace;font-size:11px;display:grid;gap:5px;min-width:200px;color:#283618}
+.pint-pop b{font-family:"Schibsted Grotesk",Arial,sans-serif;font-size:15px}
+.pint-pop span{color:#5c6440;margin-bottom:4px}
+.pint-pop .bar{display:grid;grid-template-columns:34px 1fr 64px;gap:6px;align-items:center}
+.pint-pop .bar i{display:block;height:9px;background:#BC6C25;min-width:1px}
+.pint-pop .bar strong{text-align:right;font-weight:500}
+.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#FEFAE0}

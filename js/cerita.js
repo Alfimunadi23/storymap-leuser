@@ -4,7 +4,7 @@
   'use strict';
   var I = window.ISI || {};
   document.documentElement.classList.add('js');
-  var WARNA = ['latar', 'peta', 'latar', 'tua'];
+  var WARNA = ['peta'];
   var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
   var pad2 = function (n) { return (n < 10 ? '0' : '') + n; };
   var sorotKata = function (s) { return esc(s).replace(/\*(.+?)\*/g, '<em>$1</em>'); };
@@ -42,11 +42,10 @@
   document.title = (I.judul || 'Storymap').replace(/\*/g, '');
   document.getElementById('lbJudul').textContent = (I.judul || '').replace(/\*/g, '') + ' · ' + (I.kegiatan || '');
   var t = I.tim || {};
-  var LOGO = [].concat(I.logo || []);
-  var logoHtml = function () { return LOGO.length ? '<div class="logo-baris">' + LOGO.map(function (l) { return img(l.file || l, l.nama || 'Logo', '', 1); }).join('') + '</div>' : ''; };
+  var lg = function (l) { return img(l.file, l.nama || 'Logo', l.bentuk === 'persegi' ? 'persegi' : '', 1); };
+  var logoHtml = function () { return '<div class="logo-atas"><div class="kiri">' + [].concat(I.logoKiri || []).map(lg).join('') + '</div><div class="kanan">' + [].concat(I.logoKanan || []).map(lg).join('') + '</div></div>'; };
   document.getElementById('sampul').innerHTML = '<canvas id="kontur" aria-hidden="true"></canvas>' +
-    '<div class="wrap"><div>' +
-    logoHtml() +
+    '<div class="wrap">' + logoHtml() + '<div>' +
     '<div class="kode">' + esc(I.kegiatan) + '</div>' +
     '<h1>' + sorotKata(I.judul) + '</h1><p class="sub">' + esc(I.subjudul) + '</p>' +
     (I.wilayah ? '<dl class="meta"><dt>Wilayah</dt><dd>' + esc(I.wilayah) + '</dd></dl>' : '') +
@@ -55,7 +54,7 @@
 
   /* --- bagian --- */
   var B = (I.bagian || []).filter(function (b) { return !(b.jenis === 'peta-web' && !b.alamat); });
-  var GRAFIK = [], nBanding = 0, nomor = 0;
+  var GRAFIK = [], PINT = [], nBanding = 0, nomor = 0;
   var WK = { merah: '#BC6C25', hijau: '#606C38', biru: '#DDA15E', kuning: '#DDA15E', oranye: '#BC6C25', olive: '#606C38', emas: '#DDA15E' };
 
   function blok(b) {
@@ -93,6 +92,16 @@
           (b.sumber ? '<div class="sumber">' + esc(b.sumber) + '</div>' : '') +
           (b.legenda ? '<div class="legenda">' + b.legenda.map(function (l) { return '<span><i style="background:' + esc(l.warna) + '"></i>' + esc(l.label) + '</span>'; }).join('') + '</div>' : '') +
           '</div>';
+      case 'peta-interaktif':
+        PINT.push(b); var TT = b.tahun || [];
+        return (b.paragraf ? '<div class="isi-kolom" style="margin-bottom:28px">' + paragraf(b.paragraf) + '</div>' : '') +
+          '<div class="ptab waktu pint isi-lebar" data-pint="' + (PINT.length - 1) + '">' +
+          (b.subjudul ? '<h3 class="sub-blok">' + sorotKata(b.subjudul) + '</h3>' : '') +
+          '<div class="ptab-nav" role="tablist">' + TT.map(function (y, k) { return '<button type="button" role="tab" data-k="' + k + '">' + y + '</button>'; }).join('') +
+          '<button type="button" class="ptab-putar">▶ Putar</button></div>' +
+          '<div class="ptab-badan"><div class="bingkai"><div class="peta-leaflet" role="application" aria-label="Peta interaktif"></div></div><div class="pint-info ptab-isi"><p class="kode">Memuat peta…</p></div></div>' +
+          (b.legenda ? '<div class="legenda">' + b.legenda.map(function (l) { return '<span><i style="background:' + esc(l.warna) + '"></i>' + esc(l.label) + '</span>'; }).join('') + '</div>' : '') +
+          (b.sumber ? '<div class="sumber">' + esc(b.sumber) + '</div>' : '') + '</div>';
       case 'grafik':
         GRAFIK.push(b);
         return (b.subjudul ? '<h3 class="sub-blok isi-lebar">' + sorotKata(b.subjudul) + '</h3>' : '') +
@@ -300,6 +309,83 @@
       timer = setInterval(function () { if (cur >= btn.length - 1) { stop(); return; } pilih(cur + 1); }, 1700);
     });
   });
+
+  /* --- peta interaktif (Leaflet) --- */
+  (function () {
+    var boxes = document.querySelectorAll('[data-pint]'); if (!boxes.length) return;
+    function muat(src, css) {
+      return new Promise(function (ok, gagal) {
+        var el = document.createElement(css ? 'link' : 'script');
+        if (css) { el.rel = 'stylesheet'; el.href = src; } else { el.src = src; }
+        el.onload = ok; el.onerror = gagal; document.head.appendChild(el);
+      });
+    }
+    var fmt = function (v) { return (+v).toLocaleString('id-ID', { maximumFractionDigits: 0 }); };
+    muat('https://unpkg.com/leaflet@1.9.4/dist/leaflet.css', true).then(function () { return muat('https://unpkg.com/leaflet@1.9.4/dist/leaflet.js'); }).then(function () {
+      boxes.forEach(function (box) {
+        var cfg = PINT[+box.dataset.pint], folder = cfg.folder || 'data/', T = cfg.tahun || [];
+        var map = L.map(box.querySelector('.peta-leaflet'), { scrollWheelZoom: false, zoomControl: true, attributionControl: true });
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom: 18, attribution: 'Citra: Esri World Imagery' }).addTo(map);
+        var info = box.querySelector('.pint-info'), btn = [].slice.call(box.querySelectorAll('.ptab-nav [data-k]')), play = box.querySelector('.ptab-putar');
+        var lapKec, lapHilang = {}, aktif = null, ringkas = {}, kecData = null, cur = 0, timer = null;
+        var gaya = function (y) {
+          return function (f) {
+            var v = f.properties['h' + y] || 0, a = Math.min(1, v / 1500);
+            return { color: '#FEFAE0', weight: 1, opacity: .7, fillColor: '#DDA15E', fillOpacity: v > 0 ? .08 + a * .32 : 0 };
+          };
+        };
+        function isiInfo(y) {
+          var top = kecData.features.slice().sort(function (a, b) { return (b.properties['h' + y] || 0) - (a.properties['h' + y] || 0); }).slice(0, 5);
+          info.innerHTML = '<div class="ptab-besar">' + y + '</div>' +
+            '<dl><div><dt>Hutan hilang di wilayah peta</dt><dd><b>' + fmt(ringkas.total[y] || 0) + '</b> ha</dd></div></dl>' +
+            '<p class="kode" style="margin-top:6px">Kecamatan terbanyak</p><ol class="pint-top">' +
+            top.map(function (f) { return '<li><span>' + esc(f.properties.kec) + '<small>' + esc(f.properties.kab) + '</small></span><b>' + fmt(f.properties['h' + y]) + ' ha</b></li>'; }).join('') + '</ol>' +
+            '<p class="pint-petunjuk">Klik kecamatan di peta untuk melihat datanya per tahun.</p>';
+        }
+        function popupKec(p) {
+          var maks = Math.max.apply(null, T.map(function (y) { return p['h' + y] || 0; }).concat([1]));
+          return '<div class="pint-pop"><b>' + esc(p.kec) + '</b><span>' + esc(p.kab) + ' · ' + fmt(p.luas) + ' ha</span>' +
+            T.map(function (y) { var v = p['h' + y] || 0; return '<div class="bar"><em>' + y + '</em><i style="width:' + (v / maks * 100) + '%"></i><strong>' + fmt(v) + ' ha</strong></div>'; }).join('') + '</div>';
+        }
+        function pilih(k) {
+          cur = k; var y = T[k];
+          btn.forEach(function (b, j) { b.classList.toggle('aktif', j === k); b.classList.toggle('lewat', j < k); b.setAttribute('aria-selected', j === k); });
+          if (lapKec) lapKec.setStyle(gaya(y));
+          if (kecData && ringkas.total) isiInfo(y);
+          var tampil = function () {
+            if (aktif) map.removeLayer(aktif);
+            aktif = lapHilang[y].addTo(map); if (lapKec) lapKec.bringToBack();
+          };
+          if (lapHilang[y]) { tampil(); return; }
+          info.classList.add('memuat');
+          fetch(folder + 'hilang-' + y + '.geojson').then(function (r) { return r.json(); }).then(function (gj) {
+            lapHilang[y] = L.geoJSON(gj, {
+              style: function (f) { var nd = f.properties.k >= 11 && y === 2025; return { color: nd ? '#BC6C25' : '#DDA15E', weight: .6, fillColor: nd ? '#BC6C25' : '#DDA15E', fillOpacity: .9 }; },
+              onEachFeature: function (f, l) { l.bindTooltip(f.properties.bulan + ' ' + y + ': ' + fmt(f.properties.ha) + ' ha hilang', { sticky: true }); }
+            });
+            info.classList.remove('memuat'); if (T[cur] === y) tampil();
+          });
+        }
+        Promise.all([fetch(folder + 'ringkas.json').then(function (r) { return r.json(); }), fetch(folder + 'kecamatan.geojson').then(function (r) { return r.json(); }), fetch(folder + 'kabupaten.geojson').then(function (r) { return r.json(); })]).then(function (d) {
+          ringkas = d[0]; kecData = d[1];
+          lapKec = L.geoJSON(kecData, { style: gaya(T[0]), onEachFeature: function (f, l) {
+            l.bindPopup(popupKec(f.properties), { maxWidth: 280 });
+            l.on('mouseover', function () { l.setStyle({ weight: 2.5, color: '#DDA15E' }); });
+            l.on('mouseout', function () { lapKec.resetStyle(l); });
+          } }).addTo(map);
+          L.geoJSON(d[2], { interactive: false, style: function (f) { var t = f.properties.kab === (cfg.sorotKab || ''); return { color: t ? '#DDA15E' : '#FEFAE0', weight: t ? 3.5 : 1.8, dashArray: t ? null : '6 5', fill: false }; } }).addTo(map);
+          map.fitBounds(lapKec.getBounds(), { padding: [10, 10] });
+          pilih(T.length - 1);
+        });
+        btn.forEach(function (b) { b.addEventListener('click', function () { stop(); pilih(+b.dataset.k); }); });
+        function stop() { if (timer) { clearInterval(timer); timer = null; if (play) play.textContent = '▶ Putar'; } }
+        if (play) play.addEventListener('click', function () {
+          if (timer) { stop(); return; } play.textContent = '❚❚ Jeda'; pilih(0);
+          timer = setInterval(function () { if (cur >= T.length - 1) { stop(); return; } pilih(cur + 1); }, 2200);
+        });
+      });
+    }).catch(function () { boxes.forEach(function (b) { b.querySelector('.peta-leaflet').innerHTML = '<p style="padding:24px">Peta interaktif gagal dimuat. Periksa koneksi internet.</p>'; }); });
+  })();
 
   /* --- perbesar gambar --- */
   var lb = document.getElementById('lightbox'), lbImg = lb.querySelector('img'), lbCap = lb.querySelector('p');

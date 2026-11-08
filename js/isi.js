@@ -31,10 +31,9 @@ window.ISI = {
     anggota: ['Nur Jalal', 'Alfi Munadi'],
     instansi: 'Universitas Syiah Kuala'
   },
-  logo: [
-    { file: 'foto/logo-haka.png', nama: 'Logo Yayasan HAkA' },
-    { file: 'foto/logo-usk.png',  nama: 'Logo Universitas Syiah Kuala' }
-  ],
+  logoKiri:  [ { file: 'foto/logo-haka.png', nama: 'Logo Yayasan HAkA' } ],
+  logoKanan: [ { file: 'foto/logo-usk.png', nama: 'Logo Universitas Syiah Kuala' },
+               { file: 'foto/logo-cru.png', nama: 'Logo CRU Aceh', bentuk: 'persegi' } ],
   sampul: {
     gambar: 'peta/00-sampul.png',        // peta paling kuat atau foto banjir
     keterangan: 'Keterangan gambar sampul. Sumber: ...'
@@ -42,7 +41,7 @@ window.ISI = {
 
   /* ---------- ISI CERITA ----------
      Urutan mengikuti struktur storymap tim: 8 bagian utama.
-     Warna latar berganti sendiri: latar (krem), peta (olive), tua (hijau gelap).          */
+     Warna latar: olive (#606C38) di semua bagian.          */
   bagian: [
 
     /* ===== PEMBUKA (tanpa nomor) ===== */
@@ -108,19 +107,14 @@ window.ISI = {
           kanan: { gambar: 'peta/03-tutupan-2025.png', label: '2025' },
           sumber: 'Sumber: tutupan hutan KEL (data dasar panitia), olahan tim'
         },
-        { jenis: 'peta-tab', waktu: true, putar: true,
-          subjudul: 'Klik tahunnya: hutan yang hilang',
-          tab: [
-            { label: '2019', peta: 'peta/03-kehilangan-2019.png', angka: [ { keterangan: 'Hutan hilang di DAS', nilai: '776', satuan: 'ha' } ] },
-            { label: '2020', peta: 'peta/03-kehilangan-2020.png', angka: [ { keterangan: 'Hutan hilang di DAS', nilai: '1.001', satuan: 'ha' } ] },
-            { label: '2021', peta: 'peta/03-kehilangan-2021.png', angka: [ { keterangan: 'Hutan hilang di DAS', nilai: '489', satuan: 'ha' } ] },
-            { label: '2022', peta: 'peta/03-kehilangan-2022.png', angka: [ { keterangan: 'Hutan hilang di DAS', nilai: '240', satuan: 'ha' } ] },
-            { label: '2023', peta: 'peta/03-kehilangan-2023.png', angka: [ { keterangan: 'Hutan hilang di DAS', nilai: '199', satuan: 'ha' } ] },
-            { label: '2024', peta: 'peta/03-kehilangan-2024.png', angka: [ { keterangan: 'Hutan hilang di DAS', nilai: '229', satuan: 'ha' } ] },
-            { label: '2025', peta: 'peta/03-kehilangan-2025.png', angka: [ { keterangan: 'Hutan hilang di DAS', nilai: '8.026', satuan: 'ha' } ],
-              teks: 'Lonjakan terbesar. Sebagian besar terjadi November–Desember, saat bencana.' }
-          ],
-          legenda: [ { warna: '#606C38', label: 'Hutan' }, { warna: '#BC6C25', label: 'Hilang tahun ini' }, { warna: '#DDA15E', label: 'Bertambah' } ]
+        { jenis: 'peta-interaktif',
+          subjudul: 'Klik tahunnya: di mana hutan hilang',
+          paragraf: [ 'Peta ini bisa digeser dan diperbesar. Klik tahun untuk berganti data, lalu klik kecamatan mana saja untuk melihat angkanya per tahun.' ],
+          folder: 'data/',
+          tahun: [2019, 2020, 2024, 2025],
+          sorotKab: 'Aceh Tamiang',
+          legenda: [ { warna: '#DDA15E', label: 'Hutan hilang' }, { warna: '#BC6C25', label: 'Hilang Nov–Des 2025 (saat bencana)' }, { warna: 'rgba(221,161,94,.35)', label: 'Warna kecamatan: makin pekat, makin banyak hilang' } ],
+          sumber: 'Sumber: Kehilangan Tutupan Hutan KEL (HAkA, data dasar panitia); batas kecamatan BIG 2025; olahan tim. Tahun 2021–2023 ditambahkan setelah file .shp-nya tersedia.'
         },
         { jenis: 'grafik',
           subjudul: 'Kalau dijadikan grafik',
