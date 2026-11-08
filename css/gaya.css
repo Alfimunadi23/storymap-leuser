@@ -424,3 +424,10 @@ body,html{background:#606C38}
 @keyframes gpT{from{transform:scaleY(0)}}@keyframes gpX{from{transform:scaleX(0)}}@keyframes gpG{to{stroke-dashoffset:0}}
 @media (prefers-reduced-motion:reduce){.gplus .tumbuh,.gplus .tumbuh-x,.gplus .gp-garis{animation:none;stroke-dashoffset:0}}
 @media (max-width:640px){.gplus{padding:16px 12px 12px}}
+/* cap tahun di peta + transisi layer */
+.cap-tahun{position:absolute;left:58px;top:10px;z-index:700;pointer-events:none;font-family:var(--f-judul);font-weight:800;font-size:clamp(1.6rem,4vw,2.6rem);line-height:1;color:#FEFAE0;text-shadow:0 2px 12px rgba(0,0,0,.6);letter-spacing:-.02em}
+.cap-tahun.ganti{animation:capT .55s cubic-bezier(.2,.8,.2,1)}
+@keyframes capT{from{opacity:0;transform:translateY(8px) scale(.92)}}
+.leaflet-interactive.lap-tahun,path.lap-tahun{animation:lapM .6s ease-out}
+@keyframes lapM{from{opacity:0}}
+@media (prefers-reduced-motion:reduce){.cap-tahun.ganti,path.lap-tahun{animation:none}}

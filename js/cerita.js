@@ -480,8 +480,9 @@
       var map = L.map(box.querySelector('.peta-leaflet'), { scrollWheelZoom: false, zoomSnap: 0.25 });
       L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom: 18, attribution: 'Citra: Esri World Imagery' }).addTo(map);
       var info = box.querySelector('.pint-info'), btn = [].slice.call(box.querySelectorAll('.ptab-nav [data-k]')), play = box.querySelector('.ptab-putar'), strip = box.querySelector('.plg-batang');
+      var cap = L.DomUtil.create('div', 'cap-tahun', box.querySelector('.peta-leaflet'));
       var R = null, RR = {}, lap = {}, aktif = null, cur = 0, timer = null, nyala = [true, true, true], wil = '', masker = {}, bbTmg = null, bbDas = null, wbtn = [].slice.call(box.querySelectorAll('.plg-wil button'));
-      function gaya(f) { var i = f.properties.i; return { color: WG[i], weight: .4 + i * .1, fillColor: WL[i], fillOpacity: nyala[i] ? .9 : 0, opacity: nyala[i] ? 1 : 0 }; }
+      function gaya(f) { var i = f.properties.i; return { className: 'lap-tahun', color: WL[i], weight: 1.3, fillColor: WL[i], fillOpacity: nyala[i] ? .95 : 0, opacity: nyala[i] ? 1 : 0 }; }
       function pop(p, y, RW) {
         var d = RW.info[p.kelas] || {}, tot = RW.total[y].reduce(function (a, b) { return a + b; }, 0);
         return '<div class="pint-pop"><b>' + esc(p.kelas) + ' · ' + y + '</b><span>Kemiringan ' + esc(d.rentang) + ' (' + esc(d.derajat) + ')</span>' +
@@ -519,6 +520,7 @@
       }
       function pilih(k) {
         cur = k; var y = T[k];
+        cap.textContent = y; cap.classList.remove('ganti'); void cap.offsetWidth; cap.classList.add('ganti');
         btn.forEach(function (b, j) { b.classList.toggle('aktif', j === k); b.classList.toggle('lewat', j < k); b.setAttribute('aria-selected', j === k); });
         [].forEach.call(strip.querySelectorAll('button'), function (b, j) { b.classList.toggle('aktif', j === k); });
         isiInfo(y);
@@ -687,19 +689,20 @@
         var cfg = PINT[+box.dataset.pint], folder = cfg.folder || 'data/', T = cfg.tahun || [];
         var map = L.map(box.querySelector('.peta-leaflet'), { scrollWheelZoom: false, zoomControl: true, attributionControl: true });
         L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom: 18, attribution: 'Citra: Esri World Imagery' }).addTo(map);
+        var cap = L.DomUtil.create('div', 'cap-tahun', box.querySelector('.peta-leaflet'));
         var info = box.querySelector('.pint-info'), btn = [].slice.call(box.querySelectorAll('.ptab-nav [data-k]')), play = box.querySelector('.ptab-putar');
         var lapKec, lapHilang = {}, aktif = null, ringkas = {}, kecData = null, cur = 0, timer = null;
         var gaya = function (y) {
           return function (f) {
-            var v = f.properties['h' + y] || 0, a = Math.min(1, v / 1500);
-            return { color: '#FEFAE0', weight: 1, opacity: .7, fillColor: '#DDA15E', fillOpacity: v > 0 ? .08 + a * .32 : 0 };
+            var v = f.properties['h' + y] || 0, a = Math.min(1, Math.sqrt(v / 3600));
+            return { color: '#FEFAE0', weight: 1, opacity: .55, fillColor: '#DDA15E', fillOpacity: v > 0 ? .06 + a * .5 : 0 };
           };
         };
         function isiInfo(y) {
           var top = kecData.features.slice().sort(function (a, b) { return (b.properties['h' + y] || 0) - (a.properties['h' + y] || 0); }).slice(0, 5);
           info.innerHTML = '<div class="ptab-besar">' + y + '</div>' +
-            '<dl>' + (ringkas.das ? '<div><dt>Di dalam DAS Tamiang</dt><dd><b>' + fmt(ringkas.das[y] || 0) + '</b> ha</dd></div>' : '') + '<div><dt>Seluruh KEL di peta (termasuk luar DAS)</dt><dd><b>' + fmt(ringkas.total[y] || 0) + '</b> ha</dd></div></dl>' +
-            '<p class="kode" style="margin-top:6px">Kecamatan terbanyak (seluruh peta)</p><ol class="pint-top">' +
+            '<dl><div><dt>Hutan hilang di DAS Tamiang</dt><dd><b>' + fmt(ringkas.total[y] || 0) + '</b> ha</dd></div></dl>' +
+            '<p class="kode" style="margin-top:6px">Kecamatan terbanyak (bagian di dalam DAS)</p><ol class="pint-top">' +
             top.map(function (f) { return '<li><span>' + esc(f.properties.kec) + '<small>' + esc(f.properties.kab) + '</small></span><b>' + fmt(f.properties['h' + y]) + ' ha</b></li>'; }).join('') + '</ol>' +
             '<p class="pint-petunjuk">Klik kecamatan di peta untuk melihat datanya per tahun.</p>';
         }
@@ -710,6 +713,7 @@
         }
         function pilih(k) {
           cur = k; var y = T[k];
+          cap.textContent = y; cap.classList.remove('ganti'); void cap.offsetWidth; cap.classList.add('ganti');
           btn.forEach(function (b, j) { b.classList.toggle('aktif', j === k); b.classList.toggle('lewat', j < k); b.setAttribute('aria-selected', j === k); });
           if (lapKec) lapKec.setStyle(gaya(y));
           if (kecData && ringkas.total) isiInfo(y);
@@ -721,7 +725,7 @@
           info.classList.add('memuat');
           fetch(folder + 'hilang-' + y + '.geojson').then(function (r) { return r.json(); }).then(function (gj) {
             lapHilang[y] = L.geoJSON(gj, {
-              style: function (f) { var nd = f.properties.k >= 11 && y === 2025; return { color: nd ? '#BC6C25' : '#DDA15E', weight: .6, fillColor: nd ? '#BC6C25' : '#DDA15E', fillOpacity: .9 }; },
+              style: function (f) { var nd = f.properties.k >= 11 && y === 2025; return { className: 'lap-tahun', color: nd ? '#FF6B35' : '#FFD166', weight: 1.4, fillColor: nd ? '#FF6B35' : '#FFD166', fillOpacity: .95 }; },
               onEachFeature: function (f, l) { l.bindTooltip(f.properties.bulan + ' ' + y + ': ' + fmt(f.properties.ha) + ' ha hilang', { sticky: true }); }
             });
             info.classList.remove('memuat'); if (T[cur] === y) tampil();

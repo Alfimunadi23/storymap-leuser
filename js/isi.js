@@ -85,8 +85,8 @@ window.ISI = {
   logoKanan: [ { file: 'foto/logo-usk.png', nama: 'Logo Universitas Syiah Kuala', bentuk: 'polos' },
                { file: 'foto/logo-cru.png', nama: 'Logo CRU Aceh', bentuk: 'persegi' } ],
   sampul: {
-    gambar: 'peta/00-sampul.png',        // peta paling kuat atau foto banjir
-    keterangan: 'Keterangan gambar sampul. Sumber: ...'
+    gambar: 'peta/00-sampul.svg',
+    keterangan: 'DAS Tamiang (garis merah). Kuning: hutan hilang 2025. Biru muda: sungai utama. Biru: genangan 28 Nov 2025. Sumber: HAkA, UNOSAT, DEMNAS, KLHK; olahan tim.'
   },
 
   /* ---------- ISI CERITA ----------
@@ -217,7 +217,7 @@ window.ISI = {
           folder: 'data/',
           tahun: [2019, 2020, 2021, 2022, 2023, 2024, 2025],
           sorotKab: 'Aceh Tamiang', das: true,
-          legenda: [ { warna: '#DDA15E', label: 'Hutan hilang' }, { warna: '#BC6C25', label: 'Hilang Nov–Des 2025 (saat bencana)' }, { warna: 'rgba(221,161,94,.35)', label: 'Warna kecamatan: makin pekat, makin banyak hilang' }, { warna: '#DC143C', label: 'Garis merah: batas DAS Tamiang' } ],
+          legenda: [ { warna: '#FFD166', label: 'Hutan hilang' }, { warna: '#FF6B35', label: 'Hilang Nov–Des 2025 (saat bencana)' }, { warna: 'rgba(221,161,94,.35)', label: 'Warna kecamatan: makin pekat, makin banyak hilang' }, { warna: '#DC143C', label: 'Garis merah: batas DAS Tamiang' } ],
           sumber: 'Sumber: Kehilangan Tutupan Hutan KEL (HAkA, data dasar panitia); batas kecamatan BIG 2025; olahan tim.'
         },
         { jenis: 'grafik-plus',
