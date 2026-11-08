@@ -4,7 +4,7 @@
   'use strict';
   var I = window.ISI || {};
   document.documentElement.classList.add('js');
-  var WARNA = ['hutan', 'kabut', 'gambut', 'lumut'];
+  var WARNA = ['latar', 'peta', 'latar', 'tua'];
   var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
   var pad2 = function (n) { return (n < 10 ? '0' : '') + n; };
   var sorotKata = function (s) { return esc(s).replace(/\*(.+?)\*/g, '<em>$1</em>'); };
@@ -13,12 +13,12 @@
   function penanda(file, rasio) {
     var w = 1200, h = Math.round(w * (rasio || 0.72));
     var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + w + ' ' + h + '">' +
-      '<defs><pattern id="g" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M60 0H0V60" fill="none" stroke="#c8cdc6" stroke-width="1"/></pattern></defs>' +
-      '<rect width="100%" height="100%" fill="#eef0ec"/><rect width="100%" height="100%" fill="url(#g)"/>' +
-      '<path d="M' + (w / 2 - 26) + ' ' + h / 2 + 'h52M' + w / 2 + ' ' + (h / 2 - 26) + 'v52" stroke="#57616b" stroke-width="2"/>' +
-      '<circle cx="' + w / 2 + '" cy="' + h / 2 + '" r="16" fill="none" stroke="#57616b" stroke-width="2"/>' +
-      '<text x="50%" y="' + (h / 2 + 70) + '" text-anchor="middle" font-family="Menlo,monospace" font-size="26" fill="#17202a">TARUH FILE INI DI SINI</text>' +
-      '<text x="50%" y="' + (h / 2 + 108) + '" text-anchor="middle" font-family="Menlo,monospace" font-size="24" fill="#1d5f8a">' + esc(file) + '</text></svg>';
+      '<defs><pattern id="g" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M60 0H0V60" fill="none" stroke="#e6dfbb" stroke-width="1"/></pattern></defs>' +
+      '<rect width="100%" height="100%" fill="#f8f4de"/><rect width="100%" height="100%" fill="url(#g)"/>' +
+      '<path d="M' + (w / 2 - 26) + ' ' + h / 2 + 'h52M' + w / 2 + ' ' + (h / 2 - 26) + 'v52" stroke="#606C38" stroke-width="2"/>' +
+      '<circle cx="' + w / 2 + '" cy="' + h / 2 + '" r="16" fill="none" stroke="#606C38" stroke-width="2"/>' +
+      '<text x="50%" y="' + (h / 2 + 70) + '" text-anchor="middle" font-family="Menlo,monospace" font-size="26" fill="#283618">TARUH FILE INI DI SINI</text>' +
+      '<text x="50%" y="' + (h / 2 + 108) + '" text-anchor="middle" font-family="Menlo,monospace" font-size="24" fill="#BC6C25">' + esc(file) + '</text></svg>';
     return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
   }
   function img(file, alt, kelas, rasio) {
@@ -42,21 +42,21 @@
   document.title = (I.judul || 'Storymap').replace(/\*/g, '');
   document.getElementById('lbJudul').textContent = (I.judul || '').replace(/\*/g, '') + ' · ' + (I.kegiatan || '');
   var t = I.tim || {};
+  var LOGO = [].concat(I.logo || []);
+  var logoHtml = function () { return LOGO.length ? '<div class="logo-baris">' + LOGO.map(function (l) { return img(l.file || l, l.nama || 'Logo', '', 1); }).join('') + '</div>' : ''; };
   document.getElementById('sampul').innerHTML = '<canvas id="kontur" aria-hidden="true"></canvas>' +
     '<div class="wrap"><div>' +
-    (I.logo ? img(I.logo, 'Logo penyelenggara', 'logo-kecil', 1) : '') +
+    logoHtml() +
     '<div class="kode">' + esc(I.kegiatan) + '</div>' +
     '<h1>' + sorotKata(I.judul) + '</h1><p class="sub">' + esc(I.subjudul) + '</p>' +
-    '<dl class="meta"><dt>Subtema</dt><dd>' + esc(I.subtema) + '</dd><dt>Wilayah</dt><dd>' + esc(I.wilayah) + '</dd>' +
-    '<dt>Tim</dt><dd>' + esc(t.nama) + '</dd><dt>Anggota</dt><dd>' + esc((t.anggota || []).join(' · ')) + '</dd>' +
-    (t.instansi ? '<dt>Instansi</dt><dd>' + esc(t.instansi) + '</dd>' : '') + '</dl>' +
+    (I.wilayah ? '<dl class="meta"><dt>Wilayah</dt><dd>' + esc(I.wilayah) + '</dd></dl>' : '') +
     '<a class="gulir" href="#b1">Mulai baca</a></div>' +
     '<figure style="margin:0"><div class="bingkai">' + img((I.sampul || {}).gambar, 'Sampul', 'zoom', 0.78) + '</div><figcaption>' + esc((I.sampul || {}).keterangan) + '</figcaption></figure></div>';
 
   /* --- bagian --- */
   var B = (I.bagian || []).filter(function (b) { return !(b.jenis === 'peta-web' && !b.alamat); });
   var GRAFIK = [], nBanding = 0, nomor = 0;
-  var WK = { merah: 'var(--bara)', hijau: 'var(--daun)', biru: 'var(--air)', kuning: 'var(--oker)' };
+  var WK = { merah: '#BC6C25', hijau: '#606C38', biru: '#DDA15E', kuning: '#DDA15E', oranye: '#BC6C25', olive: '#606C38', emas: '#DDA15E' };
 
   function blok(b) {
     switch (b.jenis) {
@@ -142,10 +142,14 @@
   var main = document.getElementById('cerita'); main.innerHTML = html;
 
   /* --- tepi (marginalia lembar peta) --- */
-  document.getElementById('tepi').innerHTML = '<div class="wrap"><div>' + (I.logo ? img(I.logo, 'Logo penyelenggara', 'logo-tepi', 1) : '') +
-    '<h3>Kegiatan</h3><p>' + esc(I.kegiatan) + '<br>Subtema: ' + esc(I.subtema) + '</p></div>' +
-    '<div><h3>Tim</h3><p><b>' + esc(t.nama) + '</b><br>' + esc((t.anggota || []).join(', ')) + (t.instansi ? '<br>' + esc(t.instansi) : '') + '</p></div>' +
-    '<div><h3>Sumber data</h3><ul>' + (I.sumberData || []).map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ul></div></div>';
+  document.getElementById('tepi').innerHTML = '<div class="wrap"><div>' + logoHtml() +
+    '<h3>Kegiatan</h3><p>' + esc(I.kegiatan) + '</p><h3 style="margin-top:18px">Subtema</h3><p>' + esc(I.subtema) + '</p></div>' +
+    '<div><h3>Tim' + (t.nama ? ' · ' + esc(t.nama) : '') + '</h3><dl class="peran">' +
+      (t.ketua ? '<dt>Ketua</dt><dd>' + esc(t.ketua) + '</dd>' : '') +
+      ((t.anggota || []).length ? '<dt>Anggota</dt><dd>' + (t.anggota || []).map(esc).join('<br>') + '</dd>' : '') + '</dl>' +
+      (t.instansi ? '<p style="margin-top:12px">' + esc(t.instansi) + '</p>' : '') + '</div>' +
+    '<div><h3>Sumber data</h3><ul>' + (I.sumberData || []).map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ul>' +
+    (I.metode ? '<p class="catatan-kecil">' + esc(I.metode) + '</p>' : '') + (I.catatanAI ? '<p class="catatan-kecil">' + esc(I.catatanAI) + '</p>' : '') + '</div></div>';
 
   pasangPenanda(document.body);
 
@@ -263,7 +267,7 @@
           var u = x / W, y = base + Math.sin(u * 5.2 + k * .35 + t) * 26 + Math.sin(u * 11.5 - k * .2 - t * 1.4) * 9 + Math.cos(u * 2.1 + t * .6) * 40 * (1 - u);
           if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
         }
-        ctx.strokeStyle = k % 5 === 0 ? 'rgba(159,207,122,.55)' : 'rgba(159,207,122,.22)';
+        ctx.strokeStyle = k % 5 === 0 ? 'rgba(221,161,94,.5)' : 'rgba(254,250,224,.14)';
         ctx.lineWidth = k % 5 === 0 ? 1.4 : 1; ctx.stroke();
       }
       if (gerak && tampil) requestAnimationFrame(gambar); else jalan = false;

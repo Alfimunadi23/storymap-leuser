@@ -26,11 +26,15 @@ window.ISI = {
   subtema: 'Mitigasi Bencana Hidrometeorologi',
   wilayah: 'DAS Tamiang, Aceh',
   tim: {
-    nama: 'Nama Tim',
-    anggota: ['Nama 1', 'Nama 2', 'Nama 3'],
-    instansi: 'Kampus atau komunitas'
+    nama: '',                              // isi nama tim kalau ada
+    ketua: 'Muhammad Farhan',
+    anggota: ['Nur Jalal', 'Alfi Munadi'],
+    instansi: 'Universitas Syiah Kuala'
   },
-  logo: 'foto/logo-haka.png',
+  logo: [
+    { file: 'foto/logo-haka.png', nama: 'Logo Yayasan HAkA' },
+    { file: 'foto/logo-usk.png',  nama: 'Logo Universitas Syiah Kuala' }
+  ],
   sampul: {
     gambar: 'peta/00-sampul.png',        // peta paling kuat atau foto banjir
     keterangan: 'Keterangan gambar sampul. Sumber: ...'
@@ -38,7 +42,7 @@ window.ISI = {
 
   /* ---------- ISI CERITA ----------
      Urutan mengikuti struktur storymap tim: 8 bagian utama.
-     Warna latar berganti sendiri (hutan, kabut, gambut, lumut).          */
+     Warna latar berganti sendiri: latar (krem), peta (olive), tua (hijau gelap).          */
   bagian: [
 
     /* ===== PEMBUKA (tanpa nomor) ===== */
@@ -116,7 +120,7 @@ window.ISI = {
             { label: '2025', peta: 'peta/03-kehilangan-2025.png', angka: [ { keterangan: 'Hutan hilang di DAS', nilai: '8.026', satuan: 'ha' } ],
               teks: 'Lonjakan terbesar. Sebagian besar terjadi November–Desember, saat bencana.' }
           ],
-          legenda: [ { warna: '#2f6b47', label: 'Hutan' }, { warna: '#e0412a', label: 'Hilang tahun ini' }, { warna: '#9fcf7a', label: 'Bertambah' } ]
+          legenda: [ { warna: '#606C38', label: 'Hutan' }, { warna: '#BC6C25', label: 'Hilang tahun ini' }, { warna: '#DDA15E', label: 'Bertambah' } ]
         },
         { jenis: 'grafik',
           subjudul: 'Kalau dijadikan grafik',
@@ -273,29 +277,6 @@ window.ISI = {
           ]
         }
       ]
-    },
-
-    /* ===== METODOLOGI (tanpa nomor) ===== */
-    { label: 'Metodologi', tanpaNomor: true,
-      judul: 'Datanya dari mana',
-      blok: [
-        { jenis: 'tabel',
-          paragraf: [ 'Semua peta diolah di QGIS. Luas dihitung dalam proyeksi UTM 47N (EPSG:32647).' ],
-          kolom: ['Data', 'Sumber', 'Tahun', 'Dipakai di bagian'],
-          baris: [
-            ['Batas DAS, KEL, tutupan & kehilangan hutan', 'HAkA (data dasar panitia)', '2018–2025', '1, 3'],
-            ['Batas kecamatan dan desa', 'BIG, Dukcapil', '2025–2026', '1, 7'],
-            ['Elevasi dan kemiringan lereng', 'DEMNAS (BIG)', '—', '2, 3'],
-            ['Sungai dan sempadan 100 m', 'Turunan DEM, olahan tim', '—', '2, 4'],
-            ['NDVI vegetasi', '…', '2019–2026', '4'],
-            ['Curah hujan tahunan', 'CHIRPS', '2018–2025', '5'],
-            ['Hujan harian dan akumulasi 3 hari', 'NASA GPM IMERG', 'Nov 2025', '5'],
-            ['Genangan banjir', 'UNOSAT', '28 Nov 2025', '6, 7'],
-            ['Jalan utama', 'OpenStreetMap', '2025', '7']
-          ],
-          catatanAI: 'Soal AI: tulis jujur bagian mana yang dibantu AI, sama seperti di Surat Pernyataan Orisinalitas.'
-        }
-      ]
     }
   ],
 
@@ -305,8 +286,13 @@ window.ISI = {
     teks: 'Satu paragraf pendek: ajakan, harapan, atau pengingat untuk pembaca.'
   },
   sumberData: [
-    'Data dasar panitia: Yayasan HAkA',
-    'Batas administrasi: BIG 2025, Dukcapil',
-    'DEMNAS (BIG), CHIRPS, NASA GPM IMERG, UNOSAT, OpenStreetMap'
-  ]
+    'Batas DAS, KEL, tutupan & kehilangan hutan: Yayasan HAkA (data dasar panitia)',
+    'Batas kecamatan & desa: BIG 2025, Dukcapil',
+    'Elevasi & lereng: DEMNAS (BIG)',
+    'Curah hujan: CHIRPS, NASA GPM IMERG',
+    'Genangan banjir: UNOSAT (28 Nov 2025)',
+    'Jalan: OpenStreetMap'
+  ],
+  metode: 'Semua peta diolah di QGIS; luas dihitung dalam UTM 47N (EPSG:32647).',
+  catatanAI: 'Penggunaan AI dideklarasikan dalam Surat Pernyataan Orisinalitas.'
 };
