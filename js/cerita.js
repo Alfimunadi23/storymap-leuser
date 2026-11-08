@@ -55,58 +55,90 @@
 
   /* --- bagian --- */
   var B = (I.bagian || []).filter(function (b) { return !(b.jenis === 'peta-web' && !b.alamat); });
-  var total = B.length;
-  var html = B.map(function (b, i) {
-    var no = i + 1, id = 'b' + no;
-    var kep = '<div class="kepala muncul"><div class="no">LEMBAR<b>' + pad2(no) + '</b><span>' + esc(b.label) + '</span></div><div>' +
-      (b.judul ? '<h2>' + sorotKata(b.judul) + '</h2>' : '') + (b.pengantar ? '<p class="pengantar">' + esc(b.pengantar) + '</p>' : '') + '</div></div>';
-    var isi = '';
+  var GRAFIK = [], nBanding = 0, nomor = 0;
+  var WK = { merah: 'var(--bara)', hijau: 'var(--daun)', biru: 'var(--air)', kuning: 'var(--oker)' };
+
+  function blok(b) {
     switch (b.jenis) {
       case 'teks':
-        isi = '<div class="isi-kolom">' + paragraf(b.paragraf) + '</div>' + gambarBingkai(b.gambar); break;
+        return (b.subjudul ? '<h3 class="sub-blok isi-lebar">' + sorotKata(b.subjudul) + '</h3>' : '') +
+          '<div class="isi-kolom">' + paragraf(b.paragraf) + '</div>' + gambarBingkai(b.gambar);
       case 'angka':
-        isi = '<div class="angka isi-lebar muncul">' + (b.isi || []).map(function (a) {
+        return '<div class="angka isi-lebar muncul">' + (b.isi || []).map(function (a) {
           return '<div><b>' + esc(a.nilai) + '<small>' + esc(a.satuan) + '</small></b><span>' + esc(a.keterangan) + '</span><span class="sumber">' + esc(a.sumber) + '</span></div>';
-        }).join('') + '</div>'; break;
+        }).join('') + '</div>';
       case 'peta-scroll':
-        isi = '<div class="scroll"><div class="tahap"><div class="bingkai"><div class="tumpuk">' +
+        return '<div class="scroll"><div class="tahap"><div class="bingkai"><div class="tumpuk">' +
           (b.langkah || []).map(function (l, k) { return img(l.peta, l.judul, 'zoom' + (k === 0 ? ' aktif' : ''), 0.72); }).join('') +
           '</div></div><div class="titik-langkah">' + (b.langkah || []).map(function (l, k) { return '<i' + (k === 0 ? ' class="aktif"' : '') + '></i>'; }).join('') + '</div><div class="sumber" data-sumber>' + esc(((b.langkah || [])[0] || {}).sumber) + '</div></div>' +
           '<div class="langkah-daftar">' + (b.langkah || []).map(function (l, k) {
             return '<div class="langkah' + (k === 0 ? ' aktif' : '') + '" data-k="' + k + '" data-sumber="' + esc(l.sumber) + '"><div class="kode"><b>' + pad2(k + 1) + '</b> / ' + pad2((b.langkah || []).length) + '</div><h3>' + esc(l.judul) + '</h3><p>' + esc(l.teks) + '</p></div>';
-          }).join('') + '</div></div>'; break;
+          }).join('') + '</div></div>';
+      case 'peta-tab':
+        var tabs = b.tab || [];
+        return (b.paragraf ? '<div class="isi-kolom" style="margin-bottom:28px">' + paragraf(b.paragraf) + '</div>' : '') +
+          '<div class="ptab isi-lebar' + (b.waktu ? ' waktu' : '') + '" data-ptab>' +
+          (b.subjudul ? '<h3 class="sub-blok">' + sorotKata(b.subjudul) + '</h3>' : '') +
+          '<div class="ptab-nav" role="tablist" aria-label="' + esc(b.subjudul || 'Pilih peta') + '">' +
+          tabs.map(function (t, k) { return '<button type="button" role="tab" aria-selected="' + (k === 0) + '" data-k="' + k + '"' + (k === 0 ? ' class="aktif"' : '') + '>' + esc(t.label) + '</button>'; }).join('') +
+          (b.putar ? '<button type="button" class="ptab-putar">▶ Putar</button>' : '') + '</div>' +
+          '<div class="ptab-badan"><div class="bingkai"><div class="tumpuk">' +
+          tabs.map(function (t, k) { return img(t.peta, t.label, 'zoom' + (k === 0 ? ' aktif' : ''), 0.72); }).join('') +
+          '<span class="ptab-cap">' + esc((tabs[0] || {}).label) + '</span></div></div>' +
+          '<div class="ptab-info">' + tabs.map(function (t, k) {
+            return '<div class="ptab-isi" data-k="' + k + '"' + (k ? ' hidden' : '') + '><div class="ptab-besar">' + esc(t.label) + '</div>' +
+              (t.angka ? '<dl>' + t.angka.map(function (a) { return '<div><dt>' + esc(a.keterangan) + '</dt><dd><b>' + esc(a.nilai) + '</b> ' + esc(a.satuan || '') + '</dd></div>'; }).join('') + '</dl>' : '') +
+              (t.teks ? '<p>' + esc(t.teks) + '</p>' : '') + (t.sumber ? '<div class="sumber">' + esc(t.sumber) + '</div>' : '') + '</div>';
+          }).join('') + '</div></div>' +
+          (b.sumber ? '<div class="sumber">' + esc(b.sumber) + '</div>' : '') +
+          (b.legenda ? '<div class="legenda">' + b.legenda.map(function (l) { return '<span><i style="background:' + esc(l.warna) + '"></i>' + esc(l.label) + '</span>'; }).join('') + '</div>' : '') +
+          '</div>';
       case 'grafik':
-        isi = '<figure class="grafik isi-lebar muncul" style="margin-top:0;margin-right:0;margin-bottom:0" data-grafik="' + i + '"><svg></svg><div class="tip"></div><figcaption>' + esc(b.catatan ? b.catatan + ' ' : '') + esc(b.sumber) + '</figcaption></figure>'; break;
+        GRAFIK.push(b);
+        return (b.subjudul ? '<h3 class="sub-blok isi-lebar">' + sorotKata(b.subjudul) + '</h3>' : '') +
+          '<figure class="grafik isi-lebar muncul" style="margin-top:0;margin-right:0;margin-bottom:0" data-grafik="' + (GRAFIK.length - 1) + '"><svg></svg><div class="tip"></div><figcaption>' + esc(b.catatan ? b.catatan + ' ' : '') + esc(b.sumber) + '</figcaption></figure>';
       case 'perbandingan':
-        isi = '<figure class="isi-lebar" style="margin:0"><div class="bingkai banding">' + img((b.kanan || {}).gambar, (b.kanan || {}).label, '', 0.62) +
+        nBanding++;
+        return (b.subjudul ? '<h3 class="sub-blok isi-lebar">' + sorotKata(b.subjudul) + '</h3>' : '') +
+          '<figure class="isi-lebar" style="margin-top:0;margin-right:0;margin-bottom:0"><div class="bingkai banding">' + img((b.kanan || {}).gambar, (b.kanan || {}).label, '', 0.62) +
           '<div class="atas">' + img((b.kiri || {}).gambar, (b.kiri || {}).label, '', 0.62) + '</div><div class="garis-geser"></div>' +
           '<span class="lbl k">' + esc((b.kiri || {}).label) + '</span><span class="lbl n">' + esc((b.kanan || {}).label) + '</span>' +
-          '<input type="range" min="0" max="100" value="50" aria-label="Geser perbandingan" id="geser' + no + '"></div><figcaption>' + esc(b.sumber) + '</figcaption></figure>'; break;
+          '<input type="range" min="0" max="100" value="50" aria-label="Geser perbandingan" id="geser' + nBanding + '"></div><figcaption>' + esc(b.sumber) + '</figcaption></figure>';
       case 'kutipan':
-        isi = '<div class="kutipan"><blockquote>' + esc(b.teks) + '</blockquote><cite class="kode">' + esc(b.sumber) + '</cite></div>' +
-          (b.paragraf ? '<div class="isi-kolom" style="margin-top:32px">' + paragraf(b.paragraf) + '</div>' : ''); break;
+        return '<div class="kutipan"><blockquote>' + esc(b.teks) + '</blockquote><cite class="kode">' + esc(b.sumber) + '</cite></div>' +
+          (b.paragraf ? '<div class="isi-kolom" style="margin-top:32px">' + paragraf(b.paragraf) + '</div>' : '');
       case 'kartu':
-        var W = { merah: 'var(--bahaya)', hijau: 'var(--hutan)', biru: 'var(--air)', kuning: 'var(--kuning)' };
-        isi = gambarBingkai(b.gambar).replace('margin:36px 0 0 174px', 'margin:0 0 0 174px') +
+        return (b.subjudul ? '<h3 class="sub-blok isi-lebar">' + sorotKata(b.subjudul) + '</h3>' : '') +
+          gambarBingkai(b.gambar).replace('margin:36px 0 0 174px', 'margin:0 0 0 174px') +
           '<div class="kartu isi-lebar muncul">' + (b.isi || []).map(function (k) {
-            return '<div style="--c:' + (W[k.warna] || 'var(--tinta)') + '"><span class="kode">' + esc(k.warna || '') + '</span><h3>' + esc(k.judul) + '</h3><p>' + esc(k.teks) + '</p></div>';
-          }).join('') + '</div>'; break;
+            return '<div style="--c:' + (WK[k.warna] || 'var(--aksen)') + '"><span class="kode">' + esc(k.label || k.warna || '') + '</span><h3>' + esc(k.judul) + '</h3><p>' + esc(k.teks) + '</p></div>';
+          }).join('') + '</div>';
       case 'galeri':
-        isi = (b.paragraf ? '<div class="isi-kolom">' + paragraf(b.paragraf) + '</div>' : '') + '<div class="galeri isi-lebar muncul">' + (b.foto || []).map(function (f) {
+        return (b.paragraf ? '<div class="isi-kolom">' + paragraf(b.paragraf) + '</div>' : '') + '<div class="galeri isi-lebar muncul">' + (b.foto || []).map(function (f) {
           return '<figure>' + img(f.file, f.keterangan, 'zoom', 0.75) + '<figcaption>' + esc(f.keterangan) + '</figcaption></figure>';
-        }).join('') + '</div>'; break;
+        }).join('') + '</div>';
       case 'peta-web':
-        isi = '<div class="isi-kolom"><p>' + esc(b.teks) + '</p></div><div class="bingkai peta-web isi-lebar" style="margin-top:28px"><iframe src="' + esc(b.alamat) + '" title="' + esc(b.judul) + '" loading="lazy"></iframe></div>'; break;
+        return '<div class="isi-kolom"><p>' + esc(b.teks) + '</p></div><div class="bingkai peta-web isi-lebar" style="margin-top:28px"><iframe src="' + esc(b.alamat) + '" title="' + esc(b.judul) + '" loading="lazy"></iframe></div>';
       case 'tabel':
-        isi = (b.paragraf ? '<div class="isi-kolom">' + paragraf(b.paragraf) + '</div>' : '') + '<div class="tabel isi-lebar"><table><thead><tr>' +
+        return (b.paragraf ? '<div class="isi-kolom">' + paragraf(b.paragraf) + '</div>' : '') + '<div class="tabel isi-lebar"><table><thead><tr>' +
           (b.kolom || []).map(function (c) { return '<th>' + esc(c) + '</th>'; }).join('') + '</tr></thead><tbody>' +
           (b.baris || []).map(function (r) { return '<tr>' + r.map(function (c) { return '<td>' + esc(c) + '</td>'; }).join('') + '</tr>'; }).join('') +
-          '</tbody></table></div>' + (b.catatanAI ? '<p class="catatan-ai isi-lebar">' + esc(b.catatanAI) + '</p>' : ''); break;
+          '</tbody></table></div>' + (b.catatanAI ? '<p class="catatan-ai isi-lebar">' + esc(b.catatanAI) + '</p>' : '');
     }
+    return '';
+  }
+
+  var total = B.filter(function (b) { return !b.tanpaNomor; }).length;
+  var html = B.map(function (b, i) {
+    var no = b.tanpaNomor ? 0 : ++nomor, id = 'b' + (i + 1);
+    var kep = '<div class="kepala muncul"><div class="no">' + (no ? 'BAGIAN<b>' + pad2(no) + '</b>' : '<b class="tanpa">—</b>') + '<span>' + esc(b.label) + '</span></div><div>' +
+      (b.judul ? '<h2>' + sorotKata(b.judul) + '</h2>' : '') + (b.pengantar ? '<p class="pengantar">' + esc(b.pengantar) + '</p>' : '') + '</div></div>';
+    var daftar = b.blok || [b];
+    var isi = daftar.map(function (x) { return '<div class="blok">' + blok(x) + '</div>'; }).join('');
     return '<section class="bagian" data-warna="' + (b.warna || WARNA[i % WARNA.length]) + '" id="' + id + '" data-label="' + esc(b.label) + '" data-no="' + no + '"><div class="wrap">' + kep + isi + '</div></section>';
   }).join('');
   var P = I.penutup || {};
-  html += '<section class="penutup" data-warna="' + WARNA[total % WARNA.length] + '" data-label="Penutup" data-no="' + total + '"><div class="wrap"><div class="kode">Penutup</div><h2 style="margin-top:14px">' + esc(P.judul) + '</h2><p>' + esc(P.teks) + '</p></div></section>';
+  html += '<section class="penutup" data-warna="' + WARNA[B.length % WARNA.length] + '" data-label="Penutup" data-no="0"><div class="wrap"><div class="kode">Penutup</div><h2 style="margin-top:14px">' + sorotKata(P.judul) + '</h2><p>' + esc(P.teks) + '</p></div></section>';
   var main = document.getElementById('cerita'); main.innerHTML = html;
 
   /* --- tepi (marginalia lembar peta) --- */
@@ -121,7 +153,13 @@
   function grafik(fig, b) {
     var svg = fig.querySelector('svg'), w = Math.max(320, fig.clientWidth), h = w < 520 ? 260 : 340;
     var m = { t: 28, r: 16, b: 34, l: 56 }, d = b.data || [], n = d.length;
-    var maks = Math.max.apply(null, d.map(function (x) { return +x[1]; }).concat([1]));
+    var maks = Math.max.apply(null, d.map(function (x) { return +x[1]; }).concat([0]));
+    if (!(maks > 0)) {
+      svg.setAttribute('viewBox', '0 0 ' + w + ' 160');
+      svg.innerHTML = '<rect x="0" y="0" width="' + w + '" height="160" fill="none" stroke="rgba(' + (getComputedStyle(fig).getPropertyValue('--g').trim() || '241,234,216') + ',.3)" stroke-dasharray="6 6"/>' +
+        '<text x="' + w / 2 + '" y="76" text-anchor="middle" class="nilai">Grafik belum diisi</text><text x="' + w / 2 + '" y="100" text-anchor="middle">Tulis angkanya di js/isi.js, bagian "' + esc(b.subjudul || b.judul || 'grafik') + '"</text>';
+      return;
+    }
     var step = Math.pow(10, Math.floor(Math.log10(maks))), top = Math.ceil(maks / step) * step; if (top / step < 3) { step /= 2; top = Math.ceil(maks / step) * step; }
     var y = function (v) { return m.t + (h - m.t - m.b) * (1 - v / top); };
     var bw = (w - m.l - m.r) / n, x = function (k) { return m.l + bw * k + bw / 2; };
@@ -155,7 +193,7 @@
       r.addEventListener('mouseleave', function () { tip.classList.remove('on'); });
     });
   }
-  function semuaGrafik() { main.querySelectorAll('[data-grafik]').forEach(function (f) { grafik(f, B[+f.dataset.grafik]); }); }
+  function semuaGrafik() { main.querySelectorAll('[data-grafik]').forEach(function (f) { grafik(f, GRAFIK[+f.dataset.grafik]); }); }
   semuaGrafik(); var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(semuaGrafik, 150); });
 
   /* --- peta scroll --- */
@@ -175,8 +213,9 @@
     /* --- nomor lembar di bar atas --- */
     var lbL = document.getElementById('lbLabel'), lbN = document.getElementById('lbNo');
     lbN.textContent = '00 / ' + pad2(total);
+    var noTxt = function (n) { return +n ? pad2(+n) + ' / ' + pad2(total) : '—'; };
     var ioS = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { if (e.isIntersecting) { lbL.textContent = e.target.dataset.label; lbN.textContent = pad2(+e.target.dataset.no) + ' / ' + pad2(total); } });
+      es.forEach(function (e) { if (e.isIntersecting) { lbL.textContent = e.target.dataset.label; lbN.textContent = noTxt(e.target.dataset.no); } });
     }, { rootMargin: '-40% 0px -55% 0px' });
     main.querySelectorAll('[data-label]').forEach(function (s) { ioS.observe(s); });
   }
@@ -233,6 +272,30 @@
     addEventListener('resize', function () { ukur(); if (!jalan) { jalan = true; requestAnimationFrame(gambar); } });
     if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { tampil = es[0].isIntersecting; if (tampil && !jalan) { jalan = true; requestAnimationFrame(gambar); } }).observe(cv);
   })();
+
+  /* --- peta per tahun / per kategori --- */
+  document.querySelectorAll('[data-ptab]').forEach(function (box) {
+    var btn = [].slice.call(box.querySelectorAll('.ptab-nav [data-k]')), imgs = box.querySelectorAll('.tumpuk img'),
+      info = box.querySelectorAll('.ptab-isi'), cap = box.querySelector('.ptab-cap'), play = box.querySelector('.ptab-putar'), cur = 0, timer = null;
+    function pilih(k) {
+      cur = k;
+      btn.forEach(function (b, j) { b.classList.toggle('aktif', j === k); b.classList.toggle('lewat', j < k); b.setAttribute('aria-selected', j === k); });
+      imgs.forEach(function (im, j) { im.classList.toggle('aktif', j === k); });
+      info.forEach(function (d, j) { d.hidden = j !== k; });
+      if (cap) cap.textContent = btn[k].textContent;
+    }
+    function stop() { if (timer) { clearInterval(timer); timer = null; if (play) play.textContent = '▶ Putar'; } }
+    btn.forEach(function (b) { b.addEventListener('click', function () { stop(); pilih(+b.dataset.k); }); });
+    box.querySelector('.ptab-nav').addEventListener('keydown', function (e) {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      e.preventDefault(); var k = (cur + (e.key === 'ArrowRight' ? 1 : -1) + btn.length) % btn.length; stop(); pilih(k); btn[k].focus();
+    });
+    if (play) play.addEventListener('click', function () {
+      if (timer) { stop(); return; }
+      play.textContent = '❚❚ Jeda'; if (cur === btn.length - 1) pilih(0);
+      timer = setInterval(function () { if (cur >= btn.length - 1) { stop(); return; } pilih(cur + 1); }, 1700);
+    });
+  });
 
   /* --- perbesar gambar --- */
   var lb = document.getElementById('lightbox'), lbImg = lb.querySelector('img'), lbCap = lb.querySelector('p');

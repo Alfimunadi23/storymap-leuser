@@ -3,25 +3,28 @@
    ---------------------------------------------------------------------
    • Ganti tulisan di antara tanda kutip '...'. Tanda kutip, koma, dan
      kurung { } [ ] jangan ikut dihapus.
-   • Peta : ekspor dari QGIS (PNG/JPG), taruh di folder "peta/", lalu tulis
-            namanya di bawah, misal 'peta/peta-1.png'.
-   • Foto : taruh di folder "foto/".
-   • Kalau gambarnya belum ada, di website muncul kotak kosong bertuliskan
-     nama file yang perlu kamu taruh.
-   • Jenis bagian: 'teks', 'peta-scroll', 'angka', 'grafik', 'perbandingan',
-     'kutipan', 'kartu', 'tabel', 'galeri', 'peta-web'.
-     Yang tidak dipakai hapus saja, yang kurang tinggal salin.
-   • Kata yang diapit *bintang* akan berwarna, contoh: 'Air dari *Hulu*'.
+   • Peta : ekspor dari Layout QGIS (PNG, 150–200 dpi), taruh di folder
+            "peta/" dengan nama PERSIS seperti yang tertulis di bawah.
+            Selama filenya belum ada, di website muncul kotak bertuliskan
+            nama file yang harus kamu taruh.
+   • Satu bagian bisa berisi beberapa "blok" (peta, grafik, teks, dst).
+   • Jenis blok: 'teks', 'angka', 'peta-scroll', 'peta-tab', 'grafik',
+     'perbandingan', 'kutipan', 'kartu', 'galeri', 'tabel', 'peta-web'.
+   • 'peta-tab' = peta yang bisa diklik per tahun / per kategori.
+       waktu: true  → tombolnya tampil sebagai garis waktu
+       putar: true  → ada tombol ▶ Putar untuk memutar otomatis
+   • Kata yang diapit *bintang* jadi berwarna, contoh: 'Air dari *Hulu*'.
+   • Angka bertanda '…' belum diisi. Ganti dengan hasil olahan kalian.
    ===================================================================== */
 
 window.ISI = {
 
-  /* ---------- 1. IDENTITAS (wajib ada untuk lomba) ---------- */
-  judul: 'Judul *Cerita* Kalian',
-  subjudul: 'Satu kalimat yang bikin orang paham ini cerita tentang apa.',
+  /* ---------- IDENTITAS (wajib ada untuk lomba) ---------- */
+  judul: 'Air dari *Hulu*',
+  subjudul: 'Membaca DAS Tamiang dari pegunungan Leuser sampai ke rumah-rumah yang terendam November 2025.',
   kegiatan: 'Leuser GeoStory Challenge | Festival Rimba Leuser 2026',
   subtema: 'Mitigasi Bencana Hidrometeorologi',
-  wilayah: 'Nama tempat yang kalian bahas, misal DAS Tamiang',
+  wilayah: 'DAS Tamiang, Aceh',
   tim: {
     nama: 'Nama Tim',
     anggota: ['Nama 1', 'Nama 2', 'Nama 3'],
@@ -29,146 +32,281 @@ window.ISI = {
   },
   logo: 'foto/logo-haka.png',
   sampul: {
-    gambar: 'foto/sampul.jpg',          // foto atau peta paling kuat untuk pembuka
-    keterangan: 'Foto apa ini, diambil di mana. Sumber: ...'
+    gambar: 'peta/00-sampul.png',        // peta paling kuat atau foto banjir
+    keterangan: 'Keterangan gambar sampul. Sumber: ...'
   },
 
-  /* ---------- 2. ISI CERITA (urut dari atas ke bawah) ----------
-     Warna latar berganti sendiri: hutan, kabut, gambut, lumut.
-     Mau pilih sendiri? Tambahkan  warna: 'kabut',  di bagian itu. */
+  /* ---------- ISI CERITA ----------
+     Urutan mengikuti struktur storymap tim: 8 bagian utama.
+     Warna latar berganti sendiri (hutan, kabut, gambut, lumut).          */
   bagian: [
 
-    { jenis: 'teks',
-      label: 'Pembuka',
-      judul: 'Mulai dari momen yang paling bikin penasaran',
-      paragraf: [
-        'Ceritakan kejadiannya dulu: kapan, di mana, apa yang terjadi. Dua atau tiga kalimat sudah cukup.',
-        'Lalu ajukan pertanyaan yang mau kalian jawab lewat peta-peta di bawah.'
+    /* ===== PEMBUKA (tanpa nomor) ===== */
+    { label: 'Pembuka', tanpaNomor: true,
+      judul: 'Akhir November 2025, air datang membawa lumpur dan kayu',
+      blok: [
+        { jenis: 'teks', paragraf: [
+          'Ceritakan singkat kejadian banjir di DAS Tamiang: kapan, di mana, seberapa parah.',
+          'Lalu ajukan pertanyaan yang mau dijawab storymap ini: apa yang terjadi di hulu sebelum air sampai ke hilir?'
+        ]},
+        { jenis: 'angka', isi: [
+          { nilai: '494.988', satuan: 'ha',  keterangan: 'Luas DAS Tamiang', sumber: 'Data dasar panitia (HAkA)' },
+          { nilai: '…',       satuan: 'ha',  keterangan: 'Luas genangan 28 November 2025', sumber: 'UNOSAT' },
+          { nilai: '…',       satuan: 'desa', keterangan: 'Desa yang terpapar banjir', sumber: 'Olahan tim' },
+          { nilai: '8.026',   satuan: 'ha',  keterangan: 'Hutan hilang di DAS Tamiang sepanjang 2025', sumber: 'Data dasar panitia (HAkA)' }
+        ]}
       ]
     },
 
-    { jenis: 'angka',
-      label: 'Sekilas',
-      judul: 'Beberapa angka dulu',
-      isi: [
-        { nilai: '000.000', satuan: 'ha',   keterangan: 'Misal: luas wilayah yang dibahas', sumber: 'Sumber: ...' },
-        { nilai: '00',      satuan: '%',    keterangan: 'Misal: hutan yang masih tersisa', sumber: 'Sumber: ...' },
-        { nilai: '0.000',   satuan: 'ha',   keterangan: 'Misal: hutan yang hilang', sumber: 'Sumber: ...' },
-        { nilai: '000',     satuan: 'jiwa', keterangan: 'Misal: warga yang terdampak', sumber: 'Sumber: ...' }
-      ]
-    },
-
-    { jenis: 'peta-scroll',
-      label: 'Wilayah',
-      judul: 'Kenalan dulu dengan tempatnya',
+    /* ===== 1. MENGENAL DAS TAMIANG ===== */
+    { label: 'Mengenal DAS',
+      judul: 'Kenalan dulu dengan *DAS Tamiang*',
       pengantar: 'Gulir pelan-pelan, petanya ikut berganti.',
-      langkah: [
-        { peta: 'peta/peta-1.png', judul: 'Letaknya di mana', teks: 'Tunjukkan posisinya di Aceh dan di Kawasan Ekosistem Leuser.', sumber: 'Sumber: batas administrasi BIG 2025' },
-        { peta: 'peta/peta-2.png', judul: 'Hulu sampai hilir', teks: 'Bagian mana yang pegunungan, mana yang dataran, di mana sungainya bermuara.', sumber: 'Sumber: DEMNAS, BIG' },
-        { peta: 'peta/peta-3.png', judul: 'Siapa yang tinggal di sana', teks: 'Desa dan kecamatan yang ada di sepanjang aliran sungai.', sumber: 'Sumber: BPS' }
+      blok: [
+        { jenis: 'peta-scroll', langkah: [
+          { peta: 'peta/01-lokasi-das-kel.png', judul: 'Di mana letaknya', teks: 'Posisi DAS Tamiang di Aceh dan irisannya dengan Kawasan Ekosistem Leuser.', sumber: 'Sumber: batas DAS dan KEL (data dasar panitia)' },
+          { peta: 'peta/01-administrasi.png', judul: 'Masuk wilayah siapa', teks: 'Kabupaten, kecamatan, dan desa yang ada di dalam DAS.', sumber: 'Sumber: BIG 2025, Dukcapil' },
+          { peta: 'peta/01-hulu-tengah-hilir.png', judul: 'Hulu, tengah, hilir', teks: 'Pembagian zona DAS dan lima sub-DAS. Hulunya di pegunungan, hilirnya di pesisir Selat Malaka.', sumber: 'Sumber: zona dan sub-DAS olahan tim' }
+        ]}
       ]
     },
 
-    { jenis: 'peta-scroll',
-      label: 'Perubahan',
-      judul: 'Apa yang berubah',
-      pengantar: 'Bandingkan dulu dan sekarang.',
-      langkah: [
-        { peta: 'peta/peta-4.png', judul: 'Dulu', teks: 'Seperti apa kondisinya di tahun awal.', sumber: 'Sumber: ...' },
-        { peta: 'peta/peta-5.png', judul: 'Sekarang', teks: 'Apa yang hilang, dan paling banyak di mana.', sumber: 'Sumber: ...' }
+    /* ===== 2. KONDISI FISIK HULU ===== */
+    { label: 'Kondisi fisik',
+      judul: 'Seperti apa *bentuk* hulunya',
+      pengantar: 'Klik tiap tab untuk melihat petanya.',
+      blok: [
+        { jenis: 'peta-tab',
+          subjudul: 'Elevasi, lereng, dan sungai',
+          tab: [
+            { label: 'Elevasi', peta: 'peta/02-elevasi.png', teks: 'Bagian mana yang tinggi dan mana yang rendah.',
+              angka: [ { keterangan: 'Titik tertinggi', nilai: '…', satuan: 'mdpl' }, { keterangan: 'Titik terendah', nilai: '…', satuan: 'mdpl' } ],
+              sumber: 'Sumber: DEMNAS (BIG)' },
+            { label: 'Kemiringan lereng', peta: 'peta/02-lereng.png', teks: 'Lereng curam lebih mudah longsor kalau hutannya hilang.',
+              angka: [ { keterangan: 'Luas lereng > 25%', nilai: '…', satuan: 'ha' } ],
+              sumber: 'Sumber: turunan DEMNAS, olahan tim' },
+            { label: 'Jaringan sungai', peta: 'peta/02-sungai.png', teks: 'Anak-anak sungai yang berkumpul ke Sungai Tamiang.',
+              angka: [ { keterangan: 'Panjang sungai utama', nilai: '…', satuan: 'km' } ],
+              sumber: 'Sumber: turunan DEM, olahan tim' }
+          ]
+        }
       ]
     },
 
-    { jenis: 'grafik',
-      label: 'Data',
-      judul: 'Kalau dilihat dari tahun ke tahun',
-      tipe: 'garis',                     // 'garis' atau 'batang'
-      satuan: 'ha',
-      sorot: '2025',                      // tahun yang mau ditonjolkan, boleh dikosongkan ''
-      data: [
-        ['2019', 100], ['2020', 120], ['2021', 90], ['2022', 80],
-        ['2023', 95],  ['2024', 110], ['2025', 300]
-      ],
-      catatan: 'Angka contoh, ganti dengan hasil olahan kalian.',
-      sumber: 'Sumber: ...'
-    },
-
-    { jenis: 'perbandingan',
-      label: 'Sebelum–sesudah',
-      judul: 'Geser dan lihat bedanya',
-      kiri:  { gambar: 'peta/sebelum.png', label: 'Sebelum' },
-      kanan: { gambar: 'peta/sesudah.png', label: 'Sesudah' },
-      sumber: 'Sumber: citra satelit ...'
-    },
-
-    { jenis: 'teks',
-      label: 'Analisis',
-      judul: 'Jadi, apa artinya?',
-      paragraf: [
-        'Ceritakan singkat cara kalian mengolah datanya, misalnya ditumpuk dengan peta lereng lalu dihitung luasnya.',
-        'Lalu sampaikan temuannya pakai angka. Hati-hati: tulis sebagai "berkaitan", jangan langsung "menyebabkan".'
-      ],
-      gambar: { file: 'peta/peta-analisis.png', keterangan: 'Peta hasil olahan tim. Sumber: ...' }
-    },
-
-    { jenis: 'galeri',
-      label: 'Dampak',
-      judul: 'Yang dirasakan warga',
-      paragraf: ['Apa yang terjadi di lapangan. Foto sendiri lebih kuat daripada foto dari internet.'],
-      foto: [
-        { file: 'foto/foto-1.jpg', keterangan: 'Keterangan foto. Sumber: ...' },
-        { file: 'foto/foto-2.jpg', keterangan: 'Keterangan foto. Sumber: ...' },
-        { file: 'foto/foto-3.jpg', keterangan: 'Keterangan foto. Sumber: ...' }
+    /* ===== 3. DINAMIKA TUTUPAN HUTAN ===== */
+    { label: 'Tutupan hutan',
+      judul: 'Hutannya *berkurang* dari tahun ke tahun',
+      pengantar: 'Tiga cara melihat perubahan hutan di DAS Tamiang.',
+      blok: [
+        { jenis: 'perbandingan',
+          subjudul: 'Geser: 2018 dibanding 2025',
+          kiri:  { gambar: 'peta/03-tutupan-2018.png', label: '2018' },
+          kanan: { gambar: 'peta/03-tutupan-2025.png', label: '2025' },
+          sumber: 'Sumber: tutupan hutan KEL (data dasar panitia), olahan tim'
+        },
+        { jenis: 'peta-tab', waktu: true, putar: true,
+          subjudul: 'Klik tahunnya: hutan yang hilang',
+          tab: [
+            { label: '2019', peta: 'peta/03-kehilangan-2019.png', angka: [ { keterangan: 'Hutan hilang di DAS', nilai: '776', satuan: 'ha' } ] },
+            { label: '2020', peta: 'peta/03-kehilangan-2020.png', angka: [ { keterangan: 'Hutan hilang di DAS', nilai: '1.001', satuan: 'ha' } ] },
+            { label: '2021', peta: 'peta/03-kehilangan-2021.png', angka: [ { keterangan: 'Hutan hilang di DAS', nilai: '489', satuan: 'ha' } ] },
+            { label: '2022', peta: 'peta/03-kehilangan-2022.png', angka: [ { keterangan: 'Hutan hilang di DAS', nilai: '240', satuan: 'ha' } ] },
+            { label: '2023', peta: 'peta/03-kehilangan-2023.png', angka: [ { keterangan: 'Hutan hilang di DAS', nilai: '199', satuan: 'ha' } ] },
+            { label: '2024', peta: 'peta/03-kehilangan-2024.png', angka: [ { keterangan: 'Hutan hilang di DAS', nilai: '229', satuan: 'ha' } ] },
+            { label: '2025', peta: 'peta/03-kehilangan-2025.png', angka: [ { keterangan: 'Hutan hilang di DAS', nilai: '8.026', satuan: 'ha' } ],
+              teks: 'Lonjakan terbesar. Sebagian besar terjadi November–Desember, saat bencana.' }
+          ],
+          legenda: [ { warna: '#2f6b47', label: 'Hutan' }, { warna: '#e0412a', label: 'Hilang tahun ini' }, { warna: '#9fcf7a', label: 'Bertambah' } ]
+        },
+        { jenis: 'grafik',
+          subjudul: 'Kalau dijadikan grafik',
+          tipe: 'batang', satuan: 'ha', sorot: '2025',
+          data: [ ['2019', 776], ['2020', 1001], ['2021', 489], ['2022', 240], ['2023', 199], ['2024', 229], ['2025', 8026] ],
+          catatan: 'Angka dari tabel data dasar panitia (lembar DAS). Ganti kalau hasil olahan kalian berbeda.',
+          sumber: 'Sumber: HAkA'
+        },
+        { jenis: 'peta-tab',
+          subjudul: 'Hutan hilang di lereng mana',
+          tab: [
+            { label: 'Landai', peta: 'peta/03-lereng-landai.png', angka: [ { keterangan: 'Hutan hilang 2025', nilai: '…', satuan: 'ha' } ] },
+            { label: 'Curam', peta: 'peta/03-lereng-curam.png', angka: [ { keterangan: 'Hutan hilang 2025', nilai: '…', satuan: 'ha' } ] },
+            { label: 'Sangat curam', peta: 'peta/03-lereng-sangat-curam.png', angka: [ { keterangan: 'Hutan hilang 2025', nilai: '…', satuan: 'ha' } ],
+              teks: 'Di lereng seperti ini, tanah gampang longsor dan ikut terbawa ke sungai.' }
+          ],
+          sumber: 'Sumber: deforestasi lereng kritis 2025, olahan tim'
+        }
       ]
     },
 
-    { jenis: 'kutipan',
-      label: 'Ekoteologi',
-      teks: 'Tulis ayat, petuah adat, atau omongan warga yang paling mengena.',
-      sumber: 'Dari siapa atau dari mana',
-      paragraf: ['Kaitkan dengan kenapa hutan perlu dijaga, dan apa hubungannya dengan keseimbangan (mizan).']
-    },
-
-    { jenis: 'kartu',
-      label: 'Solusi',
-      judul: 'Terus, harus bagaimana?',
-      gambar: { file: 'peta/peta-zonasi.png', keterangan: 'Peta zonasi usulan tim. Sumber: ...' },
-      isi: [
-        { warna: 'merah', judul: 'Pulihkan', teks: 'Daerah yang paling rusak dan perlu ditanami lagi.' },
-        { warna: 'hijau', judul: 'Jaga', teks: 'Hutan yang masih ada dan harus dilindungi.' },
-        { warna: 'biru',  judul: 'Siaga', teks: 'Permukiman yang rawan dan butuh peringatan dini.' }
+    /* ===== 4. VEGETASI DAN SEMPADAN SUNGAI ===== */
+    { label: 'Sempadan sungai',
+      judul: 'Bagaimana kondisi *pinggir sungainya*',
+      pengantar: 'Sempadan sungai (100 meter dari tepi) adalah benteng terakhir sebelum air dan tanah masuk ke sungai.',
+      blok: [
+        { jenis: 'peta-tab',
+          subjudul: 'Tiga kondisi sempadan',
+          tab: [
+            { label: 'Zona kritis', peta: 'peta/04-sempadan-kritis.png', angka: [ { keterangan: 'Panjang / luas', nilai: '…', satuan: 'ha' } ], teks: 'Bagian sungai yang paling perlu dipulihkan.' },
+            { label: 'Terdeforestasi', peta: 'peta/04-sempadan-deforestasi.png', angka: [ { keterangan: 'Hilang 2019–2025', nilai: '…', satuan: 'ha' } ] },
+            { label: 'Masih berhutan', peta: 'peta/04-sempadan-berhutan.png', angka: [ { keterangan: 'Masih berhutan', nilai: '…', satuan: 'ha' } ] }
+          ],
+          sumber: 'Sumber: sempadan sungai 100 m dan tutupan hutan, olahan tim'
+        },
+        { jenis: 'peta-tab', waktu: true, putar: true,
+          subjudul: 'Kerusakan sempadan dari tahun ke tahun',
+          tab: [
+            { label: '2019', peta: 'peta/04-sempadan-2019.png', angka: [ { keterangan: 'Sempadan rusak', nilai: '…', satuan: 'ha' } ] },
+            { label: '2020', peta: 'peta/04-sempadan-2020.png', angka: [ { keterangan: 'Sempadan rusak', nilai: '…', satuan: 'ha' } ] },
+            { label: '2021', peta: 'peta/04-sempadan-2021.png', angka: [ { keterangan: 'Sempadan rusak', nilai: '…', satuan: 'ha' } ] },
+            { label: '2022', peta: 'peta/04-sempadan-2022.png', angka: [ { keterangan: 'Sempadan rusak', nilai: '…', satuan: 'ha' } ] },
+            { label: '2023', peta: 'peta/04-sempadan-2023.png', angka: [ { keterangan: 'Sempadan rusak', nilai: '…', satuan: 'ha' } ] },
+            { label: '2024', peta: 'peta/04-sempadan-2024.png', angka: [ { keterangan: 'Sempadan rusak', nilai: '…', satuan: 'ha' } ] },
+            { label: '2025', peta: 'peta/04-sempadan-2025.png', angka: [ { keterangan: 'Sempadan rusak', nilai: '…', satuan: 'ha' } ] }
+          ]
+        },
+        { jenis: 'peta-tab', waktu: true, putar: true,
+          subjudul: 'Kehijauan vegetasi (NDVI)',
+          tab: [
+            { label: '2019', peta: 'peta/04-ndvi-2019.png', angka: [ { keterangan: 'NDVI rata-rata', nilai: '…', satuan: '' } ] },
+            { label: '2021', peta: 'peta/04-ndvi-2021.png', angka: [ { keterangan: 'NDVI rata-rata', nilai: '…', satuan: '' } ] },
+            { label: '2023', peta: 'peta/04-ndvi-2023.png', angka: [ { keterangan: 'NDVI rata-rata', nilai: '…', satuan: '' } ] },
+            { label: '2025', peta: 'peta/04-ndvi-2025.png', angka: [ { keterangan: 'NDVI rata-rata', nilai: '…', satuan: '' } ] },
+            { label: '2026', peta: 'peta/04-ndvi-2026.png', angka: [ { keterangan: 'NDVI rata-rata', nilai: '…', satuan: '' } ], teks: 'Setelah banjir.' }
+          ],
+          legenda: [ { warna: '#a3542c', label: 'Jarang / terbuka' }, { warna: '#e6d77a', label: 'Sedang' }, { warna: '#2f6b47', label: 'Rapat' } ],
+          sumber: 'Sumber: NDVI, olahan tim'
+        }
       ]
     },
 
-    { jenis: 'peta-web',
-      label: 'Peta interaktif',
-      judul: 'Jelajahi sendiri',
-      teks: 'Opsional. Ekspor proyek QGIS pakai plugin qgis2web, taruh hasilnya di folder "peta-web/", lalu isi alamatnya jadi "peta-web/index.html". Kalau dikosongkan, bagian ini tidak tampil.',
-      alamat: ''
+    /* ===== 5. KARAKTERISTIK CURAH HUJAN ===== */
+    { label: 'Curah hujan',
+      judul: 'Hujannya memang *ekstrem*',
+      pengantar: 'Hilangnya hutan memperparah, tapi pemicunya tetap hujan. Bagian ini membuat analisisnya adil.',
+      blok: [
+        { jenis: 'grafik',
+          subjudul: 'Curah hujan tahunan (CHIRPS)',
+          tipe: 'batang', satuan: 'mm', sorot: '2025',
+          data: [ ['2018', 0], ['2019', 0], ['2020', 0], ['2021', 0], ['2022', 0], ['2023', 0], ['2024', 0], ['2025', 0] ],
+          catatan: 'Isi dengan rata-rata curah hujan tahunan DAS dari raster CHIRPS.',
+          sumber: 'Sumber: CHIRPS'
+        },
+        { jenis: 'grafik',
+          subjudul: 'Hujan harian sekitar kejadian (IMERG)',
+          tipe: 'garis', satuan: 'mm', sorot: '26 Nov',
+          data: [ ['20 Nov', 0], ['21 Nov', 0], ['22 Nov', 0], ['23 Nov', 0], ['24 Nov', 0], ['25 Nov', 0], ['26 Nov', 0], ['27 Nov', 0], ['28 Nov', 0] ],
+          catatan: 'Isi dengan hujan harian rata-rata DAS dari IMERG.',
+          sumber: 'Sumber: NASA GPM IMERG'
+        },
+        { jenis: 'teks',
+          subjudul: 'Akumulasi hujan tiga hari, 24–26 November 2025',
+          paragraf: [ 'Jelaskan di sub-DAS mana hujan paling deras turun, dan berapa milimeter totalnya.' ],
+          gambar: { file: 'peta/05-imerg-3hari.png', keterangan: 'Akumulasi hujan 24–26 November 2025. Sumber: IMERG, olahan tim.' }
+        }
+      ]
     },
 
-    { jenis: 'tabel',
-      label: 'Metodologi',
+    /* ===== 6. DISTRIBUSI GENANGAN BANJIR ===== */
+    { label: 'Genangan',
+      judul: 'Ke mana *airnya* pergi',
+      blok: [
+        { jenis: 'teks',
+          paragraf: [ 'Ceritakan sebaran genangan 28 November 2025: daerah mana yang paling luas tergenang, dan bagaimana kaitannya dengan zona hilir.' ],
+          gambar: { file: 'peta/06-genangan-unosat.png', keterangan: 'Genangan banjir 28 November 2025. Sumber: UNOSAT, olahan tim.' }
+        },
+        { jenis: 'angka', isi: [
+          { nilai: '…', satuan: 'ha', keterangan: 'Total luas genangan', sumber: 'UNOSAT' },
+          { nilai: '…', satuan: '%',  keterangan: 'Genangan di zona hilir', sumber: 'Olahan tim' },
+          { nilai: '…', satuan: 'km', keterangan: 'Jalan yang terendam', sumber: 'OSM + UNOSAT' }
+        ]}
+      ]
+    },
+
+    /* ===== 7. PAPARAN WILAYAH HILIR ===== */
+    { label: 'Paparan hilir',
+      judul: 'Siapa dan apa yang *terkena*',
+      pengantar: 'Klik kategorinya.',
+      blok: [
+        { jenis: 'peta-tab',
+          tab: [
+            { label: 'Permukiman', peta: 'peta/07-permukiman.png', angka: [ { keterangan: 'Permukiman tergenang', nilai: '…', satuan: 'ha' } ] },
+            { label: 'Pertanian', peta: 'peta/07-pertanian.png', angka: [ { keterangan: 'Lahan pertanian tergenang', nilai: '…', satuan: 'ha' } ] },
+            { label: 'Infrastruktur', peta: 'peta/07-infrastruktur.png', angka: [ { keterangan: 'Jalan terendam', nilai: '…', satuan: 'km' } ] },
+            { label: 'Desa', peta: 'peta/07-desa-terpapar.png', angka: [ { keterangan: 'Desa terpapar', nilai: '…', satuan: 'desa' }, { keterangan: 'Kecamatan', nilai: '…', satuan: '' } ] }
+          ],
+          sumber: 'Sumber: genangan UNOSAT, batas desa Dukcapil, jalan OSM, olahan tim'
+        },
+        { jenis: 'galeri',
+          paragraf: [ 'Kalau ada, tambahkan foto lapangan. Foto sendiri lebih kuat.' ],
+          foto: [
+            { file: 'foto/foto-1.jpg', keterangan: 'Keterangan foto. Sumber: ...' },
+            { file: 'foto/foto-2.jpg', keterangan: 'Keterangan foto. Sumber: ...' },
+            { file: 'foto/foto-3.jpg', keterangan: 'Keterangan foto. Sumber: ...' }
+          ]
+        }
+      ]
+    },
+
+    /* ===== 8. SINTESIS DAN REKOMENDASI ===== */
+    { label: 'Sintesis',
+      judul: 'Kalau semuanya *disatukan*',
+      blok: [
+        { jenis: 'teks',
+          paragraf: [
+            'Rangkai temuannya: hutan hulu yang hilang di lereng curam, sempadan yang rusak, hujan ekstrem, lalu genangan di hilir.',
+            'Tulis sebagai keterkaitan yang didukung data, bukan klaim satu penyebab.'
+          ],
+          gambar: { file: 'peta/08-sintesis.png', keterangan: 'Peta sintesis hulu–hilir. Sumber: olahan tim.' }
+        },
+        { jenis: 'kutipan',
+          teks: 'Tulis ayat, petuah adat, atau omongan warga yang paling mengena.',
+          sumber: 'Dari siapa atau dari mana',
+          paragraf: [ 'Kaitkan dengan menjaga keseimbangan alam (mizan) dan peran adat seperti Panglima Uteun.' ]
+        },
+        { jenis: 'kartu',
+          subjudul: 'Terus, harus bagaimana?',
+          gambar: { file: 'peta/08-zonasi-rekomendasi.png', keterangan: 'Peta zonasi rekomendasi. Sumber: olahan tim.' },
+          isi: [
+            { warna: 'merah', label: 'Hulu', judul: 'Pulihkan', teks: 'Lereng curam dan sempadan yang rusak ditanami lagi.' },
+            { warna: 'hijau', label: 'Tengah', judul: 'Jaga', teks: 'Hutan yang tersisa dilindungi bersama masyarakat.' },
+            { warna: 'biru',  label: 'Hilir', judul: 'Siaga', teks: 'Peringatan dini dari hujan di hulu dan jalur evakuasi desa.' }
+          ]
+        }
+      ]
+    },
+
+    /* ===== METODOLOGI (tanpa nomor) ===== */
+    { label: 'Metodologi', tanpaNomor: true,
       judul: 'Datanya dari mana',
-      paragraf: ['Alurnya: kumpulkan data, olah di QGIS, analisis, lalu susun jadi cerita ini.'],
-      kolom: ['Data', 'Sumber', 'Tahun', 'Dipakai di'],
-      baris: [
-        ['Batas administrasi', 'BIG', '2025', 'Semua peta'],
-        ['Tutupan dan kehilangan hutan', 'HAkA (data dasar panitia)', '2006–2025', 'Bagian perubahan'],
-        ['...', '...', '...', '...']
-      ],
-      catatanAI: 'Soal AI: tulis jujur bagian mana yang dibantu AI, sama seperti di Surat Pernyataan Orisinalitas.'
+      blok: [
+        { jenis: 'tabel',
+          paragraf: [ 'Semua peta diolah di QGIS. Luas dihitung dalam proyeksi UTM 47N (EPSG:32647).' ],
+          kolom: ['Data', 'Sumber', 'Tahun', 'Dipakai di bagian'],
+          baris: [
+            ['Batas DAS, KEL, tutupan & kehilangan hutan', 'HAkA (data dasar panitia)', '2018–2025', '1, 3'],
+            ['Batas kecamatan dan desa', 'BIG, Dukcapil', '2025–2026', '1, 7'],
+            ['Elevasi dan kemiringan lereng', 'DEMNAS (BIG)', '—', '2, 3'],
+            ['Sungai dan sempadan 100 m', 'Turunan DEM, olahan tim', '—', '2, 4'],
+            ['NDVI vegetasi', '…', '2019–2026', '4'],
+            ['Curah hujan tahunan', 'CHIRPS', '2018–2025', '5'],
+            ['Hujan harian dan akumulasi 3 hari', 'NASA GPM IMERG', 'Nov 2025', '5'],
+            ['Genangan banjir', 'UNOSAT', '28 Nov 2025', '6, 7'],
+            ['Jalan utama', 'OpenStreetMap', '2025', '7']
+          ],
+          catatanAI: 'Soal AI: tulis jujur bagian mana yang dibantu AI, sama seperti di Surat Pernyataan Orisinalitas.'
+        }
+      ]
     }
   ],
 
-  /* ---------- 3. PENUTUP ---------- */
+  /* ---------- PENUTUP ---------- */
   penutup: {
-    judul: 'Kalimat terakhir yang mau diingat pembaca',
-    teks: 'Satu paragraf pendek: ajakan, harapan, atau pengingat.'
+    judul: 'Menjaga hulu, *menjaga kita*',
+    teks: 'Satu paragraf pendek: ajakan, harapan, atau pengingat untuk pembaca.'
   },
   sumberData: [
     'Data dasar panitia: Yayasan HAkA',
-    'Batas administrasi: Badan Informasi Geospasial (BIG) 2025',
-    'Tambahkan sumber lain di sini'
+    'Batas administrasi: BIG 2025, Dukcapil',
+    'DEMNAS (BIG), CHIRPS, NASA GPM IMERG, UNOSAT, OpenStreetMap'
   ]
 };
