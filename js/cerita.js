@@ -285,7 +285,7 @@
       for (var v = sk.lo; v <= sk.hi + 1e-9; v += sk.st) s += '<line x1="' + m.l + '" x2="' + (W - m.r) + '" y1="' + Y(v) + '" y2="' + Y(v) + '" stroke="' + GR + '"/><text x="' + (m.l - 8) + '" y="' + (Y(v) + 4) + '" text-anchor="end">' + f(v, sk.st < 1 ? 1 : 0) + '</text>';
       var lewat = n > 14 ? Math.ceil(n / 9) : 1;
       kat.forEach(function (c, k) { if (k % lewat === 0) s += '<text x="' + X(k) + '" y="' + (H - 12) + '" text-anchor="middle"' + (String(c) === String(V.sorot) ? ' class="gp-sorot"' : '') + '>' + esc(c) + '</text>'; });
-      if (V.rujukan) s += '<line x1="' + m.l + '" x2="' + (W - m.r) + '" y1="' + Y(V.rujukan.nilai) + '" y2="' + Y(V.rujukan.nilai) + '" stroke="#FEFAE0" stroke-width="1.5" stroke-dasharray="6 5" opacity=".7"/><text x="' + (W - m.r) + '" y="' + (Y(V.rujukan.nilai) - 7) + '" text-anchor="end" class="gp-ruj">' + esc(V.rujukan.label) + '</text>';
+      if (V.rujukan) s += '<line x1="' + m.l + '" x2="' + (W - m.r) + '" y1="' + Y(V.rujukan.nilai) + '" y2="' + Y(V.rujukan.nilai) + '" stroke="#FEFAE0" stroke-width="1.5" stroke-dasharray="6 5" opacity=".7"/><text x="' + (m.l + 6) + '" y="' + (Y(V.rujukan.nilai) - 7) + '" text-anchor="start" class="gp-ruj">' + esc(V.rujukan.label) + '</text>';
       if (V.tipe === 'garis') {
         aktif.forEach(function (x) {
           var pts = x.s.nilai.map(function (v, k) { return X(k) + ',' + Y(v); }).join(' ');
