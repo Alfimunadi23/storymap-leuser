@@ -10,13 +10,14 @@
   var sorotKata = function (s) { return esc(s).replace(/\*(.+?)\*/g, '<em>$1</em>'); };
 
   /* --- kotak penanda bila file gambar belum ada --- */
-  function penanda(file, rasio) {
+  function penanda(file, rasio, label) {
     var w = 1200, h = Math.round(w * (rasio || 0.72));
     var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + w + ' ' + h + '">' +
       '<defs><pattern id="g" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M60 0H0V60" fill="none" stroke="#e6dfbb" stroke-width="1"/></pattern></defs>' +
       '<rect width="100%" height="100%" fill="#f8f4de"/><rect width="100%" height="100%" fill="url(#g)"/>' +
       '<path d="M' + (w / 2 - 26) + ' ' + h / 2 + 'h52M' + w / 2 + ' ' + (h / 2 - 26) + 'v52" stroke="#606C38" stroke-width="2"/>' +
       '<circle cx="' + w / 2 + '" cy="' + h / 2 + '" r="16" fill="none" stroke="#606C38" stroke-width="2"/>' +
+      (label ? '<text x="50%" y="' + (h / 2 - 70) + '" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="700" font-size="' + (label.length > 12 ? 64 : 110) + '" fill="#606C38">' + esc(label) + '</text>' : '') +
       '<text x="50%" y="' + (h / 2 + 70) + '" text-anchor="middle" font-family="Menlo,monospace" font-size="26" fill="#283618">TARUH FILE INI DI SINI</text>' +
       '<text x="50%" y="' + (h / 2 + 108) + '" text-anchor="middle" font-family="Menlo,monospace" font-size="24" fill="#BC6C25">' + esc(file) + '</text></svg>';
     return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
@@ -26,7 +27,7 @@
   }
   function pasangPenanda(root) {
     root.querySelectorAll('img[data-file]').forEach(function (el) {
-      var gagal = function () { if (!el.dataset.ganti) { el.dataset.ganti = 1; el.src = penanda(el.dataset.file, +el.dataset.rasio || 0.72); } };
+      var gagal = function () { if (!el.dataset.ganti) { el.dataset.ganti = 1; el.src = penanda(el.dataset.file, +el.dataset.rasio || 0.72, el.alt && el.alt.length < 30 ? el.alt : ''); } };
       el.addEventListener('error', gagal);
       if (el.complete && el.naturalWidth === 0 && el.getAttribute('src')) gagal();
       if (!el.dataset.file) gagal();
@@ -321,7 +322,12 @@
       });
     }
     var fmt = function (v) { return (+v).toLocaleString('id-ID', { maximumFractionDigits: 0 }); };
-    muat('https://unpkg.com/leaflet@1.9.4/dist/leaflet.css', true).then(function () { return muat('https://unpkg.com/leaflet@1.9.4/dist/leaflet.js'); }).then(function () {
+    var cdn = ['https://unpkg.com/leaflet@1.9.4/dist/', 'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/', 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/'];
+    var muatLeaflet = function (i) {
+      if (i >= cdn.length) return Promise.reject();
+      return muat(cdn[i] + 'leaflet.css', true).catch(function () {}).then(function () { return muat(cdn[i] + 'leaflet.js'); }).catch(function () { return muatLeaflet(i + 1); });
+    };
+    muatLeaflet(0).then(function () {
       boxes.forEach(function (box) {
         var cfg = PINT[+box.dataset.pint], folder = cfg.folder || 'data/', T = cfg.tahun || [];
         var map = L.map(box.querySelector('.peta-leaflet'), { scrollWheelZoom: false, zoomControl: true, attributionControl: true });
@@ -375,6 +381,7 @@
           } }).addTo(map);
           L.geoJSON(d[2], { interactive: false, style: function (f) { var t = f.properties.kab === (cfg.sorotKab || ''); return { color: t ? '#DDA15E' : '#FEFAE0', weight: t ? 3.5 : 1.8, dashArray: t ? null : '6 5', fill: false }; } }).addTo(map);
           map.fitBounds(lapKec.getBounds(), { padding: [10, 10] });
+          setTimeout(function () { map.invalidateSize(); map.fitBounds(lapKec.getBounds(), { padding: [10, 10] }); }, 400);
           pilih(T.length - 1);
         });
         btn.forEach(function (b) { b.addEventListener('click', function () { stop(); pilih(+b.dataset.k); }); });
