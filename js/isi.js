@@ -46,18 +46,28 @@ window.ISI = {
 
     /* ===== PEMBUKA (tanpa nomor) ===== */
     { label: 'Pembuka', tanpaNomor: true,
-      judul: 'Akhir November 2025, air datang membawa lumpur dan kayu',
+      judul: 'Akhir November 2025, air datang membawa *lumpur dan kayu*',
       blok: [
         { jenis: 'teks', paragraf: [
-          'Ceritakan singkat kejadian banjir di DAS Tamiang: kapan, di mana, seberapa parah.',
-          'Lalu ajukan pertanyaan yang mau dijawab storymap ini: apa yang terjadi di hulu sebelum air sampai ke hilir?'
+          'Hujan turun berhari-hari di pegunungan. Pada 26 November 2025, Sungai Tamiang meluap dan menyapu Kuala Simpang, Karang Baru, sampai pesisir Bendahara dan Seruway. Warga menyebutnya tsunami bandang: air setinggi atap, lumpur tebal, dan ribuan batang kayu gelondongan yang menumpuk di halaman rumah, sekolah, dan pesantren.',
+          'Lebih dari 300 ribu warga Aceh Tamiang terdampak. Sebagian bertahan berhari-hari di atap rumah, dan ribuan rumah hilang tersapu.',
+          'Tapi ini bukan pertama kalinya Tamiang kebanjiran. Jadi pertanyaannya: kenapa kali ini jauh lebih parah, dan apa yang terjadi di hulu sebelum air sampai ke hilir?'
         ]},
         { jenis: 'angka', isi: [
-          { nilai: '494.988', satuan: 'ha',  keterangan: 'Luas DAS Tamiang', sumber: 'Data dasar panitia (HAkA)' },
-          { nilai: '…',       satuan: 'ha',  keterangan: 'Luas genangan 28 November 2025', sumber: 'UNOSAT' },
-          { nilai: '…',       satuan: 'desa', keterangan: 'Desa yang terpapar banjir', sumber: 'Olahan tim' },
-          { nilai: '8.026',   satuan: 'ha',  keterangan: 'Hutan hilang di DAS Tamiang sepanjang 2025', sumber: 'Data dasar panitia (HAkA)' }
-        ]}
+          { nilai: '300.000', satuan: 'jiwa', keterangan: 'Lebih dari sekian warga Aceh Tamiang terdampak', sumber: 'Pratama dkk., Jurnal Ibnu Sina (2026)' },
+          { nilai: '80',      satuan: 'jiwa', keterangan: 'Lebih dari sekian warga Aceh Tamiang meninggal (BNPB, 17 Des 2025)', sumber: 'BNPB via Investortrust' },
+          { nilai: '4.839',   satuan: 'rumah', keterangan: 'Rumah hilang tersapu banjir', sumber: 'Kompas.com, 30 Des 2025' },
+          { nilai: '494.988', satuan: 'ha',    keterangan: 'Luas DAS Tamiang', sumber: 'Data dasar panitia (HAkA)' }
+        ]},
+        { jenis: 'riwayat',
+          subjudul: 'Tamiang dan banjir: bukan cerita baru',
+          isi: [
+            { tahun: '2006', judul: 'Banjir bandang menjelang akhir tahun', teks: 'Setelah sepekan hujan deras, banjir bandang melanda Aceh Tamiang sekitar 24 Desember 2006. Sedikitnya 60 jenazah ditemukan di Aceh Tamiang, dan lebih dari 110 ribu orang di Aceh terpaksa mengungsi. Dalam catatan 2003–2018, inilah banjir paling parah di DAS Tamiang.', sumber: 'Dawn/AFP, 25 Des 2006; Azizah (2020)' },
+            { tahun: '2003–18', judul: '37 kali banjir dalam 16 tahun', teks: 'Data BNPB mencatat 37 kejadian banjir di DAS Tamiang. Hampir tiap tahun ada banjir, paling sering di bulan Oktober dan Desember. Tahun 2012 dan 2018 jadi tahun dengan kejadian terbanyak.', sumber: 'Azizah, disertasi DAS Tamiang (2020), via Kompas.com' },
+            { tahun: '2022', judul: 'Banjir luapan besar', teks: 'Sungai Tamiang kembali meluap dan merendam permukiman di bantaran, termasuk Kuala Simpang.', sumber: 'Repositori Universitas Malikussaleh' },
+            { tahun: '2025', judul: 'Banjir bandang terbesar', sorot: true, teks: 'Akhir November 2025, banjir dan longsor melanda Aceh, Sumatera Utara, dan Sumatera Barat. Aceh Tamiang jadi salah satu daerah paling parah. Data hutan menunjukkan, hanya pada November–Desember 2025, KEL kehilangan 21.244 ha hutan.', sumber: 'BNPB; Kehilangan Tutupan Hutan KEL 2025 (HAkA)' }
+          ]
+        }
       ]
     },
 

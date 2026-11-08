@@ -114,6 +114,11 @@
           '<div class="atas">' + img((b.kiri || {}).gambar, (b.kiri || {}).label, '', 0.62) + '</div><div class="garis-geser"></div>' +
           '<span class="lbl k">' + esc((b.kiri || {}).label) + '</span><span class="lbl n">' + esc((b.kanan || {}).label) + '</span>' +
           '<input type="range" min="0" max="100" value="50" aria-label="Geser perbandingan" id="geser' + nBanding + '"></div><figcaption>' + esc(b.sumber) + '</figcaption></figure>';
+      case 'riwayat':
+        return (b.subjudul ? '<h3 class="sub-blok isi-lebar">' + sorotKata(b.subjudul) + '</h3>' : '') +
+          '<ol class="riwayat isi-lebar muncul">' + (b.isi || []).map(function (r) {
+            return '<li' + (r.sorot ? ' class="sorot"' : '') + '><div class="r-tahun">' + esc(r.tahun) + '</div><div class="r-isi"><h4>' + esc(r.judul) + '</h4><p>' + esc(r.teks) + '</p>' + (r.sumber ? '<span class="sumber">' + esc(r.sumber) + '</span>' : '') + '</div></li>';
+          }).join('') + '</ol>';
       case 'kutipan':
         return '<div class="kutipan"><blockquote>' + esc(b.teks) + '</blockquote><cite class="kode">' + esc(b.sumber) + '</cite></div>' +
           (b.paragraf ? '<div class="isi-kolom" style="margin-top:32px">' + paragraf(b.paragraf) + '</div>' : '');

@@ -304,3 +304,21 @@ body,html{background:#606C38}
 /* revisi logo: USK tanpa latar, CRU sudut tegas */
 .logo-atas img.polos,.tepi .logo-atas img.polos{background:none;border-radius:0;padding:0;width:auto;height:64px}
 .logo-atas img.persegi,.tepi .logo-atas img.persegi{border-radius:0}
+
+/* ---------- riwayat banjir (garis waktu vertikal) ---------- */
+.riwayat{list-style:none;margin:0 0 0 174px;padding:0;position:relative;display:grid;gap:0}
+.riwayat::before{content:"";position:absolute;left:136px;top:8px;bottom:8px;width:2px;background:rgba(var(--g),.25)}
+.riwayat li{display:grid;grid-template-columns:120px 1fr;gap:40px;padding:0 0 30px;position:relative}
+.riwayat li::before{content:"";position:absolute;left:130px;top:9px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:3px solid var(--sorot)}
+.riwayat li.sorot::before{background:var(--aksen-b);border-color:var(--aksen-b);transform:scale(1.35)}
+.riwayat .r-tahun{font-family:var(--f-judul);font-weight:800;font-size:1.5rem;white-space:nowrap;line-height:1.1;color:var(--sorot);text-align:right}
+.riwayat li.sorot .r-tahun{color:var(--latar)}
+.riwayat h4{font-family:var(--f-judul);font-size:1.15rem;margin:0 0 6px}
+.riwayat p{font-size:1rem;color:var(--krim-2);max-width:60ch}
+@media (max-width:860px){
+  .riwayat{margin-left:0}
+  .riwayat::before{left:14px}
+  .riwayat li{grid-template-columns:1fr;gap:4px;padding-left:40px}
+  .riwayat li::before{left:8px}
+  .riwayat .r-tahun{text-align:left}
+}
