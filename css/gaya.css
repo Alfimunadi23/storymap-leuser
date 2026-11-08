@@ -349,3 +349,7 @@ body,html{background:#606C38}
 .pop-risiko{margin:6px 0 0;font-family:"Newsreader",Georgia,serif;font-size:13px;line-height:1.35;color:#BC6C25}
 @media (max-width:640px){.plg-kolom{gap:4px;height:160px}.plg-nilai{font-size:.56rem}.plg-kolom em{font-size:.62rem}}
 @media (max-width:640px){.plg.waktu .ptab-nav button[data-k]{flex-basis:42px;font-size:.84rem}}
+.plg-wil{display:inline-flex;border:1px solid rgba(254,250,224,.35);border-radius:999px;padding:3px;margin:0 0 6px;gap:2px;flex-wrap:wrap}
+.plg-wil button{all:unset;cursor:pointer;font-family:var(--f-kode);font-size:.74rem;letter-spacing:.05em;text-transform:uppercase;padding:8px 14px;border-radius:999px;color:var(--krim)}
+.plg-wil button.aktif{background:#FEFAE0;color:#283618;font-weight:600}
+.plg-wil button:focus-visible{outline:2px dashed #DDA15E}

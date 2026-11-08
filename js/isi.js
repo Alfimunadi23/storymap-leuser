@@ -141,25 +141,26 @@ window.ISI = {
           ]
         },
         { jenis: 'peta-lereng',
-          subjudul: 'Klik tahunnya: hutan hilang per kelas lereng',
+          subjudul: 'Klik tahunnya: hutan hilang per kelas lereng di Aceh Tamiang',
           folder: 'data/',
           tahun: [2019, 2020, 2021, 2022, 2023, 2024, 2025],
           sorotKab: 'Aceh Tamiang',
-          sumber: 'Sumber: Kehilangan Tutupan Hutan KEL (HAkA) ditumpang-susun dengan kelas lereng dari DEMNAS (BIG), olahan tim (Deforestasi_Lereng_Kritis 2019–2025). Garis emas: batas Kab. Aceh Tamiang.'
+          sumber: 'Sumber: Kehilangan Tutupan Hutan KEL (HAkA) ditumpang-susun dengan kelas lereng dari DEMNAS (BIG), olahan tim (Deforestasi_Lereng_Kritis 2019–2025). Area gelap: di luar Kab. Aceh Tamiang. Tombol Seluruh DAS Tamiang menampilkan hulu di Gayo Lues dan Aceh Timur.'
         },
         { jenis: 'angka',
           isi: [
-            { nilai: '8.352', satuan: 'ha', keterangan: 'Hutan hilang di lereng DAS tahun 2025, dua kali lipat total enam tahun sebelumnya (4.057 ha)', sumber: 'Olahan tim' },
-            { nilai: '52', satuan: '%', keterangan: 'Porsi lereng sangat curam pada 2025. Tahun 2019–2024 hanya 11–24%', sumber: 'Olahan tim' },
-            { nilai: '4.339', satuan: 'ha', keterangan: 'Hutan hilang di lereng sangat curam 2025, 117 kali lipat tahun 2024 (37 ha)', sumber: 'Olahan tim' },
-            { nilai: '3.270', satuan: 'ha', keterangan: 'Kec. Pining (Gayo Lues) saja, 61% di antaranya lereng sangat curam', sumber: 'Olahan tim' }
+            { nilai: '604', satuan: 'ha', keterangan: 'Hutan hilang di lereng Kab. Aceh Tamiang (bagian DAS) tahun 2025, 11 kali lipat tahun 2024 (55 ha)', sumber: 'Olahan tim' },
+            { nilai: '229', satuan: 'ha', keterangan: 'Di lereng sangat curam saja. Lebih besar dari total enam tahun sebelumnya (153 ha)', sumber: 'Olahan tim' },
+            { nilai: '292', satuan: 'ha', keterangan: 'Kec. Tamiang Hulu 2025, hampir separuhnya (46%) lereng sangat curam', sumber: 'Olahan tim' },
+            { nilai: '8.352', satuan: 'ha', keterangan: 'Kalau dihitung seluruh DAS sampai hulu di Gayo Lues dan Aceh Timur', sumber: 'Olahan tim' }
           ]
         },
         { jenis: 'teks',
           subjudul: 'Apa yang *berubah* di 2025',
           paragraf: [
-            '**2019–2024: hilangnya di dataran.** Selama enam tahun, sekitar enam dari sepuluh hektare hutan yang hilang ada di lereng landai. Pusatnya di Birem Bayeun (Aceh Timur) dan Sekerak (Aceh Tamiang), pola yang cocok dengan pembukaan lahan untuk kebun di kaki bukit. Jumlahnya juga terus turun, dari 1.340 ha di 2020 sampai sekitar 230–340 ha di 2023–2024.',
-            '**2025: polanya terbalik.** Luasnya melonjak jadi 8.352 ha dan pindah ke atas. Lereng sangat curam menyumbang lebih dari separuh (4.339 ha), ditambah 2.208 ha lereng curam. Artinya hampir 8 dari 10 hektare yang hilang ada di lereng yang rawan longsor dan erosi.',
+            '**Di Aceh Tamiang sendiri.** Selama 2019–2024, hutan yang hilang di lereng Aceh Tamiang kebanyakan di Sekerak dan Bandar Pusaka, sebagian besar di lereng landai. Tahun 2025 pusatnya pindah ke Tamiang Hulu dan Tenggulun, dua kecamatan paling hulu di kabupaten ini. Di Tenggulun, dua pertiga yang hilang (67%) ada di lereng sangat curam.',
+            '**2019–2024 di seluruh DAS: hilangnya di dataran.** Selama enam tahun, sekitar enam dari sepuluh hektare hutan yang hilang ada di lereng landai. Pusatnya di Birem Bayeun (Aceh Timur) dan Sekerak (Aceh Tamiang), pola yang cocok dengan pembukaan lahan untuk kebun di kaki bukit. Jumlahnya juga terus turun, dari 1.340 ha di 2020 sampai sekitar 230–340 ha di 2023–2024.',
+            '**2025 di seluruh DAS: polanya terbalik.** Luasnya melonjak jadi 8.352 ha dan pindah ke atas. Lereng sangat curam menyumbang lebih dari separuh (4.339 ha), ditambah 2.208 ha lereng curam. Artinya hampir 8 dari 10 hektare yang hilang ada di lereng yang rawan longsor dan erosi.',
             '**Titik panasnya di hulu.** Pining (Gayo Lues) dan Serbajadi (Aceh Timur) mendominasi, dua kecamatan di punggung pegunungan tempat anak-anak Sungai Tamiang bermula. Dari sinilah air dan lumpur turun ke Kuala Simpang dan Karang Baru di hilir.',
             '**Satu catatan penting.** Data kehilangan hutan mencatat semua tajuk yang hilang, termasuk yang tersapu longsor saat hujan ekstrem akhir November. Jadi sebagian angka 2025 di lereng sangat curam bisa jadi *akibat* bencana, bukan hanya penyebabnya. Coba bandingkan di peta bagian sebelumnya: warna cokelat tua menandai hutan yang hilang tepat pada November–Desember 2025.',
             'Apa pun urutannya, pesannya sama: lereng sangat curam di hulu adalah bagian DAS yang paling tidak boleh kehilangan hutan. Begitu tutupannya terbuka, tanah tidak lagi ditahan akar, dan hujan berikutnya punya jalan yang lebih cepat menuju hilir.'

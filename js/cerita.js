@@ -108,6 +108,7 @@
         return (b.paragraf ? '<div class="isi-kolom" style="margin-bottom:28px">' + paragraf(b.paragraf) + '</div>' : '') +
           '<div class="ptab waktu pint plg isi-lebar" data-plg="' + (PINT.length - 1) + '">' +
           (b.subjudul ? '<h3 class="sub-blok">' + sorotKata(b.subjudul) + '</h3>' : '') +
+          '<div class="plg-wil" role="group" aria-label="Wilayah"><button type="button" data-w="-tmg" class="aktif">Kab. Aceh Tamiang</button><button type="button" data-w="">Seluruh DAS Tamiang</button></div>' +
           '<div class="ptab-nav" role="tablist">' + TL.map(function (y, k) { return '<button type="button" role="tab" data-k="' + k + '">' + y + '</button>'; }).join('') +
           '<button type="button" class="ptab-putar">▶ Putar</button></div>' +
           '<div class="ptab-badan"><div class="bingkai"><div class="peta-leaflet" role="application" aria-label="Peta interaktif deforestasi lereng"></div></div><div class="pint-info ptab-isi"><p class="kode">Memuat peta…</p></div></div>' +
@@ -342,16 +343,16 @@
       if (i >= cdn.length) return Promise.reject();
       return muat(cdn[i] + 'leaflet.css', true).catch(function () {}).then(function () { return muat(cdn[i] + 'leaflet.js'); }).catch(function () { return muatLeaflet(i + 1); });
     };
-    var WL = ['#F3E9B8', '#DDA15E', '#C2461B'];
+    var WL = ['#FBC02D', '#F57C00', '#D32F2F'], WG = ['#F57F17', '#E65100', '#B71C1C'];
     function petaLereng(box) {
       var cfg = PINT[+box.dataset.plg], folder = cfg.folder || 'data/', T = cfg.tahun || [];
       var map = L.map(box.querySelector('.peta-leaflet'), { scrollWheelZoom: false });
       L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom: 18, attribution: 'Citra: Esri World Imagery' }).addTo(map);
       var info = box.querySelector('.pint-info'), btn = [].slice.call(box.querySelectorAll('.ptab-nav [data-k]')), play = box.querySelector('.ptab-putar'), strip = box.querySelector('.plg-batang');
-      var R = null, lap = {}, aktif = null, cur = 0, timer = null, nyala = [true, true, true];
-      function gaya(f) { var i = f.properties.i; return { color: WL[i], weight: i === 2 ? 1.2 : .7, fillColor: WL[i], fillOpacity: nyala[i] ? (i === 0 ? .7 : .88) : 0, opacity: nyala[i] ? 1 : 0 }; }
-      function pop(p, y) {
-        var d = R.info[p.kelas] || {}, tot = R.total[y].reduce(function (a, b) { return a + b; }, 0);
+      var R = null, RR = {}, lap = {}, aktif = null, cur = 0, timer = null, nyala = [true, true, true], wil = '-tmg', masker = null, bbTmg = null, bbDas = L.latLngBounds([[3.72, 97.31], [4.49, 97.97]]), wbtn = [].slice.call(box.querySelectorAll('.plg-wil button'));
+      function gaya(f) { var i = f.properties.i; return { color: WG[i], weight: .4 + i * .1, fillColor: WL[i], fillOpacity: nyala[i] ? .9 : 0, opacity: nyala[i] ? 1 : 0 }; }
+      function pop(p, y, RW) {
+        var d = RW.info[p.kelas] || {}, tot = RW.total[y].reduce(function (a, b) { return a + b; }, 0);
         return '<div class="pint-pop"><b>' + esc(p.kelas) + ' · ' + y + '</b><span>Kemiringan ' + esc(d.rentang) + ' (' + esc(d.derajat) + ')</span>' +
           '<div class="pop-baris"><em>Hutan hilang</em><strong>' + fmt(p.ha) + ' ha</strong></div>' +
           '<div class="pop-baris"><em>Porsi tahun ini</em><strong>' + Math.round(p.ha / tot * 100) + '%</strong></div>' +
@@ -360,7 +361,7 @@
       function isiInfo(y) {
         var t = R.total[y], tot = t[0] + t[1] + t[2];
         info.innerHTML = '<div class="ptab-besar">' + y + '</div>' +
-          '<dl><div><dt>Hutan hilang di lereng DAS</dt><dd><b>' + fmt(tot) + '</b> ha</dd></div></dl>' +
+          '<dl><div><dt>' + (wil ? 'Hutan hilang di lereng Kab. Aceh Tamiang' : 'Hutan hilang di lereng seluruh DAS') + '</dt><dd><b>' + fmt(tot) + '</b> ha</dd></div></dl>' +
           '<div class="plg-kelas">' + R.kelas.map(function (k, i) {
             var d = R.info[k] || {};
             return '<label class="' + (nyala[i] ? '' : 'mati') + '"><input type="checkbox" data-i="' + i + '"' + (nyala[i] ? ' checked' : '') + '>' +
@@ -368,8 +369,9 @@
               '<b>' + fmt(t[i]) + ' ha<small>' + Math.round(t[i] / tot * 100) + '%</small></b></label>';
           }).join('') + '</div>' +
           '<p class="kode" style="margin-top:10px">Kecamatan terbanyak</p><ol class="pint-top">' +
-          R.kec[y].slice(0, 4).map(function (r) { var n = r[0].split('|'), s3 = r[1] + r[2] + r[3];
+          R.kec[y].filter(function (r) { return r[1] + r[2] + r[3] >= 0.5; }).slice(0, 4).map(function (r) { var n = r[0].split('|'), s3 = r[1] + r[2] + r[3];
             return '<li><span>' + esc(n[0]) + '<small>' + esc(n[1]) + ' · ' + Math.round(r[3] / s3 * 100) + '% sangat curam</small></span><b>' + fmt(s3) + ' ha</b></li>'; }).join('') + '</ol>' +
+          (wil ? '<p class="pint-petunjuk">Data lereng hanya mencakup bagian Aceh Tamiang yang masuk DAS Tamiang. Hulu DAS lainnya ada di Gayo Lues dan Aceh Timur: klik <b>Seluruh DAS Tamiang</b>.</p>' : '') +
           '<p class="pint-petunjuk">Centang/hapus centang kelas lereng untuk menyaring peta. Klik area berwarna untuk detail risikonya.</p>';
         [].forEach.call(info.querySelectorAll('input[data-i]'), function (c) {
           c.addEventListener('change', function () { nyala[+c.dataset.i] = c.checked; c.parentNode.classList.toggle('mati', !c.checked); if (aktif) aktif.setStyle(gaya); });
@@ -389,22 +391,33 @@
         btn.forEach(function (b, j) { b.classList.toggle('aktif', j === k); b.classList.toggle('lewat', j < k); b.setAttribute('aria-selected', j === k); });
         [].forEach.call(strip.querySelectorAll('button'), function (b, j) { b.classList.toggle('aktif', j === k); });
         isiInfo(y);
-        var tampil = function () { if (aktif) map.removeLayer(aktif); aktif = lap[y].addTo(map); aktif.setStyle(gaya); };
-        if (lap[y]) { tampil(); return; }
+        var kunci = wil + y, w0 = wil, RW = R;
+        var tampil = function () { if (aktif) map.removeLayer(aktif); aktif = lap[kunci].addTo(map); aktif.setStyle(gaya); };
+        if (lap[kunci]) { tampil(); return; }
         info.classList.add('memuat');
-        fetch(folder + 'lereng-' + y + '.geojson').then(function (r) { return r.json(); }).then(function (gj) {
+        fetch(folder + 'lereng' + wil + '-' + y + '.geojson').then(function (r) { return r.json(); }).then(function (gj) {
           gj.features.sort(function (a, b) { return a.properties.i - b.properties.i; });
-          lap[y] = L.geoJSON(gj, { style: gaya, onEachFeature: function (f, l) { l.bindPopup(pop(f.properties, y), { maxWidth: 280 }); } });
-          info.classList.remove('memuat'); if (T[cur] === y) tampil();
+          lap[kunci] = L.geoJSON(gj, { style: gaya, onEachFeature: function (f, l) { l.bindPopup(pop(f.properties, y, RW), { maxWidth: 280 }); } });
+          info.classList.remove('memuat'); if (T[cur] === y && wil === w0) tampil();
         });
       }
-      Promise.all([fetch(folder + 'lereng.json').then(function (r) { return r.json(); }), fetch(folder + 'kabupaten.geojson').then(function (r) { return r.json(); })]).then(function (d) {
-        R = d[0];
-        var kab = L.geoJSON(d[1], { interactive: false, style: function (f) { var t = f.properties.kab === (cfg.sorotKab || ''); return { color: t ? '#DDA15E' : '#FEFAE0', weight: t ? 3 : 1.4, dashArray: t ? null : '6 5', fill: false }; } }).addTo(map);
-        var bb = L.latLngBounds([[3.72, 97.31], [4.49, 97.97]]);
-        map.fitBounds(bb); setTimeout(function () { map.invalidateSize(); map.fitBounds(bb); }, 400);
-        batang(); pilih(T.length - 1);
+      function gantiWil(w) {
+        wil = w; wbtn.forEach(function (b) { b.classList.toggle('aktif', b.dataset.w === w); });
+        var lanjut = function () {
+          R = RR[w]; if (masker) { if (w) masker.addTo(map); else map.removeLayer(masker); }
+          var bb = w ? bbTmg : bbDas; map.fitBounds(bb, { padding: [8, 8] }); setTimeout(function () { map.invalidateSize(); map.fitBounds(bb, { padding: [8, 8] }); }, 400);
+          batang(); pilih(cur);
+        };
+        if (RR[w]) { lanjut(); return; }
+        fetch(folder + 'lereng' + w + '.json').then(function (r) { return r.json(); }).then(function (j) { RR[w] = j; lanjut(); });
+      }
+      Promise.all([fetch(folder + 'kabupaten.geojson').then(function (r) { return r.json(); }), fetch(folder + 'masker-tamiang.geojson').then(function (r) { return r.json(); })]).then(function (d) {
+        masker = L.geoJSON(d[1], { interactive: false, style: { stroke: false, fillColor: '#283618', fillOpacity: .72 } });
+        var kab = L.geoJSON(d[0], { interactive: false, style: function (f) { var t = f.properties.kab === (cfg.sorotKab || ''); return { color: '#FEFAE0', weight: t ? 3 : 1.2, opacity: t ? 1 : .6, dashArray: t ? null : '6 5', fill: false }; } }).addTo(map);
+        kab.eachLayer(function (l) { if (l.feature.properties.kab === cfg.sorotKab) bbTmg = l.getBounds(); });
+        cur = T.length - 1; gantiWil('-tmg');
       });
+      wbtn.forEach(function (b) { b.addEventListener('click', function () { if (b.dataset.w !== wil) gantiWil(b.dataset.w); }); });
       btn.forEach(function (b) { b.addEventListener('click', function () { stop(); pilih(+b.dataset.k); }); });
       function stop() { if (timer) { clearInterval(timer); timer = null; play.textContent = '▶ Putar'; } }
       play.addEventListener('click', function () {
