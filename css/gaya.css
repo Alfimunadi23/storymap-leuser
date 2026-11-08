@@ -353,3 +353,4 @@ body,html{background:#606C38}
 .plg-wil button{all:unset;cursor:pointer;font-family:var(--f-kode);font-size:.74rem;letter-spacing:.05em;text-transform:uppercase;padding:8px 14px;border-radius:999px;color:var(--krim)}
 .plg-wil button.aktif{background:#FEFAE0;color:#283618;font-weight:600}
 .plg-wil button:focus-visible{outline:2px dashed #DDA15E}
+.pint-pop .pop-baris strong{text-align:right;max-width:190px}

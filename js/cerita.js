@@ -108,7 +108,7 @@
         return (b.paragraf ? '<div class="isi-kolom" style="margin-bottom:28px">' + paragraf(b.paragraf) + '</div>' : '') +
           '<div class="ptab waktu pint plg isi-lebar" data-plg="' + (PINT.length - 1) + '">' +
           (b.subjudul ? '<h3 class="sub-blok">' + sorotKata(b.subjudul) + '</h3>' : '') +
-          '<div class="plg-wil" role="group" aria-label="Wilayah"><button type="button" data-w="-tmg" class="aktif">Kab. Aceh Tamiang</button><button type="button" data-w="">Seluruh DAS Tamiang</button></div>' +
+          '<div class="plg-wil" role="group" aria-label="Wilayah"><button type="button" data-w="" class="aktif">DAS Tamiang</button><button type="button" data-w="-tmg">Kab. Aceh Tamiang saja</button></div>' +
           '<div class="ptab-nav" role="tablist">' + TL.map(function (y, k) { return '<button type="button" role="tab" data-k="' + k + '">' + y + '</button>'; }).join('') +
           '<button type="button" class="ptab-putar">▶ Putar</button></div>' +
           '<div class="ptab-badan"><div class="bingkai"><div class="peta-leaflet" role="application" aria-label="Peta interaktif deforestasi lereng"></div></div><div class="pint-info ptab-isi"><p class="kode">Memuat peta…</p></div></div>' +
@@ -346,10 +346,10 @@
     var WL = ['#FBC02D', '#F57C00', '#D32F2F'], WG = ['#F57F17', '#E65100', '#B71C1C'];
     function petaLereng(box) {
       var cfg = PINT[+box.dataset.plg], folder = cfg.folder || 'data/', T = cfg.tahun || [];
-      var map = L.map(box.querySelector('.peta-leaflet'), { scrollWheelZoom: false });
+      var map = L.map(box.querySelector('.peta-leaflet'), { scrollWheelZoom: false, zoomSnap: 0.25 });
       L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom: 18, attribution: 'Citra: Esri World Imagery' }).addTo(map);
       var info = box.querySelector('.pint-info'), btn = [].slice.call(box.querySelectorAll('.ptab-nav [data-k]')), play = box.querySelector('.ptab-putar'), strip = box.querySelector('.plg-batang');
-      var R = null, RR = {}, lap = {}, aktif = null, cur = 0, timer = null, nyala = [true, true, true], wil = '-tmg', masker = null, bbTmg = null, bbDas = L.latLngBounds([[3.72, 97.31], [4.49, 97.97]]), wbtn = [].slice.call(box.querySelectorAll('.plg-wil button'));
+      var R = null, RR = {}, lap = {}, aktif = null, cur = 0, timer = null, nyala = [true, true, true], wil = '', masker = {}, bbTmg = null, bbDas = null, wbtn = [].slice.call(box.querySelectorAll('.plg-wil button'));
       function gaya(f) { var i = f.properties.i; return { color: WG[i], weight: .4 + i * .1, fillColor: WL[i], fillOpacity: nyala[i] ? .9 : 0, opacity: nyala[i] ? 1 : 0 }; }
       function pop(p, y, RW) {
         var d = RW.info[p.kelas] || {}, tot = RW.total[y].reduce(function (a, b) { return a + b; }, 0);
@@ -361,7 +361,7 @@
       function isiInfo(y) {
         var t = R.total[y], tot = t[0] + t[1] + t[2];
         info.innerHTML = '<div class="ptab-besar">' + y + '</div>' +
-          '<dl><div><dt>' + (wil ? 'Hutan hilang di lereng Kab. Aceh Tamiang' : 'Hutan hilang di lereng seluruh DAS') + '</dt><dd><b>' + fmt(tot) + '</b> ha</dd></div></dl>' +
+          '<dl><div><dt>' + (wil ? 'Hutan hilang di lereng Kab. Aceh Tamiang (dalam DAS)' : 'Hutan hilang di lereng DAS Tamiang') + '</dt><dd><b>' + fmt(tot) + '</b> ha</dd></div></dl>' +
           '<div class="plg-kelas">' + R.kelas.map(function (k, i) {
             var d = R.info[k] || {};
             return '<label class="' + (nyala[i] ? '' : 'mati') + '"><input type="checkbox" data-i="' + i + '"' + (nyala[i] ? ' checked' : '') + '>' +
@@ -371,7 +371,7 @@
           '<p class="kode" style="margin-top:10px">Kecamatan terbanyak</p><ol class="pint-top">' +
           R.kec[y].filter(function (r) { return r[1] + r[2] + r[3] >= 0.5; }).slice(0, 4).map(function (r) { var n = r[0].split('|'), s3 = r[1] + r[2] + r[3];
             return '<li><span>' + esc(n[0]) + '<small>' + esc(n[1]) + ' · ' + Math.round(r[3] / s3 * 100) + '% sangat curam</small></span><b>' + fmt(s3) + ' ha</b></li>'; }).join('') + '</ol>' +
-          (wil ? '<p class="pint-petunjuk">Data lereng hanya mencakup bagian Aceh Tamiang yang masuk DAS Tamiang. Hulu DAS lainnya ada di Gayo Lues dan Aceh Timur: klik <b>Seluruh DAS Tamiang</b>.</p>' : '') +
+          (wil ? '<p class="pint-petunjuk">Hanya bagian Aceh Tamiang yang masuk DAS. Hulu DAS lainnya ada di Gayo Lues dan Aceh Timur: klik <b>DAS Tamiang</b>.</p>' : '<p class="pint-petunjuk">Garis merah: batas DAS Tamiang (562.251 ha). Data kehilangan hutan mencakup bagian DAS di dalam Kawasan Ekosistem Leuser, sekitar 70% luas DAS. Klik garis merah untuk info DAS.</p>') +
           '<p class="pint-petunjuk">Centang/hapus centang kelas lereng untuk menyaring peta. Klik area berwarna untuk detail risikonya.</p>';
         [].forEach.call(info.querySelectorAll('input[data-i]'), function (c) {
           c.addEventListener('change', function () { nyala[+c.dataset.i] = c.checked; c.parentNode.classList.toggle('mati', !c.checked); if (aktif) aktif.setStyle(gaya); });
@@ -404,18 +404,26 @@
       function gantiWil(w) {
         wil = w; wbtn.forEach(function (b) { b.classList.toggle('aktif', b.dataset.w === w); });
         var lanjut = function () {
-          R = RR[w]; if (masker) { if (w) masker.addTo(map); else map.removeLayer(masker); }
+          R = RR[w]; Object.keys(masker).forEach(function (k) { if (k === w) masker[k].addTo(map); else map.removeLayer(masker[k]); });
           var bb = w ? bbTmg : bbDas; map.fitBounds(bb, { padding: [8, 8] }); setTimeout(function () { map.invalidateSize(); map.fitBounds(bb, { padding: [8, 8] }); }, 400);
           batang(); pilih(cur);
         };
         if (RR[w]) { lanjut(); return; }
         fetch(folder + 'lereng' + w + '.json').then(function (r) { return r.json(); }).then(function (j) { RR[w] = j; lanjut(); });
       }
-      Promise.all([fetch(folder + 'kabupaten.geojson').then(function (r) { return r.json(); }), fetch(folder + 'masker-tamiang.geojson').then(function (r) { return r.json(); })]).then(function (d) {
-        masker = L.geoJSON(d[1], { interactive: false, style: { stroke: false, fillColor: '#283618', fillOpacity: .72 } });
+      Promise.all([fetch(folder + 'kabupaten.geojson').then(function (r) { return r.json(); }), fetch(folder + 'masker-tamiang.geojson').then(function (r) { return r.json(); }), fetch(folder + 'masker-das.geojson').then(function (r) { return r.json(); }), fetch(folder + 'das-tamiang.geojson').then(function (r) { return r.json(); })]).then(function (d) {
+        var gm = { stroke: false, fillColor: '#283618', fillOpacity: .72, interactive: false };
+        masker['-tmg'] = L.geoJSON(d[1], { interactive: false, style: gm }); masker[''] = L.geoJSON(d[2], { interactive: false, style: gm });
         var kab = L.geoJSON(d[0], { interactive: false, style: function (f) { var t = f.properties.kab === (cfg.sorotKab || ''); return { color: '#FEFAE0', weight: t ? 3 : 1.2, opacity: t ? 1 : .6, dashArray: t ? null : '6 5', fill: false }; } }).addTo(map);
         kab.eachLayer(function (l) { if (l.feature.properties.kab === cfg.sorotKab) bbTmg = l.getBounds(); });
-        cur = T.length - 1; gantiWil('-tmg');
+        var das = L.geoJSON(d[3], { style: { color: '#DC143C', weight: 3, fill: true, fillOpacity: 0 }, onEachFeature: function (f, l) {
+          var p = f.properties;
+          l.bindPopup('<div class="pint-pop"><b>' + esc(p.NAMA_DAS) + '</b><span>' + esc(p.KODE_DAS) + ' · ' + esc(p.NAMA_KLHK) + '</span>' +
+            [['Luas', fmt(p.LUAS_HA) + ' ha'], ['Di dalam KEL', fmt(p.LUAS_KEL) + ' ha (' + p.PERSEN_KEL + '%)'], ['Sungai', p.SUNGAI], ['Hulu', p.HULU], ['Hilir', p.HILIR], ['Kabupaten', p.KABUPATEN], ['Status', p.LINTAS]].map(function (r) { return '<div class="pop-baris"><em>' + r[0] + '</em><strong>' + esc(r[1]) + '</strong></div>'; }).join('') +
+            '<p class="pop-risiko" style="color:#5c6440">Sumber: ' + esc(p.SUMBER) + '</p></div>', { maxWidth: 320 });
+        } }).addTo(map);
+        bbDas = das.getBounds(); das.bringToBack();
+        cur = T.length - 1; gantiWil('');
       });
       wbtn.forEach(function (b) { b.addEventListener('click', function () { if (b.dataset.w !== wil) gantiWil(b.dataset.w); }); });
       btn.forEach(function (b) { b.addEventListener('click', function () { stop(); pilih(+b.dataset.k); }); });
