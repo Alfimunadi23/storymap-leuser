@@ -601,8 +601,8 @@ window.ISI = {
       blok: [
         { jenis: 'video', otomatis: true,
           subjudul: 'Dari hulu ke hilir dalam *30 detik*',
-          file: 'video/air-dari-hulu-animasi-v2.mp4', poster: 'video/animasi-poster.jpg',
-          keterangan: 'Animasi peta: batas DAS Tamiang, tutupan hutan hulu, kehilangan tutupan hutan 2020–2025, hujan ekstrem, aliran sungai, dan genangan 28 November 2025. Data: KLHK, HAkA, DEMNAS, IMERG, UNOSAT, Dukcapil; hasil analisis tim.'
+          file: 'video/air-dari-hulu-v3.mp4', poster: 'video/animasi-poster.jpg',
+          keterangan: 'Perjalanan air di DAS Tamiang: hutan hulu, tutupan hutan yang hilang sejak 2020, hujan lebat akhir November 2025, hingga genangan di hilir. Data dari KLHK, HAkA, DEMNAS, NASA IMERG, UNOSAT, dan Dukcapil, diolah tim.'
         },
         { jenis: 'teks',
           paragraf: [
@@ -652,15 +652,16 @@ window.ISI = {
     teks: 'Banjir di hilir berawal dari apa yang terjadi di hulu. Selama hutan Leuser di hulu DAS Tamiang terjaga, air punya tempat untuk meresap dan warga di hilir punya waktu untuk bersiap. Menjaga hulu berarti menjaga kita semua.'
   },
   sumberData: [
-    'Batas DAS, KEL, tutupan & kehilangan hutan: Yayasan HAkA (data dasar panitia)',
-    'Batas kecamatan & desa: BIG 2025, Dukcapil',
-    'Elevasi & lereng: DEMNAS (BIG)',
-    'Curah hujan: CHIRPS, NASA GPM IMERG',
-    'Genangan banjir: UNOSAT (28 Nov 2025)',
-    'Jalan: OpenStreetMap',
-    'Lahan pertanian terdampak: cekdatabencana.acehtamiangkab.go.id',
-    'Foto: Kompas.com, Antara Foto, Liputan6.com'
+    'Batas DAS Tamiang: KLHK, Batas DAS se-Indonesia',
+    'Batas KEL serta tutupan dan kehilangan hutan: Yayasan HAkA (data dasar panitia)',
+    'Batas kecamatan dan desa: BIG 2025 dan Dukcapil',
+    'Ketinggian dan kemiringan lereng: DEMNAS (BIG)',
+    'Curah hujan: CHIRPS dan NASA GPM IMERG',
+    'Genangan banjir: UNOSAT, citra 28 November 2025',
+    'Jaringan jalan: OpenStreetMap',
+    'Lahan pertanian terdampak: Pemkab Aceh Tamiang (cekdatabencana.acehtamiangkab.go.id)',
+    'Foto lapangan: Kompas.com, Antara Foto, dan Liputan6.com'
   ],
-  metode: 'Semua peta diolah di QGIS; luas dihitung dalam UTM 47N (EPSG:32647).',
+  metode: 'Seluruh data diolah tim menggunakan QGIS. Perhitungan luas memakai sistem koordinat UTM zona 47N (EPSG:32647).',
   catatanAI: ''
 };
