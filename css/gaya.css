@@ -431,3 +431,57 @@ body,html{background:#606C38}
 .leaflet-interactive.lap-tahun,path.lap-tahun{animation:lapM .6s ease-out}
 @keyframes lapM{from{opacity:0}}
 @media (prefers-reduced-motion:reduce){.cap-tahun.ganti,path.lap-tahun{animation:none}}
+
+/* ===== revisi tata letak: lebih padat, huruf lebih besar, hiasan bayangan Leuser ===== */
+:root{--lebar:1380px}
+body{font-size:21px;line-height:1.6}
+.kode{font-size:.8rem}
+figcaption,.sumber{font-size:.78rem}
+.bagian{padding-block:76px}
+.bagian > .wrap{position:relative;z-index:1}
+.kepala{grid-template-columns:140px minmax(0,1fr);margin-bottom:36px}
+.kepala h2{font-size:clamp(2.4rem,4.8vw,4rem)}
+.kepala .pengantar{font-size:1.12em;max-width:70ch}
+.isi-kolom{margin-left:164px;max-width:76ch;gap:18px}
+.isi-lebar{margin-left:164px}
+.sub-blok{font-size:clamp(1.55rem,2.2vw,1.95rem);margin-bottom:18px}
+.blok + .blok{margin-top:64px}
+.angka span{font-size:1.05rem}
+.ptab-isi,.pint-info{font-size:1.02rem}
+.pint-info dt{font-size:1rem}
+.pweb-teks,.pweb-legenda{font-size:1.02rem}
+.gp-ket{font-size:1.08rem}
+.gplus text{font-size:12.5px}
+.gplus .nilai{font-size:14.5px}
+.peta-leaflet{height:clamp(440px,68vh,680px)}
+.sampul h1{font-size:clamp(3.4rem,8vw,7rem)}
+.sampul .sub{font-size:1.5rem;max-width:30ch}
+.sampul .wrap{padding-block:56px 150px}
+
+/* punggung bukit Leuser di dasar sampul & tiap bagian */
+.sampul::after,.bagian::after,.penutup::after{content:"";position:absolute;left:0;right:0;bottom:0;height:clamp(90px,12vw,190px);pointer-events:none;
+  background:url(../hias/punggung.svg) bottom/100% 100% no-repeat;opacity:.85;z-index:0}
+.bagian:nth-of-type(even)::after{transform:scaleX(-1)}
+.penutup{position:relative}
+.sampul .wrap,.penutup .wrap{position:relative;z-index:1}
+
+/* bayangan hutan, orangutan & rangkong di kiri-kanan layar lebar */
+.siluet{display:none}
+@media (min-width:1500px){
+  .siluet{display:block;position:fixed;bottom:0;top:46px;width:calc((100vw - var(--lebar)) / 2 + 40px);max-width:300px;z-index:2;pointer-events:none;opacity:.55;
+    background-repeat:no-repeat;background-size:contain;transition:opacity .4s}
+  .siluet.kiri{left:0;background-image:url(../hias/siluet-kiri.svg);background-position:left bottom}
+  .siluet.kanan{right:0;background-image:url(../hias/siluet-kanan.svg);background-position:right bottom}
+}
+@media (max-width:860px){
+  body{font-size:18px}
+  .isi-kolom,.isi-lebar{margin-left:0}
+  .sampul .wrap{padding-block:40px 110px}
+  .sampul .sub{font-size:1.25rem}
+  .bagian{padding-block:60px 110px}
+  .peta-leaflet{height:clamp(360px,60vh,520px)}
+}
+.bagian{padding-bottom:calc(76px + 7vw)}@media (max-width:860px){.bagian{padding-bottom:110px}}
+@media (max-width:860px){.kepala{grid-template-columns:1fr;gap:12px}.kepala h2{font-size:clamp(2rem,8.5vw,2.6rem)}}
+.siluet.kiri{-webkit-mask-image:linear-gradient(90deg,#000 70%,transparent);mask-image:linear-gradient(90deg,#000 70%,transparent)}
+.siluet.kanan{-webkit-mask-image:linear-gradient(270deg,#000 70%,transparent);mask-image:linear-gradient(270deg,#000 70%,transparent)}
