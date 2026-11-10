@@ -519,6 +519,11 @@ window.ISI = {
     { label: 'Sintesis',
       judul: 'Kalau semuanya *disatukan*',
       blok: [
+        { jenis: 'video', otomatis: true,
+          subjudul: 'Dari hulu ke hilir dalam *30 detik*',
+          file: 'video/air-dari-hulu-animasi.mp4', poster: 'video/animasi-poster.jpg',
+          keterangan: 'Animasi peta: batas DAS Tamiang, hutan hulu, kehilangan hutan 2020–2025, hujan ekstrem, aliran sungai, dan genangan 28 November 2025. Data: KLHK, HAkA, DEMNAS, IMERG, UNOSAT, Dukcapil; hasil analisis tim.'
+        },
         { jenis: 'teks',
           paragraf: [
             'Semua bagian tadi adalah satu rangkaian. Tahun 2025, DAS Tamiang kehilangan 8.358 ha hutan, separuhnya di lereng sangat curam di hulu. Hutan di tepi sungai ikut terbuka 1.268 ha. Lalu akhir November turun hujan lebih dari 100 mm sehari, dengan puncak 35 mm per jam.',

@@ -177,6 +177,8 @@
           '<div class="kartu isi-lebar muncul">' + (b.isi || []).map(function (k) {
             return '<div style="--c:' + (WK[k.warna] || 'var(--aksen)') + '"><span class="kode">' + esc(k.label || k.warna || '') + '</span><h3>' + esc(k.judul) + '</h3><p>' + esc(k.teks) + '</p></div>';
           }).join('') + '</div>';
+      case 'video':
+        return (b.subjudul ? '<h3 class="sub-blok isi-lebar">' + sorotKata(b.subjudul) + '</h3>' : '') + '<figure class="video-blok isi-lebar muncul"><div class="bingkai"><video src="' + esc(b.file) + '" poster="' + esc(b.poster || '') + '" controls muted loop playsinline preload="metadata"' + (b.otomatis ? ' data-otomatis' : '') + '></video></div><figcaption>' + esc(b.keterangan || '') + '</figcaption></figure>';
       case 'alur':
         return '<ol class="alur isi-lebar muncul">' + (b.isi || []).map(function (x, k) { return '<li><span class="alur-no">' + pad2(k + 1) + '</span><h4>' + esc(x.judul) + '</h4><p>' + esc(x.teks) + '</p></li>'; }).join('') + '</ol>';
       case 'galeri':
@@ -859,6 +861,10 @@
     }
   })();
   (function () { var g = document.querySelector('[data-label="Genangan"]'), k = document.getElementById('keBanjir'); if (g && k) k.href = '#' + g.id; })();
+  if ('IntersectionObserver' in window) {
+    var ioV = new IntersectionObserver(function (es) { es.forEach(function (e) { var v = e.target; if (e.isIntersecting) { var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); } else v.pause(); }); }, { threshold: .5 });
+    main.querySelectorAll('video[data-otomatis]').forEach(function (v) { ioV.observe(v); });
+  }
   /* --- perbesar gambar --- */
   var lb = document.getElementById('lightbox'), lbImg = lb.querySelector('img'), lbCap = lb.querySelector('p');
   document.addEventListener('click', function (e) {
