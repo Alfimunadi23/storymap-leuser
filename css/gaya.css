@@ -485,3 +485,31 @@ figcaption,.sumber{font-size:.78rem}
 @media (max-width:860px){.kepala{grid-template-columns:1fr;gap:12px}.kepala h2{font-size:clamp(2rem,8.5vw,2.6rem)}}
 .siluet.kiri{-webkit-mask-image:linear-gradient(90deg,#000 70%,transparent);mask-image:linear-gradient(90deg,#000 70%,transparent)}
 .siluet.kanan{-webkit-mask-image:linear-gradient(270deg,#000 70%,transparent);mask-image:linear-gradient(270deg,#000 70%,transparent)}
+
+/* ===== sampul: citra satelit Leuser, rata tengah, formal ===== */
+.siluet{display:none!important}
+.sampul::after,.bagian::after,.penutup::after{content:none!important}
+.bagian{padding-bottom:76px}
+.sampul{min-height:min(100vh,980px);display:flex;align-items:stretch;background:#1b2410}
+.hero-latar{position:absolute;inset:0;overflow:hidden}
+.hero-latar > img{width:100%;height:100%;object-fit:cover;animation:heroZ 40s ease-in-out infinite alternate}
+.hero-ubin{position:absolute;left:50%;top:50%;transform-origin:center;animation:heroZ2 40s ease-in-out infinite alternate}
+.hero-ubin img{position:absolute;width:256px;height:256px;max-width:none}
+@keyframes heroZ{from{transform:scale(1)}to{transform:scale(1.08)}}
+@keyframes heroZ2{from{transform:scale(1.15)}to{transform:scale(1.25)}}
+.hero-redup{position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,28,12,.55) 0%,rgba(20,28,12,.35) 35%,rgba(20,28,12,.55) 70%,rgba(20,28,12,.92) 100%)}
+.sampul .wrap{position:relative;z-index:1;width:100%;display:flex;flex-direction:column;padding-block:40px 70px;grid-template-columns:none}
+.hero-isi{margin:auto;text-align:center;max-width:980px;padding-block:40px}
+.hero-isi .kode{color:#e9e5c4;letter-spacing:.16em}
+.sampul h1{font-size:clamp(3.4rem,9vw,7.6rem);text-shadow:0 4px 30px rgba(0,0,0,.45);margin-top:14px}
+.sampul .sub{margin:22px auto 0;max-width:40ch;font-size:clamp(1.25rem,2.1vw,1.65rem);color:#f3f0d6;text-shadow:0 2px 12px rgba(0,0,0,.5)}
+.hero-aksi{margin-top:40px;display:flex;gap:28px;justify-content:center;align-items:center;flex-wrap:wrap}
+.hero-aksi .gulir{margin:0;font-size:.85rem;padding:16px 28px;border-radius:4px}
+.hero-link{color:#FEFAE0;font-family:var(--f-judul);font-weight:700;font-size:1.05rem;text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:2px}
+.hero-link:hover{color:#DDA15E}
+.hero-wil{margin-top:28px;font-family:var(--f-kode);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:#d9d6b6}
+.hero-atribusi{position:absolute;right:16px;bottom:10px;z-index:1;font-family:var(--f-kode);font-size:.62rem;color:rgba(254,250,224,.65);margin:0}
+.sampul .logo-atas{margin-bottom:0}
+@media (max-width:860px){.sampul{min-height:92vh}.hero-aksi{gap:18px}.sampul .wrap{padding-block:28px 60px}}
+@media (prefers-reduced-motion:reduce){.hero-ubin,.hero-latar > img{animation:none}}
+.sampul .logo-atas{width:100%;align-self:stretch;display:flex;justify-content:space-between}

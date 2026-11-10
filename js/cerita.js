@@ -45,13 +45,24 @@
   var t = I.tim || {};
   var lg = function (l) { return img(l.file, l.nama || 'Logo', l.bentuk || '', 1); };
   var logoHtml = function () { return '<div class="logo-atas"><div class="kiri">' + [].concat(I.logoKiri || []).map(lg).join('') + '</div><div class="kanan">' + [].concat(I.logoKanan || []).map(lg).join('') + '</div></div>'; };
-  document.getElementById('sampul').innerHTML = '<canvas id="kontur" aria-hidden="true"></canvas>' +
-    '<div class="wrap">' + logoHtml() + '<div>' +
+  var SP = I.sampul || {};
+  var latarHtml = (function () {
+    if (SP.foto) return '<div class="hero-latar"><img src="' + esc(SP.foto) + '" alt=""></div>';
+    var c = SP.pusat || [4.10, 97.66], z = SP.zoom || 11, n = Math.pow(2, z), la = c[0] * Math.PI / 180;
+    var fx = (c[1] + 180) / 360 * n, fy = (1 - Math.log(Math.tan(la) + 1 / Math.cos(la)) / Math.PI) / 2 * n, cols = 9, rows = 6;
+    var x0 = Math.floor(fx - cols / 2), y0 = Math.floor(fy - rows / 2), t = '';
+    for (var j = 0; j < rows; j++) for (var i = 0; i < cols; i++)
+      t += '<img alt="" loading="eager" style="left:' + (i * 256) + 'px;top:' + (j * 256) + 'px" src="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/' + z + '/' + (y0 + j) + '/' + (x0 + i) + '">';
+    var ox = (fx - x0) * 256, oy = (fy - y0) * 256;
+    return '<div class="hero-latar"><div class="hero-ubin" style="width:' + cols * 256 + 'px;height:' + rows * 256 + 'px;margin-left:' + (-ox) + 'px;margin-top:' + (-oy) + 'px">' + t + '</div></div>';
+  })();
+  document.getElementById('sampul').innerHTML = latarHtml + '<div class="hero-redup"></div>' +
+    '<div class="wrap">' + logoHtml() + '<div class="hero-isi">' +
     '<div class="kode">' + esc(I.kegiatan) + '</div>' +
     '<h1>' + sorotKata(I.judul) + '</h1><p class="sub">' + esc(I.subjudul) + '</p>' +
-    (I.wilayah ? '<dl class="meta"><dt>Wilayah</dt><dd>' + esc(I.wilayah) + '</dd></dl>' : '') +
-    '<a class="gulir" href="#b1">Mulai baca</a></div>' +
-    '<figure style="margin:0"><div class="bingkai">' + img((I.sampul || {}).gambar, 'Sampul', 'zoom', 0.78) + '</div><figcaption>' + esc((I.sampul || {}).keterangan) + '</figcaption></figure></div>';
+    '<div class="hero-aksi"><a class="gulir" href="#b1">Mulai baca</a><a class="hero-link" id="keBanjir" href="#">Lihat peta banjir</a></div>' +
+    (I.wilayah ? '<p class="hero-wil">' + esc(I.wilayah) + ' · Kawasan Ekosistem Leuser</p>' : '') +
+    '</div></div><p class="hero-atribusi">' + esc(SP.foto ? (SP.kredit || '') : 'Citra satelit hulu DAS Tamiang: Esri World Imagery') + '</p>';
 
   /* --- bagian --- */
   var B = (I.bagian || []).filter(function (b) { return !(b.jenis === 'peta-web' && !b.alamat); });
@@ -759,6 +770,7 @@
     }).catch(function () { [].slice.call(boxes).concat([].slice.call(boxL), [].slice.call(boxW)).forEach(function (b) { b.querySelector('.peta-leaflet').innerHTML = '<p style="padding:24px">Peta interaktif gagal dimuat. Periksa koneksi internet.</p>'; }); });
   })();
 
+  (function () { var g = document.querySelector('[data-label="Genangan"]'), k = document.getElementById('keBanjir'); if (g && k) k.href = '#' + g.id; })();
   /* --- perbesar gambar --- */
   var lb = document.getElementById('lightbox'), lbImg = lb.querySelector('img'), lbCap = lb.querySelector('p');
   document.addEventListener('click', function (e) {
