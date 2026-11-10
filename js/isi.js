@@ -33,8 +33,8 @@
               tooltip: function (p) { return (p.n || 'Tanpa nama') + ' · ' + p.km + ' km'; } },
     aliran: { file: 'aliran.geojson', tipe: 'garis', urut: 'o', warnaDari: { field: 'o', nilai: { 1: '#BDE3FF', 2: '#4FA8FF', 3: '#0A4FD6' } }, tebalDari: { field: 'o', nilai: { 1: .6, 2: 1.3, 3: 2.6 } },
               tooltip: function (p) { return 'Orde ' + p.o + ' · ' + p.tipe + ' · total ' + p.km.toLocaleString('id-ID') + ' km'; } },
-    hutan19: { file: 'hutan-2019.geojson', warna: '#8FD694', garis: '#E8FFE9', tebal: .5, isi: .85 },
-    hutan25: { file: 'hutan-2025.geojson', warna: '#1E8C55', garis: '#0C3B22', tebal: .5, isi: .92 },
+    hutan19: { file: 'hutan-2019.geojson', warna: '#E2B655', garis: '#8A6417', tebal: .4, isi: .88 },
+    hutan25: { file: 'hutan-2025.geojson', warna: '#35A76A', garis: '#145A35', tebal: .4, isi: .9 },
     hilangSemua: { file: 'hutan-status.geojson', saring: function (p) { return p.s.indexOf('Kehilangan') === 0; }, warnaDari: { field: 's', nilai: { 'Kehilangan hutan 2025': '#FF4B3E' }, lain: '#FF9F43' }, tebal: 1.6, isi: 1,
               popup: { judul: 's', sub: 'Hutan yang sudah hilang', baris: [ ['Luas di DAS', 'ha', 'ha', 0] ] } },
     hutanStatus: { file: 'hutan-status.geojson', warnaDari: { field: 's', nilai: { 'Tutupan hutan stabil (2019–2025)': '#238B45', 'Kehilangan hutan 2020': '#FEE5D9', 'Kehilangan hutan 2021': '#FCAE91', 'Kehilangan hutan 2022': '#FB6A4A', 'Kehilangan hutan 2023': '#DE2D26', 'Kehilangan hutan 2024': '#A50F15', 'Kehilangan hutan 2025': '#FFD400' } }, isi: .85, tebal: .3,
@@ -232,8 +232,8 @@ window.ISI = {
           tab: [
             { label: 'Swipe 2019 ↔ 2025', besar: '−11.358 ha', geser: { kiri: ['hutan19'], kanan: ['hutan25'], labelKiri: 'Tutupan hutan KEL 2019', labelKanan: 'Tutupan hutan KEL 2025' },
               angka: [ { keterangan: 'Hutan 2019', nilai: '319.739', satuan: 'ha' }, { keterangan: 'Hutan 2025', nilai: '308.381', satuan: 'ha' }, { keterangan: 'Porsi DAS berhutan', nilai: '56,9 → 54,9', satuan: '%' } ],
-              legenda: [ { warna: '#8FD694', label: 'Tutupan hutan KEL 2019 (sisi kiri)' }, { warna: '#1E8C55', label: 'Tutupan hutan KEL 2025 (sisi kanan)' } ],
-              petunjuk: 'Swipe bulatan kuning ke kiri-kanan. Bagian yang berlubang di sisi 2025 adalah tutupan hutan yang sudah tidak ada.',
+              legenda: [ { warna: '#E2B655', label: 'Tutupan hutan KEL 2019 (sisi kiri)' }, { warna: '#35A76A', label: 'Tutupan hutan KEL 2025 (sisi kanan)' } ],
+              petunjuk: 'Swipe bulatan putih ke kiri-kanan. Bagian yang berlubang di sisi 2025 adalah tutupan hutan yang sudah tidak ada.',
               teks: 'Tutupan hutan KEL di DAS berkurang dari 319.739 ha (2019) menjadi 308.381 ha (2025). Penurunan terbesar terjadi pada 2025, yaitu 8.358 ha.' },
             { label: 'Waktu kehilangan', besar: '2020–2025', lapis: ['hutanStatus'],
               legenda: [ { warna: '#238B45', label: 'Tutupan hutan stabil (2019–2025)' }, { warna: '#FEE5D9', label: 'Kehilangan hutan 2020 · 1.340 ha' }, { warna: '#FCAE91', label: 'Kehilangan hutan 2021 · 786 ha' }, { warna: '#FB6A4A', label: 'Kehilangan hutan 2022 · 303 ha' }, { warna: '#DE2D26', label: 'Kehilangan hutan 2023 · 229 ha' }, { warna: '#A50F15', label: 'Kehilangan hutan 2024 · 341 ha' }, { warna: '#FFD400', label: 'Kehilangan hutan 2025 · 8.358 ha' } ],
@@ -244,7 +244,7 @@ window.ISI = {
               teks: 'Hilir hampir tidak punya hutan lagi. Satu-satunya penahan air yang tersisa ada di hulu.' },
             { label: 'Tutupan lahan', besar: '2019 ↔ 2025', geser: { kiri: ['lahan19'], kanan: ['lahan25'], labelKiri: 'Lahan 2019', labelKanan: 'Lahan 2025' },
               legenda: [ { warna: '#1B7837', label: 'Hutan alami Leuser' }, { warna: '#C28441', label: 'Kebun sawit' }, { warna: '#FFDB5C', label: 'Pertanian semusim' }, { warna: '#9BBF6A', label: 'Semak belukar' }, { warna: '#EDD9A3', label: 'Lahan terbuka' }, { warna: '#ED022A', label: 'Permukiman' }, { warna: '#2F6146', label: 'Rawa' }, { warna: '#1A5BAB', label: 'Badan air' } ],
-              petunjuk: 'Swipe garis kuning. Klik warna untuk melihat luas kelasnya.' }
+              petunjuk: 'Swipe garis putih. Klik warna untuk melihat luas kelasnya.' }
           ],
           sumber: 'Sumber: Tutupan Hutan KEL 2019–2025 (HAkA); tutupan lahan vektor hasil analisis tim; batas DAS KLHK.'
         },
@@ -369,7 +369,7 @@ window.ISI = {
             { label: 'Swipe 2019 ↔ 2025', besar: '+1.744 ha', judul: 'sempadan rusak bertambah', geser: { kiri: ['smp19'], kanan: ['smp25'], labelKiri: 'Sempadan 2019', labelKanan: 'Sempadan 2025' },
               angka: [ { keterangan: 'Rusak 2019', nilai: '22.503', satuan: 'ha' }, { keterangan: 'Rusak 2025', nilai: '24.247', satuan: 'ha' } ],
               legenda: [ { warna: '#238B45', label: 'Berhutan' }, { warna: '#FA8C16', label: 'Rusak / non-hutan' } ],
-              petunjuk: 'Swipe bulatan kuning untuk membandingkan.' },
+              petunjuk: 'Swipe bulatan putih untuk membandingkan.' },
             { label: 'Dibuka per tahun', besar: '1.744 ha', judul: 'hutan sempadan dibuka 2019–2025', lapis: ['smpDef'],
               angka: [ { keterangan: '2019–2024 (enam tahun)', nilai: '475', satuan: 'ha' }, { keterangan: '2025 saja', nilai: '1.268', satuan: 'ha' } ],
               legenda: [ { warna: '#FED976', label: '2019' }, { warna: '#FD8D3C', label: '2021' }, { warna: '#E31A1C', label: '2023' }, { warna: '#BD0026', label: '2024' }, { warna: '#FF1E6E', label: '2025' } ],

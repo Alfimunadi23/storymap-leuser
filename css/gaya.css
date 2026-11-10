@@ -723,3 +723,7 @@ body,html{background:#26381f}
 .pweb-wadah .sw-lbl{position:absolute;bottom:30px;z-index:795;font-family:var(--f-kode);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:#FEFAE0;background:rgba(20,30,15,.9);border:1px solid rgba(255,209,102,.6);padding:6px 10px;pointer-events:none}
 .pweb-wadah .sw-lbl.k{left:12px}.pweb-wadah .sw-lbl.n{right:12px}
 .pweb-wadah .sw-lbl i{display:inline-block;width:11px;height:11px;margin-right:7px;vertical-align:-1px}
+.pweb-geser::before{background:#FEFAE0;width:3px;left:-1.5px;box-shadow:0 0 0 1px rgba(0,0,0,.4),0 0 10px rgba(0,0,0,.35)}
+.pweb-geser i{background:#FEFAE0;box-shadow:0 0 0 3px rgba(40,54,24,.6),0 4px 14px rgba(0,0,0,.45)}
+.pweb-geser i::before{color:#283618}
+.pweb-wadah .sw-lbl{border-color:rgba(254,250,224,.35)}
