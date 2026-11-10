@@ -531,3 +531,45 @@ figcaption,.sumber{font-size:.78rem}
   .samping.kiri .sp-label{left:30px}.samping.kanan .sp-label{right:30px;transform:none}
   .sp-label b{font-weight:500}.sp-label span{color:#DDA15E}
 }
+
+/* ===== revisi: panel samping menyatu alami + huruf kecil diperbesar ===== */
+@media (min-width:1500px){
+  .samping{opacity:1;width:calc((100vw - var(--lebar)) / 2 - 24px)}
+  .samping.kiri,.samping.kanan{-webkit-mask-image:none;mask-image:none}
+  .sp-ubin{filter:saturate(.8) brightness(.78) contrast(1.06)}
+  .samping::after{background:linear-gradient(180deg,rgba(40,54,24,.38),rgba(40,54,24,.62));mix-blend-mode:multiply}
+  .samping::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none}
+  .samping.kiri::before{box-shadow:inset -1px 0 0 rgba(221,161,94,.55),inset -26px 0 30px -18px rgba(20,28,12,.55)}
+  .samping.kanan::before{box-shadow:inset 1px 0 0 rgba(221,161,94,.55),inset 26px 0 30px -18px rgba(20,28,12,.55)}
+  .sp-label{font-size:.72rem}
+}
+body{font-size:21.5px}
+.kode{font-size:.86rem;letter-spacing:.08em}
+.kepala .no{font-size:.86rem}
+.kepala .no span{font-size:.95rem}
+figcaption,.sumber{font-size:.84rem;line-height:1.55}
+.lembar-in{font-size:.78rem}
+.ptab-nav button{font-size:.86rem}
+.waktu .ptab-nav button[data-k]{font-size:1.12rem}
+.ptab-putar{font-size:.84rem}
+.legenda,.legenda span{font-size:.86rem}
+.angka .sumber,.angka span.sumber{font-size:.84rem}
+.pint-info .kode,.pint-top li small{font-size:.78rem}
+.pint-top li span{font-size:1.08rem}
+.pint-petunjuk{font-size:1rem}
+.pweb-dasar button{font-size:.74rem}
+.plg-kelas small,.plg-nilai,.plg-kolom em{font-size:.78rem}
+.plg-wil button{font-size:.8rem}
+.gp-ganti button{font-size:.78rem}
+.gp-legenda button{font-size:1rem}
+.gp-pet,.gp-detail summary{font-size:.74rem}
+.gplus figcaption{font-size:.8rem}
+.gplus text{font-size:13.5px}
+.gplus .nilai{font-size:15.5px}
+.gp-ringkas span{font-size:.98rem}
+.pint-pop{font-size:12.5px}
+.pint-pop b{font-size:16px}
+.hero-wil{font-size:.86rem}
+.hero-isi .kode{font-size:.9rem}
+.tepi,.tepi .kode{font-size:1rem}
+@media (max-width:860px){body{font-size:18.5px}.waktu .ptab-nav button[data-k]{font-size:.95rem}}
