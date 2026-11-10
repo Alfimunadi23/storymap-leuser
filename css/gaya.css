@@ -585,3 +585,20 @@ figcaption,.sumber{font-size:.84rem;line-height:1.55}
   @keyframes spLk{from{opacity:0}}
 }
 @media (min-width:1500px){.samping .sp-ubin,.samping.kiri .sp-ubin,.samping.kanan .sp-ubin{left:50%;right:auto;top:50%;width:512px;height:1280px;margin-left:-256px;margin-top:-640px}}
+
+/* ===== revisi: olive lebih redup & menyatu dengan citra samping ===== */
+:root{--olive:#525d31}
+[data-warna="peta"]{--bg:#525d31;--bg-2:#5b6737}
+body,html{background:#525d31}
+.penutup{background:linear-gradient(180deg,#525d31 0%,#454f29 100%)}
+.tepi{background:#454f29}
+.bagian::before{opacity:.35}
+@media (min-width:1500px){
+  .samping.kiri::before,.samping.kanan::before{box-shadow:none}
+  .samping.kiri::before{background:linear-gradient(90deg,transparent 0%,transparent 55%,rgba(82,93,49,.55) 80%,#525d31 100%)}
+  .samping.kanan::before{background:linear-gradient(270deg,transparent 0%,transparent 55%,rgba(82,93,49,.55) 80%,#525d31 100%)}
+  .samping::after{background:linear-gradient(180deg,rgba(64,74,36,.42),rgba(52,61,30,.55));mix-blend-mode:multiply}
+  .sp-ubin{filter:saturate(.75) brightness(.85) contrast(1.02) sepia(.12)}
+  .samping{width:calc((100vw - var(--lebar)) / 2 + 30px)}
+}
+@media (min-width:1500px){.samping{width:calc((100vw - var(--lebar)) / 2 + 6px)}}
