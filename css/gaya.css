@@ -708,3 +708,12 @@ body,html{background:#26381f}
 .alur{margin:8px 0 0 164px}
 .alur li:not(:last-child)::after{right:-8px;top:-15px;font-size:1.05rem;line-height:1}
 @media (max-width:860px){.alur{margin-left:0}}
+/* kaki halaman lebih besar */
+.tepi .wrap{padding-block:64px calc(64px + env(safe-area-inset-bottom,0px));gap:48px}
+.tepi h3,.tepi .kode{font-size:.92rem;letter-spacing:.12em}
+.tepi p,.tepi li{font-size:1.12rem;line-height:1.6}
+.tepi .peran dt{font-size:.88rem}
+.tepi .peran dd{font-size:1.2rem}
+.tepi .catatan-kecil{font-size:1rem}
+.tepi .logo-atas img,.tepi .logo-baris img{height:76px;width:76px}
+.tepi .logo-atas img.persegi{height:64px;width:auto}
