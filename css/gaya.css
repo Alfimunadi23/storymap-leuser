@@ -660,3 +660,22 @@ body,html{background:#26381f}
 .lbl-kab span{font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.9}
 .lbl-kec.kecil{display:none}.z-dekat .lbl-kec.kecil{display:block}
 .lbl-kec.kota span{font-size:12px;color:#FFD9A0}
+
+/* garis geser lebih jelas */
+.pweb-geser::before{width:4px;left:-2px;background:#FFD166;box-shadow:0 0 0 1px rgba(0,0,0,.35),0 0 14px rgba(255,209,102,.7)}
+.pweb-geser i{width:46px;height:46px;left:-23px;margin-top:-23px;background:#FFD166;box-shadow:0 0 0 4px rgba(255,209,102,.35),0 4px 14px rgba(0,0,0,.45)}
+.pweb-geser i::before{font-size:15px;font-weight:700}
+.pweb-geser span{background:rgba(20,30,15,.92);border:1px solid rgba(255,209,102,.6);font-size:.78rem}
+.pweb-geser .gk{right:16px}.pweb-geser .gn{left:16px}
+
+/* bingkai peta & elemen lain menyatu dengan hijau utama */
+.bingkai{background:#1c2a16;padding:8px;box-shadow:0 0 0 1px rgba(221,161,94,.45),0 18px 40px -20px rgba(0,0,0,.7)}
+.bingkai::before{opacity:.35}
+.ptab-nav button{border-color:rgba(254,250,224,.22);background:rgba(28,42,22,.5)}
+.ptab-nav button:hover{border-color:#DDA15E}
+.angka{background:rgba(221,161,94,.18)}
+.angka div{background:#26381f}
+.angka div:hover{background:#2c4125}
+.gplus{background:#1f3019;border-color:rgba(221,161,94,.3)}
+.pweb-dasar{background:rgba(20,30,15,.88)}
+.galeri figure{background:#f3eed4}
