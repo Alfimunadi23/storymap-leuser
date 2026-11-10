@@ -86,7 +86,7 @@ window.ISI = {
                { file: 'foto/logo-cru.png', nama: 'Logo CRU Aceh', bentuk: 'persegi' } ],
   sampul: {
     gambar: 'peta/00-sampul.svg',
-    keterangan: 'DAS Tamiang (garis merah). Kuning: hutan hilang 2025. Biru muda: sungai utama. Biru: genangan 28 Nov 2025. Sumber: HAkA, UNOSAT, DEMNAS, KLHK; olahan tim.'
+    keterangan: 'DAS Tamiang (garis merah). Kuning: hutan hilang 2025. Biru muda: sungai utama. Biru: genangan 28 Nov 2025. Sumber: HAkA, UNOSAT, DEMNAS, KLHK; hasil analisis tim.'
   },
 
   /* ---------- ISI CERITA ----------
@@ -107,7 +107,7 @@ window.ISI = {
           { nilai: '300.000', satuan: 'jiwa', keterangan: 'Lebih dari sekian warga Aceh Tamiang terdampak', sumber: 'Pratama dkk., Jurnal Ibnu Sina (2026)' },
           { nilai: '80',      satuan: 'jiwa', keterangan: 'Lebih dari sekian warga Aceh Tamiang meninggal (BNPB, 17 Des 2025)', sumber: 'BNPB via Investortrust' },
           { nilai: '4.839',   satuan: 'rumah', keterangan: 'Rumah hilang tersapu banjir', sumber: 'Kompas.com, 30 Des 2025' },
-          { nilai: '494.988', satuan: 'ha',    keterangan: 'Luas DAS Tamiang', sumber: 'Data dasar panitia (HAkA)' }
+          { nilai: '562.251', satuan: 'ha',    keterangan: 'Luas DAS Tamiang', sumber: 'Batas DAS KLHK (DAS130029)' }
         ]},
         { jenis: 'riwayat',
           subjudul: 'Tamiang dan banjir: bukan cerita baru',
@@ -143,7 +143,7 @@ window.ISI = {
               legenda: [ { warna: '#238B45', label: 'Simpang Kiri Hulu · 48,9%' }, { warna: '#41B6C4', label: 'Simpang Kiri Hilir · 19,6%' }, { warna: '#FE9929', label: 'Simpang Kanan · 6,0%' }, { warna: '#8856A7', label: 'Tenggulun · 5,4%' }, { warna: '#2B8CBE', label: 'Cempegih / Tamiang Hilir · 20,1%' } ],
               teks: 'Simpang Kiri Hulu masih 89% berhutan, tapi kehilangan 6.777 ha hanya di 2025. Cempegih di hilir tinggal 3% berhutan dan menampung 9.283 ha genangan.' }
           ],
-          sumber: 'Sumber: batas DAS KLHK; batas KEL; zona & sub-DAS olahan tim; sungai OpenStreetMap; Citra Esri.'
+          sumber: 'Sumber: batas DAS KLHK; batas KEL; zona & sub-DAS hasil analisis tim; sungai OpenStreetMap; Citra Esri.'
         }
       ]
     },
@@ -172,14 +172,14 @@ window.ISI = {
               legenda: [ { warna: '#5BB8FF', label: 'Sungai (74 ruas, 753 km)', garis: true }, { warna: '#9fd3ff', label: 'Anak sungai / alur (297 ruas, 1.852 km)', garis: true } ],
               teks: 'Arahkan kursor ke garis sungai untuk melihat namanya.' }
           ],
-          sumber: 'Sumber: aliran turunan DEMNAS (olahan tim); sungai OpenStreetMap; relief Esri; topografi OpenTopoMap.'
+          sumber: 'Sumber: aliran turunan DEMNAS (hasil analisis tim); sungai OpenStreetMap; relief Esri; topografi OpenTopoMap.'
         },
         { jenis: 'grafik-plus',
           subjudul: 'Seberapa *curam* DAS Tamiang',
           paragraf: [ 'Separuh DAS landai, tapi hampir sepertiganya sangat curam (di atas 40%). Lereng seperti ini yang paling cepat longsor kalau hutannya dibuka.' ],
           kategori: ['Landai (<25%)', 'Curam (25–40%)', 'Sangat curam (>40%)'],
           tampilan: [ { label: 'Luas', tipe: 'mendatar', satuan: 'ha', seri: [ { nama: 'Luas kelas lereng', warna: WK[0], warnaPer: WK, nilai: [277007.37, 102884.00, 177538.44] } ], labelBatang: ['49,69%', '18,46%', '31,85%'] } ],
-          sumber: 'Sumber: kelas lereng turunan DEMNAS, olahan tim.'
+          sumber: 'Sumber: kelas lereng turunan DEMNAS, hasil analisis tim.'
         }
       ]
     },
@@ -209,7 +209,7 @@ window.ISI = {
               legenda: [ { warna: '#1B7837', label: 'Hutan alami Leuser' }, { warna: '#C28441', label: 'Kebun sawit' }, { warna: '#FFDB5C', label: 'Pertanian semusim' }, { warna: '#9BBF6A', label: 'Semak belukar' }, { warna: '#EDD9A3', label: 'Lahan terbuka' }, { warna: '#ED022A', label: 'Permukiman' }, { warna: '#2F6146', label: 'Rawa' }, { warna: '#1A5BAB', label: 'Badan air' } ],
               petunjuk: 'Tarik garis putih. Klik warna untuk melihat luas kelasnya.' }
           ],
-          sumber: 'Sumber: Tutupan Hutan KEL 2019–2025 (HAkA); tutupan lahan vektor olahan tim; batas DAS KLHK.'
+          sumber: 'Sumber: Tutupan Hutan KEL 2019–2025 (HAkA); tutupan lahan vektor hasil analisis tim; batas DAS KLHK.'
         },
         { jenis: 'peta-interaktif',
           subjudul: 'Klik tahunnya: di mana hutan hilang',
@@ -218,7 +218,7 @@ window.ISI = {
           tahun: [2019, 2020, 2021, 2022, 2023, 2024, 2025],
           sorotKab: 'Aceh Tamiang', das: true,
           legenda: [ { warna: '#FFD166', label: 'Hutan hilang' }, { warna: '#FF6B35', label: 'Hilang Nov–Des 2025 (saat bencana)' }, { warna: 'rgba(221,161,94,.35)', label: 'Warna kecamatan: makin pekat, makin banyak hilang' }, { warna: '#DC143C', label: 'Garis merah: batas DAS Tamiang' } ],
-          sumber: 'Sumber: Kehilangan Tutupan Hutan KEL (HAkA, data dasar panitia); batas kecamatan BIG 2025; olahan tim.'
+          sumber: 'Sumber: Kehilangan Tutupan Hutan KEL (HAkA, data dasar panitia); batas kecamatan BIG 2025; hasil analisis tim.'
         },
         { jenis: 'grafik-plus',
           subjudul: 'Hutan yang hilang, *tahun demi tahun*',
@@ -239,7 +239,7 @@ window.ISI = {
               ket: 'Laju = hutan hilang dibagi hutan yang tersisa tahun sebelumnya. Hilir kecil luasnya tapi lajunya paling tinggi: **12%** hutannya yang tersisa habis di 2025. Laju hulu naik sekitar **80 kali** dari 2024 ke 2025.' }
           ],
           catatan: '2019 dipakai sebagai tahun dasar untuk akumulasi dan laju.',
-          sumber: 'Sumber: Kehilangan Tutupan Hutan KEL (HAkA) dipotong batas DAS dan zona, olahan tim.'
+          sumber: 'Sumber: Kehilangan Tutupan Hutan KEL (HAkA) dipotong batas DAS dan zona, hasil analisis tim.'
         },
         { jenis: 'grafik-plus',
           subjudul: 'Berapa hutan yang *tersisa*',
@@ -255,7 +255,7 @@ window.ISI = {
               seri: [ { nama: 'Hulu', warna: WZ.hulu, nilai: [89.30, 89.15, 89.06, 89.01, 88.97, 88.94, 86.48] }, { nama: 'Tengah', warna: WZ.tengah, nilai: [40.54, 40.22, 40.10, 40.05, 40.00, 39.94, 39.21] }, { nama: 'Hilir', warna: WZ.hilir, nilai: [3.17, 2.84, 2.57, 2.49, 2.45, 2.32, 2.04] } ],
               ket: 'Hulu 86% masih berhutan, tengah 39%, hilir tinggal 2%. Arahkan kursor ke batang untuk angka tepatnya.' }
           ],
-          sumber: 'Sumber: Tutupan Hutan KEL 2019–2025 (HAkA), olahan tim.'
+          sumber: 'Sumber: Tutupan Hutan KEL 2019–2025 (HAkA), hasil analisis tim.'
         },
         { jenis: 'teks',
           subjudul: 'Hutan hilang di *lereng* mana',
@@ -269,14 +269,14 @@ window.ISI = {
           folder: 'data/',
           tahun: [2019, 2020, 2021, 2022, 2023, 2024, 2025],
           sorotKab: 'Aceh Tamiang',
-          sumber: 'Sumber: Kehilangan Tutupan Hutan KEL (HAkA) ditumpang-susun dengan kelas lereng dari DEMNAS (BIG), olahan tim (Deforestasi_Lereng_Kritis 2019–2025). Garis merah: batas DAS Tamiang (KLHK, DAS130029); area gelap di luar DAS. Tombol Kab. Aceh Tamiang saja memotong data ke batas kabupaten.'
+          sumber: 'Sumber: Kehilangan Tutupan Hutan KEL (HAkA) ditumpang-susun dengan kelas lereng dari DEMNAS (BIG), hasil analisis tim (Deforestasi_Lereng_Kritis 2019–2025). Garis merah: batas DAS Tamiang (KLHK, DAS130029); area gelap di luar DAS. Tombol Kab. Aceh Tamiang saja memotong data ke batas kabupaten.'
         },
         { jenis: 'angka',
           isi: [
-            { nilai: '8.352', satuan: 'ha', keterangan: 'Hutan hilang di lereng DAS Tamiang tahun 2025, dua kali lipat total enam tahun sebelumnya (4.057 ha)', sumber: 'Olahan tim' },
-            { nilai: '52', satuan: '%', keterangan: 'Porsi lereng sangat curam pada 2025 (4.339 ha). Tahun 2019–2024 hanya 11–24%', sumber: 'Olahan tim' },
-            { nilai: '604', satuan: 'ha', keterangan: 'Bagiannya di Kab. Aceh Tamiang, 11 kali lipat tahun 2024 (55 ha)', sumber: 'Olahan tim' },
-            { nilai: '3.270', satuan: 'ha', keterangan: 'Kec. Pining (Gayo Lues), hulu terparah, 61% di lereng sangat curam', sumber: 'Olahan tim' }
+            { nilai: '8.352', satuan: 'ha', keterangan: 'Hutan hilang di lereng DAS Tamiang tahun 2025, dua kali lipat total enam tahun sebelumnya (4.057 ha)', sumber: 'Hasil analisis tim' },
+            { nilai: '52', satuan: '%', keterangan: 'Porsi lereng sangat curam pada 2025 (4.339 ha). Tahun 2019–2024 hanya 11–24%', sumber: 'Hasil analisis tim' },
+            { nilai: '604', satuan: 'ha', keterangan: 'Bagiannya di Kab. Aceh Tamiang, 11 kali lipat tahun 2024 (55 ha)', sumber: 'Hasil analisis tim' },
+            { nilai: '3.270', satuan: 'ha', keterangan: 'Kec. Pining (Gayo Lues), hulu terparah, 61% di lereng sangat curam', sumber: 'Hasil analisis tim' }
           ]
         },
         { jenis: 'grafik-plus',
@@ -287,7 +287,7 @@ window.ISI = {
               seri: [ { nama: 'Landai (<25%)', warna: WK[0], nilai: [659.0, 852.3, 460.3, 178.5, 146.0, 264.0, 1805.72] }, { nama: 'Curam (25–40%)', warna: WK[1], nilai: [241.1, 302.4, 134.4, 67.5, 48.0, 38.6, 2207.72] }, { nama: 'Sangat curam (>40%)', warna: WK[2], nilai: [160.3, 185.5, 190.7, 56.5, 34.8, 37.0, 4339.03] } ],
               ket: 'Sembunyikan kelas Landai lewat legenda: terlihat lereng curam dan sangat curam nyaris diam selama enam tahun, lalu meledak di 2025.' }
           ],
-          sumber: 'Sumber: Deforestasi_Lereng_Kritis 2019–2025, olahan tim.'
+          sumber: 'Sumber: Deforestasi_Lereng_Kritis 2019–2025, hasil analisis tim.'
         },
         { jenis: 'grafik-plus',
           subjudul: '2025: luas dan *intensitasnya*',
@@ -300,7 +300,7 @@ window.ISI = {
               seri: [ { nama: 'Intensitas deforestasi 2025', warna: WK[0], warnaPer: WK, nilai: [0.65, 2.15, 2.44] } ],
               ket: 'Dibandingkan luas masing-masing kelas, lereng sangat curam kehilangan hutan **3,8 kali** lebih cepat daripada lereng landai (2,44% vs 0,65%).' }
           ],
-          sumber: 'Sumber: Deforestasi_Lereng_Kritis 2025 dan kelas lereng DEMNAS, olahan tim.'
+          sumber: 'Sumber: Deforestasi_Lereng_Kritis 2025 dan kelas lereng DEMNAS, hasil analisis tim.'
         },
         { jenis: 'teks',
           subjudul: 'Apa yang *berubah* di 2025',
@@ -338,13 +338,13 @@ window.ISI = {
               legenda: [ { warna: '#FED976', label: '2019' }, { warna: '#FD8D3C', label: '2021' }, { warna: '#E31A1C', label: '2023' }, { warna: '#BD0026', label: '2024' }, { warna: '#FF1E6E', label: '2025' } ],
               teks: '84% hutan sempadan yang dibuka di 2025 ada di Sub-DAS Simpang Kiri Hulu (1.063 ha). Itu hulu sungai utamanya.' }
           ],
-          sumber: 'Sumber: sempadan sungai 100 m (OSM) ditumpang-susun dengan tutupan hutan KEL, olahan tim.'
+          sumber: 'Sumber: sempadan sungai 100 m (OSM) ditumpang-susun dengan tutupan hutan KEL, hasil analisis tim.'
         },
         { jenis: 'grafik',
           subjudul: 'Hutan sempadan yang dibuka tiap tahun',
           tipe: 'batang', satuan: 'ha', sorot: '2025',
           data: [ ['2019', 106], ['2020', 158], ['2021', 92], ['2022', 40], ['2023', 30], ['2024', 49], ['2025', 1268] ],
-          sumber: 'Sumber: Deforestasi Sempadan Sungai 2019–2025, olahan tim'
+          sumber: 'Sumber: Deforestasi Sempadan Sungai 2019–2025, hasil analisis tim'
         },
         { jenis: 'teks',
           paragraf: [
@@ -367,7 +367,7 @@ window.ISI = {
           tampilan: [ { label: 'Tahunan', tipe: 'batang', satuan: 'mm/tahun', sorot: '2025', labelNilai: 'semua', rujukan: { nilai: 3154, label: 'Rata-rata 3.154 mm' },
               seri: [ { nama: 'Curah hujan rata-rata DAS', warna: '#6F8FF0', warnaPer: ['#6F8FF0', '#6F8FF0', '#6F8FF0', '#6F8FF0', '#6F8FF0', '#6F8FF0', '#E4477A'], nilai: [2453, 3014, 3251, 3933, 3054, 2820, 3549] } ],
               ket: 'Tahun 2022 malah lebih basah (3.933 mm), tapi hutan yang hilang tahun itu cuma 303 ha, dan banjirnya tidak sebesar 2025. Jadi **jumlah hujan setahun saja tidak cukup** menjelaskan banjir 2025. Yang membedakan adalah hujan ekstrem dalam beberapa hari.' } ],
-          sumber: 'Sumber: CHIRPS, rata-rata spasial DAS Tamiang, olahan tim.'
+          sumber: 'Sumber: CHIRPS, rata-rata spasial DAS Tamiang, hasil analisis tim.'
         },
         { jenis: 'teks',
           subjudul: 'Hujan *harian* dan bulanan',
@@ -405,17 +405,17 @@ window.ISI = {
             { label: 'Indeks bahaya', besar: '69.884 ha', judul: 'bahaya tinggi & sangat tinggi', lapis: ['bahaya'],
               angka: [ { keterangan: 'Sangat tinggi', nilai: '11.098', satuan: 'ha' }, { keterangan: 'Tinggi', nilai: '58.786', satuan: 'ha' }, { keterangan: 'Sedang', nilai: '76.846', satuan: 'ha' } ],
               legenda: [ { warna: '#D7191C', label: 'Sangat tinggi' }, { warna: '#EB8D00', label: 'Tinggi' }, { warna: '#FFE800', label: 'Sedang' } ],
-              teks: 'Peta indeks bahaya banjir olahan tim. Kelas rendah dan sangat rendah tidak ditampilkan supaya peta tetap ringan.' },
+              teks: 'Peta indeks bahaya banjir hasil analisis tim. Kelas rendah dan sangat rendah tidak ditampilkan supaya peta tetap ringan.' },
             { label: 'Bahaya vs kejadian', besar: '±85%', judul: 'genangan jatuh di kelas bahaya tinggi–sangat tinggi', lapis: ['bahaya', 'genangan'], fit: HILIR,
               legenda: [ { warna: '#D7191C', label: 'Bahaya sangat tinggi' }, { warna: '#EB8D00', label: 'Bahaya tinggi' }, { warna: '#1E90FF', label: 'Genangan 28 Nov 2025' } ],
               angka: [ { keterangan: 'Di kelas tinggi', nilai: '±69', satuan: '%' }, { keterangan: 'Di kelas sangat tinggi', nilai: '±16', satuan: '%' }, { keterangan: 'Di kelas sedang', nilai: '±17', satuan: '%' } ],
               teks: 'Sebagian besar genangan nyata jatuh di wilayah yang memang dinilai berbahaya. Artinya peta bahaya ini bisa dipakai untuk siaga di banjir berikutnya. (Angka dari tumpang-susun peta yang sudah disederhanakan, jadi dibulatkan.)' }
           ],
-          sumber: 'Sumber: UNOSAT (FL20251126IDN, citra 28 Nov 2025); indeks bahaya banjir olahan tim; zona DAS olahan tim.'
+          sumber: 'Sumber: UNOSAT (FL20251126IDN, citra 28 Nov 2025); indeks bahaya banjir hasil analisis tim; zona DAS hasil analisis tim.'
         },
         { jenis: 'angka', isi: [
-          { nilai: '10.035', satuan: 'ha', keterangan: 'Genangan di dalam DAS Tamiang', sumber: 'UNOSAT, olahan tim' },
-          { nilai: '92', satuan: '%',  keterangan: 'Genangan berada di zona hilir', sumber: 'Olahan tim' },
+          { nilai: '10.035', satuan: 'ha', keterangan: 'Genangan di dalam DAS Tamiang', sumber: 'UNOSAT, hasil analisis tim' },
+          { nilai: '92', satuan: '%',  keterangan: 'Genangan berada di zona hilir', sumber: 'Hasil analisis tim' },
           { nilai: '11,3', satuan: 'km', keterangan: 'Jalan yang terendam, termasuk Jalan Raya Medan–Banda Aceh', sumber: 'OSM + UNOSAT' }
         ]}
       ]
@@ -443,7 +443,7 @@ window.ISI = {
               legenda: [ { warna: '#FF3D7F', label: 'Jalan terendam', garis: true }, { warna: '#F4E9C8', label: 'Jalan utama', garis: true }, { warna: '#5BB8FF', label: 'Genangan' } ],
               teks: 'Termasuk 220 m Jalan Raya Medan–Banda Aceh, jalur utama Sumatra. Kalau jalan ini putus, bantuan dan evakuasi ikut tertahan.' }
           ],
-          sumber: 'Sumber: genangan UNOSAT; batas & penduduk desa Dukcapil; jalan OpenStreetMap; olahan tim.'
+          sumber: 'Sumber: genangan UNOSAT; batas & penduduk desa Dukcapil; jalan OpenStreetMap; hasil analisis tim.'
         },
         { jenis: 'galeri',
           paragraf: [ 'Kalau ada, tambahkan foto lapangan. Foto sendiri lebih kuat.' ],
@@ -483,7 +483,7 @@ window.ISI = {
               teks: 'Hutan hilang di hulu, sempadan terbuka di tengah, genangan di hilir. Semuanya dalam satu garis merah yang sama.',
               legenda: [ { warna: '#FFD400', label: 'Hutan hilang 2025' }, { warna: '#FF1E6E', label: 'Sempadan dibuka' }, { warna: '#1E90FF', label: 'Genangan' } ] }
           ],
-          sumber: 'Sumber: gabungan seluruh data di atas, olahan tim.'
+          sumber: 'Sumber: gabungan seluruh data di atas, hasil analisis tim.'
         },
         { jenis: 'kutipan',
           teks: 'Tulis ayat, petuah adat, atau omongan warga yang paling mengena.',
@@ -492,7 +492,7 @@ window.ISI = {
         },
         { jenis: 'kartu',
           subjudul: 'Terus, harus bagaimana?',
-          gambar: { file: 'peta/08-zonasi-rekomendasi.png', keterangan: 'Peta zonasi rekomendasi. Sumber: olahan tim.' },
+          gambar: { file: 'peta/08-zonasi-rekomendasi.png', keterangan: 'Peta zonasi rekomendasi. Sumber: hasil analisis tim.' },
           isi: [
             { warna: 'merah', label: 'Hulu', judul: 'Pulihkan', teks: 'Lereng curam dan sempadan yang rusak ditanami lagi.' },
             { warna: 'hijau', label: 'Tengah', judul: 'Jaga', teks: 'Hutan yang tersisa dilindungi bersama masyarakat.' },
