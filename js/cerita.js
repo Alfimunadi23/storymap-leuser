@@ -39,6 +39,10 @@
     return '<figure class="isi-lebar" style="margin:36px 0 0 174px"><div class="bingkai">' + img(g.file, g.keterangan, 'zoom') + '</div><figcaption>' + esc(g.keterangan) + '</figcaption></figure>';
   }
 
+  window.ubinGagal = function (im) {
+    if (!im.dataset.coba) { im.dataset.coba = 1; im.src = im.src.replace('://server.arcgisonline.com', '://services.arcgisonline.com'); return; }
+    im.style.visibility = 'hidden';
+  };
   /* --- sampul --- */
   document.title = (I.judul || 'Storymap').replace(/\*/g, '');
   document.getElementById('lbJudul').textContent = (I.judul || '').replace(/\*/g, '') + ' · ' + (I.kegiatan || '');
@@ -52,7 +56,7 @@
     var fx = (c[1] + 180) / 360 * n, fy = (1 - Math.log(Math.tan(la) + 1 / Math.cos(la)) / Math.PI) / 2 * n, cols = 9, rows = 6;
     var x0 = Math.floor(fx - cols / 2), y0 = Math.floor(fy - rows / 2), t = '';
     for (var j = 0; j < rows; j++) for (var i = 0; i < cols; i++)
-      t += '<img alt="" loading="eager" style="left:' + (i * 256) + 'px;top:' + (j * 256) + 'px" src="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/' + z + '/' + (y0 + j) + '/' + (x0 + i) + '">';
+      t += '<img alt="" loading="eager" onerror="ubinGagal(this)" style="left:' + (i * 256) + 'px;top:' + (j * 256) + 'px" src="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/' + z + '/' + (y0 + j) + '/' + (x0 + i) + '">';
     var ox = (fx - x0) * 256, oy = (fy - y0) * 256;
     return '<div class="hero-latar"><div class="hero-ubin" style="width:' + cols * 256 + 'px;height:' + rows * 256 + 'px;margin-left:' + (-ox) + 'px;margin-top:' + (-oy) + 'px">' + t + '</div></div>';
   })();
@@ -570,6 +574,7 @@
             '<p class="pop-risiko" style="color:#5c6440">Sumber: ' + esc(p.SUMBER) + '</p></div>', { maxWidth: 320 });
         } }).addTo(map);
         bbDas = das.getBounds(); das.bringToBack();
+        tambahLabel(map, folder);
         cur = T.length - 1; gantiWil('');
       });
       wbtn.forEach(function (b) { b.addEventListener('click', function () { if (b.dataset.w !== wil) gantiWil(b.dataset.w); }); });
@@ -611,6 +616,15 @@
       return '<div class="pint-pop"><b>' + esc(nilaiF(p, P.judul)) + '</b>' + (P.sub ? '<span>' + esc(nilaiF(p, P.sub)) + '</span>' : '') +
         (P.baris || []).map(function (r) { var v = nilaiF(p, r[1]); return '<div class="pop-baris"><em>' + esc(r[0]) + '</em><strong>' + angkaF(v, r[3]) + (r[2] && v != null ? ' ' + esc(r[2]) : '') + '</strong></div>'; }).join('') +
         (P.catatan ? '<p class="pop-risiko">' + esc(nilaiF(p, P.catatan)) + '</p>' : '') + '</div>';
+    }
+    function tambahLabel(map, folder) {
+      ambil((folder || 'data/') + 'label.json').then(function (L0) {
+        var g = L.layerGroup(), gk = L.layerGroup();
+        L0.kec.forEach(function (k) { L.marker([k.y, k.x], { interactive: false, keyboard: false, icon: L.divIcon({ className: 'lbl-kec' + ((k.a < 25 || /^Langsa/.test(k.n)) && !/Kuala Simpang/.test(k.n) ? ' kecil' : '') + (/Kuala Simpang/.test(k.n) ? ' kota' : ''), html: '<span>' + esc(k.n) + '</span>', iconSize: null }) }).addTo(g); });
+        L0.kab.forEach(function (k) { L.marker([k.y, k.x], { interactive: false, keyboard: false, icon: L.divIcon({ className: 'lbl-kab', html: '<span>' + esc(k.n) + '</span>', iconSize: null }) }).addTo(gk); });
+        function atur() { var z = map.getZoom(); map.getContainer().classList.toggle('z-dekat', z >= 10.5); if (z >= 9.25) { map.removeLayer(gk); g.addTo(map); } else { map.removeLayer(g); gk.addTo(map); } }
+        map.on('zoomend', atur); atur();
+      });
     }
     function petaWeb(box) {
       var cfg = PINT[+box.dataset.pweb], folder = cfg.folder || 'data/', TAB = cfg.tab || [], LAP = cfg.lapis || {};
@@ -686,6 +700,7 @@
         bbDas = inst.__das.getBounds();
       });
       siap.then(function () {
+        if (cfg.label !== false) tambahLabel(map, folder);
         var bb = cfg.awal || bbDas; if (bb) { map.fitBounds(bb, { padding: [8, 8] }); setTimeout(function () { map.invalidateSize(); map.fitBounds(bb, { padding: [8, 8] }); }, 400); }
         pilih(cfg.mulai == null ? 0 : cfg.mulai);
       });
@@ -761,6 +776,7 @@
             var dl = L.geoJSON(dd[0], { interactive: false, style: { color: '#DC143C', weight: 2.8, fill: false } }).addTo(map);
             bbK = dl.getBounds(); map.fitBounds(bbK, { padding: [8, 8] });
           });
+          tambahLabel(map, folder);
           pilih(T.length - 1);
         });
         btn.forEach(function (b) { b.addEventListener('click', function () { stop(); pilih(+b.dataset.k); }); });
@@ -780,7 +796,7 @@
     function ubin(lat, lon, z) {
       var cols = 2, rows = 5, n = Math.pow(2, z), la = lat * Math.PI / 180, fx = (lon + 180) / 360 * n, fy = (1 - Math.log(Math.tan(la) + 1 / Math.cos(la)) / Math.PI) / 2 * n;
       var x0 = Math.floor(fx - cols / 2), y0 = Math.floor(fy - rows / 2), t = '';
-      for (var j = 0; j < rows; j++) for (var i = 0; i < cols; i++) t += '<img alt="" style="left:' + i * 256 + 'px;top:' + j * 256 + 'px" src="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/' + z + '/' + (y0 + j) + '/' + (x0 + i) + '">';
+      for (var j = 0; j < rows; j++) for (var i = 0; i < cols; i++) t += '<img alt="" onerror="ubinGagal(this)" style="left:' + i * 256 + 'px;top:' + j * 256 + 'px" src="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/' + z + '/' + (y0 + j) + '/' + (x0 + i) + '">';
       return t;
     }
     /* [kiri, kanan]: lat, lon, zoom, judul, warna rona */

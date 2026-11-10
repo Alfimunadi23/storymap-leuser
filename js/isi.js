@@ -490,8 +490,8 @@ window.ISI = {
       blok: [
         { jenis: 'teks',
           paragraf: [
-            'Rangkai temuannya: hutan hulu yang hilang di lereng curam, sempadan yang rusak, hujan ekstrem, lalu genangan di hilir.',
-            'Tulis sebagai keterkaitan yang didukung data, bukan klaim satu penyebab.'
+            'Semua bagian tadi adalah satu rangkaian. Tahun 2025, DAS Tamiang kehilangan 8.352 ha hutan, separuhnya di lereng sangat curam di hulu. Hutan di tepi sungai ikut terbuka 1.268 ha. Lalu akhir November turun hujan lebih dari 100 mm sehari, dengan puncak 35 mm per jam.',
+            'Air dan tanah dari hulu mengalir cepat ke hilir, menggenangi 10.035 ha dataran dan menerpa hampir 35 ribu jiwa serta 8.242 ha lahan pertanian. Hujan ekstrem memang pemicunya, tetapi hutan hulu yang hilang membuat air turun lebih cepat dan membawa lebih banyak lumpur.'
           ],
         },
         { jenis: 'peta-web',
@@ -514,13 +514,12 @@ window.ISI = {
           sumber: 'Sumber: gabungan seluruh data di atas, hasil analisis tim.'
         },
         { jenis: 'kutipan',
-          teks: 'Tulis ayat, petuah adat, atau omongan warga yang paling mengena.',
-          sumber: 'Dari siapa atau dari mana',
-          paragraf: [ 'Kaitkan dengan menjaga keseimbangan alam (mizan) dan peran adat seperti Panglima Uteun.' ]
+          teks: 'Lam hudep tameusare, lam meugle tameubila, lam lampoh tameutulong alang, lam meublang tameusyedara.',
+          sumber: 'Hadih maja (petuah adat Aceh)',
+          paragraf: [ 'Petuah ini mengajarkan bahwa hidup bersama di Aceh berarti saling menjaga, di hutan, di kebun, dan di sawah. Menjaga hutan hulu bukan hanya urusan orang yang tinggal di gunung, tetapi juga tanggung jawab bersama warga hilir yang hidupnya bergantung pada air yang sama.' ]
         },
         { jenis: 'kartu',
           subjudul: 'Terus, harus bagaimana?',
-          gambar: { file: 'peta/08-zonasi-rekomendasi.png', keterangan: 'Peta zonasi rekomendasi. Sumber: hasil analisis tim.' },
           isi: [
             { warna: 'merah', label: 'Hulu', judul: 'Pulihkan', teks: 'Lereng curam dan sempadan yang rusak ditanami lagi.' },
             { warna: 'hijau', label: 'Tengah', judul: 'Jaga', teks: 'Hutan yang tersisa dilindungi bersama masyarakat.' },
@@ -534,7 +533,7 @@ window.ISI = {
   /* ---------- PENUTUP ---------- */
   penutup: {
     judul: 'Menjaga hulu, *menjaga kita*',
-    teks: 'Satu paragraf pendek: ajakan, harapan, atau pengingat untuk pembaca.'
+    teks: 'Banjir di hilir berawal dari apa yang terjadi di hulu. Selama hutan Leuser di hulu DAS Tamiang terjaga, air punya tempat untuk meresap dan warga di hilir punya waktu untuk bersiap. Menjaga hulu berarti menjaga kita semua.'
   },
   sumberData: [
     'Batas DAS, KEL, tutupan & kehilangan hutan: Yayasan HAkA (data dasar panitia)',

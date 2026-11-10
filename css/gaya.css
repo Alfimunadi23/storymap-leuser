@@ -637,3 +637,26 @@ body,html{background:#2f3b23}
   .sp-ubin{filter:saturate(.7) brightness(.82) contrast(.98)}
   .samping::after{background:rgba(47,59,35,.4)}
 }
+
+/* ===== revisi warna utama: hijau tajuk hutan, senada citra; tanpa tekstur ===== */
+.bagian,.penutup{background-image:none}
+:root{--olive:#26381f}
+[data-warna="peta"]{--bg:#26381f;--bg-2:#2c4125;--krim-2:#d8d6b8}
+body,html{background:#26381f}
+.penutup{background:#26381f}
+.tepi{background:#1f2e19}
+.gplus{background:#2d4227}
+.lembar-bar{background:rgba(27,40,22,.94)}
+@media (min-width:1500px){
+  .samping{opacity:.9}
+  .sp-ubin{filter:saturate(.85) brightness(.85) contrast(1)}
+  .samping::after{background:rgba(38,56,31,.3)}
+}
+.hero-ubin{background:#1d2b17}
+/* label kecamatan & kabupaten di peta */
+.lbl-kec,.lbl-kab{background:none;border:0;pointer-events:none}
+.lbl-kec span,.lbl-kab span{display:block;transform:translate(-50%,-50%);white-space:nowrap;font-family:"Schibsted Grotesk",Arial,sans-serif;color:#FEFAE0;text-shadow:0 0 3px #10180b,0 0 6px #10180b,0 1px 2px #000}
+.lbl-kec span{font-size:11px;font-weight:600;letter-spacing:.02em}
+.lbl-kab span{font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.9}
+.lbl-kec.kecil{display:none}.z-dekat .lbl-kec.kecil{display:block}
+.lbl-kec.kota span{font-size:12px;color:#FFD9A0}
