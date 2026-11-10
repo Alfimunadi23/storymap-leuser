@@ -60,9 +60,14 @@
     jalan:  { file: 'jalan.geojson', tipe: 'garis', warna: '#F4E9C8', tebal: 1.4, opasitas: .8, tooltip: function (p) { return p.n || 'Jalan ' + p.h; } },
     jalanAir: { file: 'jalan-terendam.geojson', tipe: 'garis', warna: '#FF3D7F', tebal: 4,
               popup: { judul: function (p) { return p.n || 'Jalan tanpa nama'; }, sub: function (p) { return 'Kelas jalan: ' + p.h; }, baris: [ ['Panjang terendam', 'km', 'km', 2] ] } },
-    genanganTipis: { file: 'genangan.geojson', warna: '#5BB8FF', garis: '#5BB8FF', tebal: 0, isi: .35 }
+    genanganTipis: { file: 'genangan.geojson', warna: '#5BB8FF', garis: '#5BB8FF', tebal: 0, isi: .35 },
+    tani: { file: 'pertanian.geojson', skala: { field: 'ha', batas: [1, 250, 600, 1200, 2000], warna: ['rgba(254,250,224,.12)', '#FFF3C4', '#FCD581', '#F4A93C', '#D9771E', '#A34E0F'] }, garis: '#FEFAE0', tebal: 1, isi: .82,
+            popup: { judul: function (p) { return 'Kec. ' + p.kec; }, sub: function (p) { return 'Peringkat ' + p.rank + ' dari 12 kecamatan'; }, baris: [ ['Lahan pertanian terdampak', 'ha', 'ha', 0], ['Porsi dari total Aceh Tamiang', 'pct', '%'] ] } },
+    lahanTani: { file: 'lahan-2025.geojson', saring: function (p) { return p.kode === 5 || p.kode === 3; }, warnaDari: { field: 'kode', nilai: { 3: '#C28441', 5: '#FFDB5C' } }, isi: .55, tebal: 0,
+            popup: { judul: 'kelas', sub: 'Tutupan lahan 2025', baris: [ ['Luas kelas di DAS', 'ha', 'ha', 0] ] } }
   };
   var HILIR = [[4.16, 97.86], [4.58, 98.30]];
+  var TAMIANG = [[3.89, 97.73], [4.53, 98.29]];
   var WZ = { hulu: '#26A69A', tengah: '#D27330', hilir: '#6F8FF0' };
   var WK = ['#628AD0', '#CF7A27', '#E4477A'];
   var THN = ['2019', '2020', '2021', '2022', '2023', '2024', '2025'];
@@ -439,11 +444,33 @@ window.ISI = {
             { label: 'Porsi desa tergenang', besar: '10 desa', judul: 'lebih dari separuh wilayahnya terendam', lapis: ['desaPersen'],
               legenda: [ { warna: '#08306B', label: '50% ke atas' }, { warna: '#3182BD', label: '25–49%' }, { warna: '#9ECAE1', label: '10–24%' }, { warna: '#DEEBF7', label: '1–9%' } ],
               teks: 'Paling parah sampai 75% wilayah desa. Rata-rata desa terdampak kehilangan 14% wilayahnya ke air.' },
+            { label: 'Lahan pertanian', besar: '8.242 ha', judul: 'lahan pertanian terdampak di Aceh Tamiang', lapis: ['tani', 'genanganTipis'], fit: TAMIANG,
+              angka: [ { keterangan: 'Terluas: Kec. Manyak Payed', nilai: '2.424', satuan: 'ha' }, { keterangan: 'Empat kecamatan teratas', nilai: '75', satuan: '%' }, { keterangan: 'Kecamatan terdampak', nilai: '11 dari 12', satuan: '' } ],
+              legenda: [ { warna: '#A34E0F', label: '2.000 ha ke atas' }, { warna: '#D9771E', label: '1.200–1.999 ha' }, { warna: '#F4A93C', label: '600–1.199 ha' }, { warna: '#FCD581', label: '250–599 ha' }, { warna: '#FFF3C4', label: '1–249 ha' }, { warna: '#5BB8FF', label: 'Genangan 28 Nov 2025' } ],
+              teks: 'Empat kecamatan di dataran hilir (Manyak Payed, Bendahara, Banda Mulia, Karang Baru) menanggung tiga perempat kerusakan lahan pertanian. Itu persis wilayah dengan genangan terluas.',
+              petunjuk: 'Klik kecamatan untuk melihat luas lahan pertanian yang terdampak.' },
+            { label: 'Sawah & kebun 2025', besar: 'Lahan', judul: 'pertanian dan kebun di bawah genangan', lapis: ['lahanTani', 'genanganTipis'], fit: HILIR,
+              legenda: [ { warna: '#FFDB5C', label: 'Pertanian & tanaman semusim' }, { warna: '#C28441', label: 'Kebun kelapa sawit' }, { warna: '#5BB8FF', label: 'Genangan 28 Nov 2025' } ],
+              teks: 'Tumpang-susun tutupan lahan 2025 dengan genangan: sebagian besar dataran hilir adalah sawah, ladang, dan kebun, jadi setiap banjir besar langsung jadi kerugian panen.' },
             { label: 'Jalan terendam', besar: '11,3 km', judul: 'jalan terendam (59 ruas)', lapis: ['genanganTipis', 'jalan', 'jalanAir'],
               legenda: [ { warna: '#FF3D7F', label: 'Jalan terendam', garis: true }, { warna: '#F4E9C8', label: 'Jalan utama', garis: true }, { warna: '#5BB8FF', label: 'Genangan' } ],
               teks: 'Termasuk 220 m Jalan Raya Medan–Banda Aceh, jalur utama Sumatra. Kalau jalan ini putus, bantuan dan evakuasi ikut tertahan.' }
           ],
-          sumber: 'Sumber: genangan UNOSAT; batas & penduduk desa Dukcapil; jalan OpenStreetMap; hasil analisis tim.'
+          sumber: 'Sumber: genangan UNOSAT; batas & penduduk desa Dukcapil; lahan pertanian terdampak cekdatabencana.acehtamiangkab.go.id; tutupan lahan 2025; jalan OpenStreetMap; hasil analisis tim.'
+        },
+        { jenis: 'grafik-plus',
+          subjudul: 'Lahan pertanian terdampak *per kecamatan*',
+          ringkas: [ { nilai: '8.242', satuan: 'ha', keterangan: 'Total lahan pertanian terdampak banjir 2025' }, { nilai: '29,4', satuan: '%', keterangan: 'Ada di Kec. Manyak Payed saja' }, { nilai: '75', satuan: '%', keterangan: 'Di empat kecamatan teratas' } ],
+          kategori: ['Manyak Payed', 'Bendahara', 'Banda Mulia', 'Karang Baru', 'Rantau', 'Seruway', 'Kejuruan Muda', 'Bandar Pusaka', 'Tamiang Hulu', 'Tenggulun', 'Sekerak', 'Kota Kuala Simpang'],
+          tampilan: [
+            { label: 'Luas', tipe: 'mendatar', satuan: 'ha', labelBatang: ['29,4%', '19,0%', '14,3%', '12,2%', '7,2%', '6,3%', '4,7%', '3,1%', '2,0%', '1,2%', '0,7%', '0,0%'],
+              seri: [ { nama: 'Lahan pertanian terdampak', warna: '#F4A93C', nilai: [2424, 1569, 1177, 1007, 592, 516, 384, 254, 162, 97, 60, 0] } ],
+              ket: 'Makin ke hilir, makin luas lahan yang rusak. Kecamatan hulu seperti Tamiang Hulu, Tenggulun, dan Sekerak hanya kena di bawah 200 ha.' },
+            { label: 'Kumulatif (%)', tipe: 'garis', maks: 100, satuan: '% kumulatif', satuanTip: '%', desimal: 1, labelAkhir: true,
+              seri: [ { nama: 'Persentase kumulatif', warna: '#F4A93C', nilai: [29.4, 48.4, 62.7, 74.9, 82.1, 88.4, 93.0, 96.1, 98.1, 99.3, 100, 100] } ],
+              ket: 'Dua kecamatan saja sudah hampir separuh (48%), empat kecamatan tiga perempat (75%).' }
+          ],
+          sumber: 'Sumber: cekdatabencana.acehtamiangkab.go.id, hasil analisis tim.'
         },
         { jenis: 'galeri',
           paragraf: [ 'Kalau ada, tambahkan foto lapangan. Foto sendiri lebih kuat.' ],
@@ -517,5 +544,5 @@ window.ISI = {
     'Jalan: OpenStreetMap'
   ],
   metode: 'Semua peta diolah di QGIS; luas dihitung dalam UTM 47N (EPSG:32647).',
-  catatanAI: 'Penggunaan AI dideklarasikan dalam Surat Pernyataan Orisinalitas.'
+  catatanAI: ''
 };

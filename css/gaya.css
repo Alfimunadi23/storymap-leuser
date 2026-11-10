@@ -573,3 +573,15 @@ figcaption,.sumber{font-size:.84rem;line-height:1.55}
 .hero-isi .kode{font-size:.9rem}
 .tepi,.tepi .kode{font-size:1rem}
 @media (max-width:860px){body{font-size:18.5px}.waktu .ptab-nav button[data-k]{font-size:.95rem}}
+/* panel samping berganti per bagian */
+@media (min-width:1500px){
+  .sp-tumpuk{position:absolute;inset:0}
+  .sp-ubin{opacity:0;transform:scale(1.06);transition:opacity 1.1s ease,transform 6s ease}
+  .sp-ubin.aktif{opacity:1;transform:scale(1)}
+  .samping.kiri .sp-ubin{left:auto;right:0}.samping.kanan .sp-ubin{right:auto;left:0}
+  .sp-label.ganti{animation:spL .8s ease}
+  @keyframes spL{from{opacity:0;transform:translateY(10px)}}
+  .samping.kiri .sp-label.ganti{animation-name:spLk}
+  @keyframes spLk{from{opacity:0}}
+}
+@media (min-width:1500px){.samping .sp-ubin,.samping.kiri .sp-ubin,.samping.kanan .sp-ubin{left:50%;right:auto;top:50%;width:512px;height:1280px;margin-left:-256px;margin-top:-640px}}

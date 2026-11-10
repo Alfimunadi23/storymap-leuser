@@ -280,6 +280,7 @@
     var nT = datar ? (W < 520 ? 3 : 6) : 6;
     function bulat(lo, hi) { var r = hi - lo || 1, st0 = Math.pow(10, Math.floor(Math.log10(r))), c = [1, 2, 2.5, 5, 10]; for (var i = 0; i < c.length; i++) { if (r / (st0 * c[i]) <= nT) { st0 *= c[i]; break; } } return { lo: Math.floor(lo / st0) * st0, hi: Math.ceil(hi / st0) * st0, st: st0 }; }
     var sk = bulat(min0, maks * (datar ? 1 : 1.08));
+    if (V.maks) sk = { lo: 0, hi: V.maks, st: V.maks / 4 };
     var GR = 'rgba(254,250,224,.12)', s = '';
     if (datar) {
       var X = function (v) { return m.l + (W - m.l - m.r) * (v - sk.lo) / (sk.hi - sk.lo); }, bh = (H - m.t - m.b) / kat.length;
@@ -295,7 +296,9 @@
       var n = kat.length, bw = (W - m.l - m.r) / n, X = function (k) { return m.l + bw * k + bw / 2; }, Y = function (v) { return m.t + (H - m.t - m.b) * (1 - (v - sk.lo) / (sk.hi - sk.lo)); };
       for (var v = sk.lo; v <= sk.hi + 1e-9; v += sk.st) s += '<line x1="' + m.l + '" x2="' + (W - m.r) + '" y1="' + Y(v) + '" y2="' + Y(v) + '" stroke="' + GR + '"/><text x="' + (m.l - 8) + '" y="' + (Y(v) + 4) + '" text-anchor="end">' + f(v, sk.st < 1 ? 1 : 0) + '</text>';
       var lewat = n > 14 ? Math.ceil(n / 9) : 1;
-      kat.forEach(function (c, k) { if (k % lewat === 0) s += '<text x="' + X(k) + '" y="' + (H - 12) + '" text-anchor="middle"' + (String(c) === String(V.sorot) ? ' class="gp-sorot"' : '') + '>' + esc(c) + '</text>'; });
+      var miring = Math.max.apply(null, kat.map(function (c) { return String(c).length; })) * 7 > bw;
+      if (miring) { H += 70; m.b += 70; svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H); }
+      kat.forEach(function (c, k) { if (k % lewat === 0) s += miring ? '<text transform="translate(' + X(k) + ',' + (H - m.b + 16) + ') rotate(-38)" text-anchor="end">' + esc(c) + '</text>' : '<text x="' + X(k) + '" y="' + (H - 12) + '" text-anchor="middle"' + (String(c) === String(V.sorot) ? ' class="gp-sorot"' : '') + '>' + esc(c) + '</text>'; });
       if (V.rujukan) s += '<line x1="' + m.l + '" x2="' + (W - m.r) + '" y1="' + Y(V.rujukan.nilai) + '" y2="' + Y(V.rujukan.nilai) + '" stroke="#FEFAE0" stroke-width="1.5" stroke-dasharray="6 5" opacity=".7"/><text x="' + (m.l + 6) + '" y="' + (Y(V.rujukan.nilai) - 7) + '" text-anchor="start" class="gp-ruj">' + esc(V.rujukan.label) + '</text>';
       if (V.tipe === 'garis') {
         aktif.forEach(function (x) {
@@ -770,24 +773,56 @@
     }).catch(function () { [].slice.call(boxes).concat([].slice.call(boxL), [].slice.call(boxW)).forEach(function (b) { b.querySelector('.peta-leaflet').innerHTML = '<p style="padding:24px">Peta interaktif gagal dimuat. Periksa koneksi internet.</p>'; }); });
   })();
 
-  /* --- panel samping: citra satelit Leuser (layar lebar saja) --- */
+  /* --- panel samping: citra satelit Leuser, berganti mengikuti bagian (layar lebar saja) --- */
   (function () {
     if (window.innerWidth < 1500) return;
-    function ubin(lat, lon, z, cols, rows) {
-      var n = Math.pow(2, z), la = lat * Math.PI / 180, fx = (lon + 180) / 360 * n, fy = (1 - Math.log(Math.tan(la) + 1 / Math.cos(la)) / Math.PI) / 2 * n;
+    function ko(lat, lon) { var f = function (v, a, b) { var d = Math.floor(Math.abs(v)), m = Math.round((Math.abs(v) - d) * 60); return d + '°' + (m < 10 ? '0' : '') + m + '′ ' + (v >= 0 ? a : b); }; return f(lat, 'LU', 'LS') + ' · ' + f(lon, 'BT', 'BB'); }
+    function ubin(lat, lon, z) {
+      var cols = 2, rows = 5, n = Math.pow(2, z), la = lat * Math.PI / 180, fx = (lon + 180) / 360 * n, fy = (1 - Math.log(Math.tan(la) + 1 / Math.cos(la)) / Math.PI) / 2 * n;
       var x0 = Math.floor(fx - cols / 2), y0 = Math.floor(fy - rows / 2), t = '';
-      for (var j = 0; j < rows; j++) for (var i = 0; i < cols; i++) t += '<img alt="" loading="lazy" style="left:' + i * 256 + 'px;top:' + j * 256 + 'px" src="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/' + z + '/' + (y0 + j) + '/' + (x0 + i) + '">';
-      return '<div class="sp-ubin" style="width:' + cols * 256 + 'px;height:' + rows * 256 + 'px">' + t + '</div>';
+      for (var j = 0; j < rows; j++) for (var i = 0; i < cols; i++) t += '<img alt="" style="left:' + i * 256 + 'px;top:' + j * 256 + 'px" src="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/' + z + '/' + (y0 + j) + '/' + (x0 + i) + '">';
+      return t;
     }
-    var P = [
-      { sisi: 'kiri', lat: 3.86, lon: 97.42, judul: 'Hulu · Pegunungan Leuser', ko: '3°52′ LU · 97°25′ BT' },
-      { sisi: 'kanan', lat: 4.27, lon: 98.02, judul: 'Hilir · Sungai Tamiang', ko: '4°16′ LU · 98°01′ BT' }
-    ];
-    P.forEach(function (q) {
-      var d = document.createElement('div'); d.className = 'samping ' + q.sisi; d.setAttribute('aria-hidden', 'true');
-      d.innerHTML = ubin(q.lat, q.lon, 12, 2, 5) + '<div class="sp-garis"></div><div class="sp-label"><b>' + esc(q.judul) + '</b><span>' + esc(q.ko) + '</span></div>';
-      document.body.appendChild(d);
+    /* [kiri, kanan]: lat, lon, zoom, judul, warna rona */
+    var S = {
+      'Sampul':        [[3.86, 97.42, 12, 'Hulu · pegunungan Leuser'], [4.28, 98.06, 12, 'Hilir · Kuala Simpang']],
+      'Pembuka':       [[4.28, 98.06, 13, 'Kuala Simpang · lokasi banjir'], [4.33, 98.02, 13, 'Karang Baru · dataran banjir']],
+      'Mengenal DAS':  [[4.05, 97.60, 11, 'DAS Tamiang · hulu'], [4.40, 98.15, 11, 'DAS Tamiang · muara']],
+      'Kondisi fisik': [[3.80, 97.38, 12, 'Punggung pegunungan hulu'], [4.00, 97.70, 12, 'Lembah sungai tengah']],
+      'Tutupan hutan': [[3.97, 97.47, 13, 'Hutan hulu · bukaan baru'], [4.12, 97.70, 13, 'Batas hutan & kebun']],
+      'Sempadan sungai': [[4.10, 97.80, 13, 'Koridor Simpang Kiri'], [4.20, 97.93, 13, 'Tepi Sungai Tamiang']],
+      'Curah hujan':   [[3.78, 97.45, 11, 'Hulu · daerah tangkapan hujan'], [4.05, 97.85, 11, 'Aliran ke hilir']],
+      'Genangan':      [[4.30, 98.03, 12, 'Dataran banjir hilir'], [4.42, 98.20, 12, 'Pesisir & muara']],
+      'Paparan hilir': [[4.33, 98.10, 13, 'Permukiman & sawah hilir'], [4.38, 98.18, 13, 'Kebun & tambak pesisir']],
+      'Sintesis':      [[3.86, 97.42, 11, 'Hulu'], [4.30, 98.08, 11, 'Hilir']],
+      'Penutup':       [[3.86, 97.42, 12, 'Hulu · Leuser'], [4.28, 98.06, 12, 'Hilir · Tamiang']]
+    };
+    var panel = {};
+    ['kiri', 'kanan'].forEach(function (sisi) {
+      var d = document.createElement('div'); d.className = 'samping ' + sisi; d.setAttribute('aria-hidden', 'true');
+      d.innerHTML = '<div class="sp-tumpuk"></div><div class="sp-garis"></div><div class="sp-label"><b></b><span></span></div>';
+      document.body.appendChild(d); panel[sisi] = { el: d, lap: {} };
     });
+    var kini = null;
+    function ganti(lbl) {
+      if (!S[lbl] || lbl === kini) return; kini = lbl;
+      ['kiri', 'kanan'].forEach(function (sisi, k) {
+        var q = S[lbl][k], P = panel[sisi], key = q.join('|');
+        if (!P.lap[key]) {
+          var u = document.createElement('div'); u.className = 'sp-ubin ' + sisi; u.innerHTML = ubin(q[0], q[1], q[2]);
+          P.el.querySelector('.sp-tumpuk').appendChild(u); P.lap[key] = u; void u.offsetWidth;
+        }
+        Object.keys(P.lap).forEach(function (kk) { P.lap[kk].classList.toggle('aktif', kk === key); });
+        var lb = P.el.querySelector('.sp-label'); lb.classList.remove('ganti'); void lb.offsetWidth; lb.classList.add('ganti');
+        lb.querySelector('b').textContent = q[3]; lb.querySelector('span').textContent = ko(q[0], q[1]);
+      });
+    }
+    ganti('Sampul');
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) ganti(e.target.dataset.label || 'Sampul'); }); }, { rootMargin: '-45% 0px -50% 0px' });
+      document.querySelectorAll('[data-label]').forEach(function (x) { io.observe(x); });
+      io.observe(document.getElementById('sampul'));
+    }
   })();
   (function () { var g = document.querySelector('[data-label="Genangan"]'), k = document.getElementById('keBanjir'); if (g && k) k.href = '#' + g.id; })();
   /* --- perbesar gambar --- */
