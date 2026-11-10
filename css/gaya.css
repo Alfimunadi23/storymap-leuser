@@ -625,3 +625,8 @@ body,html{background:#2f3b23}
   .samping{width:calc((100vw - var(--lebar)) / 2 + 60px)}
   .bagian > .wrap,.penutup .wrap{z-index:4}
 }
+.galeri img{aspect-ratio:4/3;object-fit:cover;width:100%;height:auto}
+.galeri figcaption{font-family:var(--f-isi);font-size:1rem;letter-spacing:0;line-height:1.45;color:var(--krim)}
+.galeri figcaption a{font-family:var(--f-kode);font-size:.8rem;color:#DDA15E;text-decoration:underline;text-underline-offset:3px}
+.galeri figcaption{color:#283618;padding:4px 4px 8px}
+.galeri figcaption a{color:#8a4a12}

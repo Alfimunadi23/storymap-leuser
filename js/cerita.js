@@ -174,8 +174,8 @@
             return '<div style="--c:' + (WK[k.warna] || 'var(--aksen)') + '"><span class="kode">' + esc(k.label || k.warna || '') + '</span><h3>' + esc(k.judul) + '</h3><p>' + esc(k.teks) + '</p></div>';
           }).join('') + '</div>';
       case 'galeri':
-        return (b.paragraf ? '<div class="isi-kolom">' + paragraf(b.paragraf) + '</div>' : '') + '<div class="galeri isi-lebar muncul">' + (b.foto || []).map(function (f) {
-          return '<figure>' + img(f.file, f.keterangan, 'zoom', 0.75) + '<figcaption>' + esc(f.keterangan) + '</figcaption></figure>';
+        return (b.subjudul ? '<h3 class="sub-blok isi-lebar">' + sorotKata(b.subjudul) + '</h3>' : '') + (b.paragraf ? '<div class="isi-kolom" style="margin-bottom:26px">' + paragraf(b.paragraf) + '</div>' : '') + '<div class="galeri isi-lebar muncul">' + (b.foto || []).map(function (f) {
+          return '<figure>' + img(f.file, f.keterangan + (f.sumber ? ' Foto: ' + f.sumber : ''), 'zoom', 0.75) + '<figcaption>' + esc(f.keterangan) + (f.sumber ? '<br>Foto: ' + (f.tautan ? '<a href="' + esc(f.tautan) + '" target="_blank" rel="noopener">' + esc(f.sumber) + '</a>' : esc(f.sumber)) : '') + '</figcaption></figure>';
         }).join('') + '</div>';
       case 'peta-web':
         return '<div class="isi-kolom"><p>' + esc(b.teks) + '</p></div><div class="bingkai peta-web isi-lebar" style="margin-top:28px"><iframe src="' + esc(b.alamat) + '" title="' + esc(b.judul) + '" loading="lazy"></iframe></div>';

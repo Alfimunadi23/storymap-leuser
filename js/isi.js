@@ -473,11 +473,12 @@ window.ISI = {
           sumber: 'Sumber: cekdatabencana.acehtamiangkab.go.id, hasil analisis tim.'
         },
         { jenis: 'galeri',
-          paragraf: [ 'Kalau ada, tambahkan foto lapangan. Foto sendiri lebih kuat.' ],
+          subjudul: 'Yang terekam di *lapangan*',
+          paragraf: [ 'Angka dan peta di atas punya wajah. Tiga foto ini memperlihatkan banjir Tamiang dari udara: permukiman yang terendam, kayu gelondongan yang menumpuk, dan kampung yang porak-poranda setelah air surut.' ],
           foto: [
-            { file: 'foto/foto-1.jpg', keterangan: 'Keterangan foto. Sumber: ...' },
-            { file: 'foto/foto-2.jpg', keterangan: 'Keterangan foto. Sumber: ...' },
-            { file: 'foto/foto-3.jpg', keterangan: 'Keterangan foto. Sumber: ...' }
+            { file: 'foto/foto-masjid-kayu-2025.jpg', keterangan: 'Masjid dikepung ribuan batang kayu gelondongan yang terbawa banjir bandang, Aceh Tamiang, akhir 2025.', sumber: 'Antara Foto (via Instagram)', tautan: 'https://www.instagram.com/p/DShvKcPiZ2t/?img_index=1' },
+            { file: 'foto/foto-pascabanjir-2025.jpg', keterangan: 'Kampung di Aceh Tamiang setelah diterjang banjir bandang: rumah hancur, jalan tertutup lumpur dan puing.', sumber: 'Liputan6.com', tautan: 'https://www.liputan6.com/photo/read/6229537/potret-aceh-tamiang-pasca-terjangan-banjir-bandang-sumatra' },
+            { file: 'foto/foto-banjir-2022.jpg', keterangan: 'Banjir November 2022: permukiman di Aceh Tamiang terendam air cokelat. Tiga tahun kemudian bencananya jauh lebih besar.', sumber: 'Kompas.com, 6 Nov 2022', tautan: 'https://regional.kompas.com/image/2022/11/06/142128578/hari-keenam-banjir-aceh-tamiang-1-warga-tewas?page=1' }
           ]
         }
       ]
