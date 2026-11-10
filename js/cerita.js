@@ -770,6 +770,25 @@
     }).catch(function () { [].slice.call(boxes).concat([].slice.call(boxL), [].slice.call(boxW)).forEach(function (b) { b.querySelector('.peta-leaflet').innerHTML = '<p style="padding:24px">Peta interaktif gagal dimuat. Periksa koneksi internet.</p>'; }); });
   })();
 
+  /* --- panel samping: citra satelit Leuser (layar lebar saja) --- */
+  (function () {
+    if (window.innerWidth < 1500) return;
+    function ubin(lat, lon, z, cols, rows) {
+      var n = Math.pow(2, z), la = lat * Math.PI / 180, fx = (lon + 180) / 360 * n, fy = (1 - Math.log(Math.tan(la) + 1 / Math.cos(la)) / Math.PI) / 2 * n;
+      var x0 = Math.floor(fx - cols / 2), y0 = Math.floor(fy - rows / 2), t = '';
+      for (var j = 0; j < rows; j++) for (var i = 0; i < cols; i++) t += '<img alt="" loading="lazy" style="left:' + i * 256 + 'px;top:' + j * 256 + 'px" src="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/' + z + '/' + (y0 + j) + '/' + (x0 + i) + '">';
+      return '<div class="sp-ubin" style="width:' + cols * 256 + 'px;height:' + rows * 256 + 'px">' + t + '</div>';
+    }
+    var P = [
+      { sisi: 'kiri', lat: 3.86, lon: 97.42, judul: 'Hulu · Pegunungan Leuser', ko: '3°52′ LU · 97°25′ BT' },
+      { sisi: 'kanan', lat: 4.27, lon: 98.02, judul: 'Hilir · Sungai Tamiang', ko: '4°16′ LU · 98°01′ BT' }
+    ];
+    P.forEach(function (q) {
+      var d = document.createElement('div'); d.className = 'samping ' + q.sisi; d.setAttribute('aria-hidden', 'true');
+      d.innerHTML = ubin(q.lat, q.lon, 12, 2, 5) + '<div class="sp-garis"></div><div class="sp-label"><b>' + esc(q.judul) + '</b><span>' + esc(q.ko) + '</span></div>';
+      document.body.appendChild(d);
+    });
+  })();
   (function () { var g = document.querySelector('[data-label="Genangan"]'), k = document.getElementById('keBanjir'); if (g && k) k.href = '#' + g.id; })();
   /* --- perbesar gambar --- */
   var lb = document.getElementById('lightbox'), lbImg = lb.querySelector('img'), lbCap = lb.querySelector('p');

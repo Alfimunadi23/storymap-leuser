@@ -513,3 +513,21 @@ figcaption,.sumber{font-size:.78rem}
 @media (max-width:860px){.sampul{min-height:92vh}.hero-aksi{gap:18px}.sampul .wrap{padding-block:28px 60px}}
 @media (prefers-reduced-motion:reduce){.hero-ubin,.hero-latar > img{animation:none}}
 .sampul .logo-atas{width:100%;align-self:stretch;display:flex;justify-content:space-between}
+
+/* ===== panel samping: citra satelit Leuser ===== */
+.samping{display:none}
+@media (min-width:1500px){
+  .samping{display:block;position:fixed;top:40px;bottom:0;width:calc((100vw - var(--lebar)) / 2 - 8px);max-width:420px;z-index:3;pointer-events:none;overflow:hidden;opacity:.62}
+  .samping.kiri{left:0;-webkit-mask-image:linear-gradient(90deg,#000 55%,transparent);mask-image:linear-gradient(90deg,#000 55%,transparent)}
+  .samping.kanan{right:0;-webkit-mask-image:linear-gradient(270deg,#000 55%,transparent);mask-image:linear-gradient(270deg,#000 55%,transparent)}
+  .sp-ubin{position:absolute;top:0;filter:saturate(.85) brightness(.82) contrast(1.05)}
+  .samping.kiri .sp-ubin{left:0}.samping.kanan .sp-ubin{right:0}
+  .sp-ubin img{position:absolute;width:256px;height:256px;max-width:none}
+  .samping::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(40,54,24,.15),rgba(40,54,24,.45))}
+  .sp-garis{position:absolute;top:0;bottom:0;width:10px;z-index:1;
+    background:repeating-linear-gradient(180deg,rgba(254,250,224,.75) 0 1px,transparent 1px 40px),repeating-linear-gradient(180deg,rgba(254,250,224,.75) 0 2px,transparent 2px 200px);background-size:6px 100%,10px 100%;background-repeat:no-repeat}
+  .samping.kiri .sp-garis{left:14px}.samping.kanan .sp-garis{right:14px;background-position:right top}
+  .sp-label{position:absolute;bottom:28px;z-index:1;writing-mode:vertical-rl;transform:rotate(180deg);display:flex;gap:12px;font-family:var(--f-kode);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:#FEFAE0;text-shadow:0 1px 4px rgba(0,0,0,.7)}
+  .samping.kiri .sp-label{left:30px}.samping.kanan .sp-label{right:30px;transform:none}
+  .sp-label b{font-weight:500}.sp-label span{color:#DDA15E}
+}
