@@ -33,8 +33,8 @@
               tooltip: function (p) { return (p.n || 'Tanpa nama') + ' · ' + p.km + ' km'; } },
     aliran: { file: 'aliran.geojson', tipe: 'garis', urut: 'o', warnaDari: { field: 'o', nilai: { 1: '#BDE3FF', 2: '#4FA8FF', 3: '#0A4FD6' } }, tebalDari: { field: 'o', nilai: { 1: .6, 2: 1.3, 3: 2.6 } },
               tooltip: function (p) { return 'Orde ' + p.o + ' · ' + p.tipe + ' · total ' + p.km.toLocaleString('id-ID') + ' km'; } },
-    hutan19: { file: 'hutan-2019.geojson', warna: '#3DAA6A', garis: '#1B4D3E', tebal: .3, isi: .8 },
-    hutan25: { file: 'hutan-2025.geojson', warna: '#3DAA6A', garis: '#1B4D3E', tebal: .3, isi: .8 },
+    hutan19: { file: 'hutan-2019.geojson', warna: '#8FD694', garis: '#E8FFE9', tebal: .5, isi: .85 },
+    hutan25: { file: 'hutan-2025.geojson', warna: '#1E8C55', garis: '#0C3B22', tebal: .5, isi: .92 },
     hilangSemua: { file: 'hutan-status.geojson', saring: function (p) { return p.s.indexOf('Kehilangan') === 0; }, warnaDari: { field: 's', nilai: { 'Kehilangan hutan 2025': '#FF4B3E' }, lain: '#FF9F43' }, tebal: 1.6, isi: 1,
               popup: { judul: 's', sub: 'Hutan yang sudah hilang', baris: [ ['Luas di DAS', 'ha', 'ha', 0] ] } },
     hutanStatus: { file: 'hutan-status.geojson', warnaDari: { field: 's', nilai: { 'Tutupan hutan stabil (2019–2025)': '#238B45', 'Kehilangan hutan 2020': '#FEE5D9', 'Kehilangan hutan 2021': '#FCAE91', 'Kehilangan hutan 2022': '#FB6A4A', 'Kehilangan hutan 2023': '#DE2D26', 'Kehilangan hutan 2024': '#A50F15', 'Kehilangan hutan 2025': '#FFD400' } }, isi: .85, tebal: .3,
@@ -230,11 +230,11 @@ window.ISI = {
           subjudul: 'Swipe: tutupan hutan *2019* dibanding *2025*',
           lapis: LAPIS,
           tab: [
-            { label: 'Swipe 2019 ↔ 2025', besar: '−11.358 ha', geser: { kiri: ['hutan19'], kanan: ['hutan25', 'hilangSemua'], labelKiri: 'Hutan 2019', labelKanan: 'Hutan 2025 + kehilangan hutan' },
+            { label: 'Swipe 2019 ↔ 2025', besar: '−11.358 ha', geser: { kiri: ['hutan19'], kanan: ['hutan25'], labelKiri: 'Tutupan hutan KEL 2019', labelKanan: 'Tutupan hutan KEL 2025' },
               angka: [ { keterangan: 'Hutan 2019', nilai: '319.739', satuan: 'ha' }, { keterangan: 'Hutan 2025', nilai: '308.381', satuan: 'ha' }, { keterangan: 'Porsi DAS berhutan', nilai: '56,9 → 54,9', satuan: '%' } ],
-              legenda: [ { warna: '#3DAA6A', label: 'Tutupan hutan KEL di DAS' }, { warna: '#FF4B3E', label: 'Kehilangan hutan 2025' }, { warna: '#FF9F43', label: 'Kehilangan hutan 2020–2024' } ],
-              petunjuk: 'Swipe bulatan kuning ke kiri-kanan. Sisi kiri: tutupan hutan 2019. Sisi kanan: tutupan hutan 2025, kehilangan hutan berwarna merah.',
-              teks: 'Dari 2019 ke 2024 hutan berkurang pelan, sekitar 3.000 ha. Lalu tahun 2025 saja hilang 8.358 ha.' },
+              legenda: [ { warna: '#8FD694', label: 'Tutupan hutan KEL 2019 (sisi kiri)' }, { warna: '#1E8C55', label: 'Tutupan hutan KEL 2025 (sisi kanan)' } ],
+              petunjuk: 'Swipe bulatan kuning ke kiri-kanan. Bagian yang berlubang di sisi 2025 adalah tutupan hutan yang sudah tidak ada.',
+              teks: 'Tutupan hutan KEL di DAS berkurang dari 319.739 ha (2019) menjadi 308.381 ha (2025). Penurunan terbesar terjadi pada 2025, yaitu 8.358 ha.' },
             { label: 'Waktu kehilangan', besar: '2020–2025', lapis: ['hutanStatus'],
               legenda: [ { warna: '#238B45', label: 'Tutupan hutan stabil (2019–2025)' }, { warna: '#FEE5D9', label: 'Kehilangan hutan 2020 · 1.340 ha' }, { warna: '#FCAE91', label: 'Kehilangan hutan 2021 · 786 ha' }, { warna: '#FB6A4A', label: 'Kehilangan hutan 2022 · 303 ha' }, { warna: '#DE2D26', label: 'Kehilangan hutan 2023 · 229 ha' }, { warna: '#A50F15', label: 'Kehilangan hutan 2024 · 341 ha' }, { warna: '#FFD400', label: 'Kehilangan hutan 2025 · 8.358 ha' } ],
               teks: 'Perbesar ke bagian kuning: itu hutan yang hilang di 2025, kebanyakan di punggung hulu.' },
@@ -521,8 +521,8 @@ window.ISI = {
       blok: [
         { jenis: 'video', otomatis: true,
           subjudul: 'Dari hulu ke hilir dalam *30 detik*',
-          file: 'video/air-dari-hulu-animasi.mp4', poster: 'video/animasi-poster.jpg',
-          keterangan: 'Animasi peta: batas DAS Tamiang, hutan hulu, kehilangan hutan 2020–2025, hujan ekstrem, aliran sungai, dan genangan 28 November 2025. Data: KLHK, HAkA, DEMNAS, IMERG, UNOSAT, Dukcapil; hasil analisis tim.'
+          file: 'video/air-dari-hulu-animasi-v2.mp4', poster: 'video/animasi-poster.jpg',
+          keterangan: 'Animasi peta: batas DAS Tamiang, tutupan hutan hulu, kehilangan tutupan hutan 2020–2025, hujan ekstrem, aliran sungai, dan genangan 28 November 2025. Data: KLHK, HAkA, DEMNAS, IMERG, UNOSAT, Dukcapil; hasil analisis tim.'
         },
         { jenis: 'teks',
           paragraf: [

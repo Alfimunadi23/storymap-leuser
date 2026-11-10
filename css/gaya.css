@@ -718,3 +718,8 @@ body,html{background:#26381f}
 .tepi .logo-atas img,.tepi .logo-baris img{height:76px;width:76px}
 .tepi .logo-atas img.persegi{height:64px;width:auto}
 .video-blok{margin:0}.video-blok video{display:block;width:100%;height:auto;background:#1d2b17}
+/* label swipe tetap di pojok bawah peta */
+.pweb-geser span{position:fixed;display:none}
+.pweb-wadah .sw-lbl{position:absolute;bottom:30px;z-index:795;font-family:var(--f-kode);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:#FEFAE0;background:rgba(20,30,15,.9);border:1px solid rgba(255,209,102,.6);padding:6px 10px;pointer-events:none}
+.pweb-wadah .sw-lbl.k{left:12px}.pweb-wadah .sw-lbl.n{right:12px}
+.pweb-wadah .sw-lbl i{display:inline-block;width:11px;height:11px;margin-right:7px;vertical-align:-1px}

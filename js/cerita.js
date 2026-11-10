@@ -704,6 +704,9 @@
         var ids = (T.lapis || []).map(function (i) { return [i, null]; });
         if (T.geser) ids = T.geser.kiri.map(function (i) { return [i, null]; }).concat(T.geser.kanan.map(function (i) { return [i, 'kanan']; }));
         if (gs) { gs.hidden = !T.geser; if (T.geser) { gs.querySelector('.gk').textContent = T.geser.labelKiri || ''; gs.querySelector('.gn').textContent = T.geser.labelKanan || ''; } }
+        [].forEach.call(box.querySelectorAll('.sw-lbl'), function (x) { x.remove(); });
+        if (T.geser) { var wd = box.querySelector('.pweb-wadah'), wk = function (id) { var L0 = LAP[id]; return L0 && L0.warna ? '<i style="background:' + L0.warna + '"></i>' : ''; };
+          wd.insertAdjacentHTML('beforeend', '<span class="sw-lbl k">' + wk(T.geser.kiri[0]) + esc(T.geser.labelKiri || '') + '</span><span class="sw-lbl n">' + wk(T.geser.kanan[0]) + esc(T.geser.labelKanan || '') + '</span>'); }
         var k0 = k;
         Promise.all(ids.map(function (x) { return lapis(x[0], x[1]); })).then(function (ls) {
           if (cur !== k0) return;
