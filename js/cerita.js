@@ -628,7 +628,7 @@
           var t = L0.tebalDari ? (L0.tebalDari.nilai[p[L0.tebalDari.field]] || 1) : (L0.tebal || 1.5);
           return { color: w, weight: t, opacity: L0.opasitas == null ? .95 : L0.opasitas, lineCap: 'round' };
         }
-        return { color: L0.garis || w, weight: L0.tebal == null ? .8 : L0.tebal, opacity: 1, fillColor: w, fillOpacity: L0.isi == null ? .65 : L0.isi, dashArray: L0.putus || null };
+        return { className: L0.animasi ? 'lap-tahun' : '', color: L0.garis || w, weight: L0.tebal == null ? .8 : L0.tebal, opacity: 1, fillColor: w, fillOpacity: L0.isi == null ? .65 : L0.isi, dashArray: L0.putus || null };
       };
     }
     function popupLapis(L0, p) {
@@ -655,6 +655,7 @@
       pakaiDasar(cfg.dasar || 'citra');
       [].forEach.call(box.querySelectorAll('.pweb-dasar button'), function (b) { L.DomEvent.disableClickPropagation(b); b.addEventListener('click', function () { pakaiDasar(b.dataset.d); }); });
       map.createPane('geser'); map.getPane('geser').style.zIndex = 450;
+      var capW = cfg.waktu ? L.DomUtil.create('div', 'cap-tahun', el) : null;
       var info = box.querySelector('.pint-info'), btn = [].slice.call(box.querySelectorAll('.ptab-nav [data-k]')), play = box.querySelector('.ptab-putar');
       var inst = {}, tampil = [], cur = -1, timer = null, bbDas = null, gs = box.querySelector('.pweb-geser'), gx = .5;
       function lapis(id, sisi) {
@@ -699,6 +700,7 @@
       }
       function pilih(k) {
         cur = k; var T = TAB[k]; if (T.dasar && T.dasar !== dAktif) pakaiDasar(T.dasar);
+        if (capW) { capW.textContent = T.label; capW.classList.remove('ganti'); void capW.offsetWidth; capW.classList.add('ganti'); }
         btn.forEach(function (b, j) { b.classList.toggle('aktif', j === k); b.classList.toggle('lewat', j < k); b.setAttribute('aria-selected', j === k); });
         isiInfo(T); info.classList.add('memuat');
         var ids = (T.lapis || []).map(function (i) { return [i, null]; });
@@ -817,9 +819,9 @@
     if (window.innerWidth < 1500) return;
     function ko(lat, lon) { var f = function (v, a, b) { var d = Math.floor(Math.abs(v)), m = Math.round((Math.abs(v) - d) * 60); return d + '°' + (m < 10 ? '0' : '') + m + '′ ' + (v >= 0 ? a : b); }; return f(lat, 'LU', 'LS') + ' · ' + f(lon, 'BT', 'BB'); }
     function ubin(lat, lon, z) {
-      var cols = 2, rows = 5, n = Math.pow(2, z), la = lat * Math.PI / 180, fx = (lon + 180) / 360 * n, fy = (1 - Math.log(Math.tan(la) + 1 / Math.cos(la)) / Math.PI) / 2 * n;
+      var cols = 3, rows = 9, n = Math.pow(2, z), la = lat * Math.PI / 180, fx = (lon + 180) / 360 * n, fy = (1 - Math.log(Math.tan(la) + 1 / Math.cos(la)) / Math.PI) / 2 * n;
       var x0 = Math.floor(fx - cols / 2), y0 = Math.floor(fy - rows / 2), t = '';
-      for (var j = 0; j < rows; j++) for (var i = 0; i < cols; i++) t += '<img alt="" onerror="ubinGagal(this)" style="left:' + i * 256 + 'px;top:' + j * 256 + 'px" src="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/' + z + '/' + (y0 + j) + '/' + (x0 + i) + '">';
+      for (var j = 0; j < rows; j++) for (var i = 0; i < cols; i++) t += '<img alt="" onerror="ubinGagal(this)" src="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/' + z + '/' + (y0 + j) + '/' + (x0 + i) + '">';
       return t;
     }
     /* [kiri, kanan]: lat, lon, zoom, judul, warna rona */

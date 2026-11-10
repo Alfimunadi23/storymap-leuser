@@ -727,3 +727,17 @@ body,html{background:#26381f}
 .pweb-geser i{background:#FEFAE0;box-shadow:0 0 0 3px rgba(40,54,24,.6),0 4px 14px rgba(0,0,0,.45)}
 .pweb-geser i::before{color:#283618}
 .pweb-wadah .sw-lbl{border-color:rgba(254,250,224,.35)}
+/* panel samping: penuh selebar ruang kosong, lebih terang, pudar halus ke warna utama */
+@media (min-width:1500px){
+  .samping{max-width:none;width:calc((100vw - var(--lebar)) / 2 + 40px);opacity:1}
+  .sp-ubin{filter:saturate(.95) brightness(.95) contrast(1.02)}
+  .samping::after{background:rgba(38,56,31,.18)}
+  .samping .sp-ubin,.samping.kiri .sp-ubin,.samping.kanan .sp-ubin{width:100%;height:100%;left:0;top:0;margin:0;overflow:hidden}
+  .sp-ubin img{width:50%;height:auto;aspect-ratio:1}
+  .samping.kiri{-webkit-mask-image:linear-gradient(90deg,#000 0%,#000 62%,rgba(0,0,0,.6) 82%,transparent 100%);mask-image:linear-gradient(90deg,#000 0%,#000 62%,rgba(0,0,0,.6) 82%,transparent 100%)}
+  .samping.kanan{-webkit-mask-image:linear-gradient(270deg,#000 0%,#000 62%,rgba(0,0,0,.6) 82%,transparent 100%);mask-image:linear-gradient(270deg,#000 0%,#000 62%,rgba(0,0,0,.6) 82%,transparent 100%)}
+}
+@media (min-width:1500px){
+  .samping .sp-ubin,.samping.kiri .sp-ubin,.samping.kanan .sp-ubin{display:grid;grid-template-columns:repeat(3,1fr);align-content:center}
+  .samping .sp-ubin img{position:static;width:100%;height:auto;aspect-ratio:1;max-width:none;display:block}
+}
