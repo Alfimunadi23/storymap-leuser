@@ -602,3 +602,19 @@ body,html{background:#525d31}
   .samping{width:calc((100vw - var(--lebar)) / 2 + 30px)}
 }
 @media (min-width:1500px){.samping{width:calc((100vw - var(--lebar)) / 2 + 6px)}}
+
+/* ===== revisi warna: latar hijau hutan gelap, senada dengan citra samping ===== */
+:root{--olive:#2f3b23}
+[data-warna="peta"]{--bg:#2f3b23;--bg-2:#36442a;--krim-2:#d6d3b4}
+body,html{background:#2f3b23}
+.penutup{background:#2f3b23}
+.tepi{background:#262f1c}
+.bagian{border-top:1px solid rgba(254,250,224,.1)}
+.bagian::before{opacity:.25}
+.gplus{background:#36442a;border-color:rgba(254,250,224,.12)}
+@media (min-width:1500px){
+  .samping.kiri::before,.samping.kanan::before{background:none}
+  .samping::after{background:rgba(47,59,35,.35);mix-blend-mode:normal}
+  .sp-ubin{filter:saturate(.8) brightness(.8) contrast(1.02)}
+  .samping{width:calc((100vw - var(--lebar)) / 2)}
+}
