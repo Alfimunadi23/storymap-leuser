@@ -60,7 +60,7 @@
     '<div class="wrap">' + logoHtml() + '<div class="hero-isi">' +
     '<div class="kode">' + esc(I.kegiatan) + '</div>' +
     '<h1>' + sorotKata(I.judul) + '</h1><p class="sub">' + esc(I.subjudul) + '</p>' +
-    '<div class="hero-aksi"><a class="gulir" href="#b1">Mulai baca</a><a class="hero-link" id="keBanjir" href="#">Lihat peta banjir</a></div>' +
+    '<div class="hero-aksi"><a class="gulir" href="#b1">Mulai baca</a></div>' +
     (I.wilayah ? '<p class="hero-wil">' + esc(I.wilayah) + ' · Kawasan Ekosistem Leuser</p>' : '') +
     '</div></div><p class="hero-atribusi">' + esc(SP.foto ? (SP.kredit || '') : 'Citra satelit hulu DAS Tamiang: Esri World Imagery') + '</p>';
 

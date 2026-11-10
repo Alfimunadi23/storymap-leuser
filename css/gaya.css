@@ -630,3 +630,10 @@ body,html{background:#2f3b23}
 .galeri figcaption a{font-family:var(--f-kode);font-size:.8rem;color:#DDA15E;text-decoration:underline;text-underline-offset:3px}
 .galeri figcaption{color:#283618;padding:4px 4px 8px}
 .galeri figcaption a{color:#8a4a12}
+/* latar tengah bertekstur halus seperti tajuk hutan; citra samping lebih lembut */
+.bagian,.penutup{background-image:url(../hias/tekstur.svg);background-size:400px 400px}
+@media (min-width:1500px){
+  .samping{opacity:.72}
+  .sp-ubin{filter:saturate(.7) brightness(.82) contrast(.98)}
+  .samping::after{background:rgba(47,59,35,.4)}
+}
