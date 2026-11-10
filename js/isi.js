@@ -130,9 +130,41 @@ window.ISI = {
 
     /* ===== 1. MENGENAL DAS TAMIANG ===== */
     { label: 'Mengenal DAS',
-      judul: 'Kenalan dulu dengan *DAS Tamiang*',
-      pengantar: 'Gulir pelan-pelan, petanya ikut berganti.',
+      judul: 'Mengenal bentang alam *DAS Tamiang*',
+      pengantar: 'Satu sistem air, dari hutan Leuser di hulu sampai pesisir Selat Malaka.',
       blok: [
+        { jenis: 'teks',
+          paragraf: [
+            'DAS Tamiang merupakan salah satu wilayah tangkapan air di Provinsi Aceh yang memiliki bentang alam dari kawasan berhutan di bagian hulu hingga dataran rendah di bagian hilir.',
+            'Sebagai satu kesatuan sistem geografis, DAS menghubungkan berbagai komponen lingkungan melalui proses aliran air: mulai dari **intersepsi** oleh vegetasi, **infiltrasi** ke dalam tanah, hingga **limpasan permukaan** yang mengalir melalui jaringan sungai menuju hilir.'
+          ]
+        },
+        { jenis: 'alur',
+          isi: [
+            { judul: 'Intersepsi', teks: 'Tajuk hutan menahan sebagian air hujan sebelum jatuh ke tanah.' },
+            { judul: 'Infiltrasi', teks: 'Akar dan serasah membantu air meresap ke dalam tanah.' },
+            { judul: 'Limpasan', teks: 'Air yang tidak meresap mengalir di permukaan, masuk ke sungai.' },
+            { judul: 'Hilir', teks: 'Semua aliran berkumpul di Sungai Tamiang menuju Selat Malaka.' }
+          ]
+        },
+        { jenis: 'teks',
+          subjudul: 'Keterkaitan dengan *Ekosistem Leuser*',
+          paragraf: [
+            'Keberadaan Kawasan Ekosistem Leuser (KEL) menjadi salah satu aspek penting dalam kajian DAS Tamiang, khususnya pada wilayah hulu yang memiliki keterkaitan dengan kawasan hutan.',
+            'Dalam penelitian ini, bagian DAS yang beririsan dengan KEL (sekitar **70%** luas DAS) menjadi fokus untuk mengkaji kondisi tutupan hutan, perubahan penggunaan lahan, serta vegetasi di sepanjang koridor sungai, sebagai bagian dari upaya memahami fungsi ekologis dan hidrologis wilayah hulu.'
+          ]
+        },
+        { jenis: 'teks',
+          subjudul: 'Dari *hulu* menuju *hilir*',
+          paragraf: [ 'DAS Tamiang dibagi menjadi tiga zona analisis. Pembagian ini digunakan untuk memahami keterkaitan kondisi lingkungan dan dinamika hidrometeorologi dalam satu kesatuan sistem DAS, sebagai dasar penyusunan rekomendasi mitigasi bencana.' ]
+        },
+        { jenis: 'kartu',
+          isi: [
+            { warna: 'hijau', label: 'Hulu · 48,9% DAS · >500 mdpl', judul: 'Hutan dan lereng', teks: 'Fokus pada kondisi tutupan hutan, topografi, dan vegetasi sempadan sungai.' },
+            { warna: 'emas', label: 'Tengah · 31,1% DAS · 50–500 mdpl', judul: 'Sungai dan lahan', teks: 'Menggambarkan keterhubungan jaringan sungai dengan penggunaan lahan.' },
+            { warna: 'merah', label: 'Hilir · 20,1% DAS · <50 mdpl', judul: 'Genangan dan warga', teks: 'Fokus analisis genangan banjir dan paparan aktivitas masyarakat.' }
+          ]
+        },
         { jenis: 'peta-web',
           subjudul: 'Peta DAS Tamiang: klik tabnya, klik petanya',
           lapis: LAPIS,

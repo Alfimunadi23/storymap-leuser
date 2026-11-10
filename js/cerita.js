@@ -71,7 +71,7 @@
   /* --- bagian --- */
   var B = (I.bagian || []).filter(function (b) { return !(b.jenis === 'peta-web' && !b.alamat); });
   var GRAFIK = [], GPLUS = [], PINT = [], nBanding = 0, nomor = 0;
-  var WK = { merah: '#BC6C25', hijau: '#606C38', biru: '#DDA15E', kuning: '#DDA15E', oranye: '#BC6C25', olive: '#606C38', emas: '#DDA15E' };
+  var WK = { merah: '#BC6C25', hijau: '#6FA35A', biru: '#DDA15E', kuning: '#DDA15E', oranye: '#BC6C25', olive: '#606C38', emas: '#DDA15E' };
 
   function blok(b) {
     switch (b.jenis) {
@@ -177,6 +177,8 @@
           '<div class="kartu isi-lebar muncul">' + (b.isi || []).map(function (k) {
             return '<div style="--c:' + (WK[k.warna] || 'var(--aksen)') + '"><span class="kode">' + esc(k.label || k.warna || '') + '</span><h3>' + esc(k.judul) + '</h3><p>' + esc(k.teks) + '</p></div>';
           }).join('') + '</div>';
+      case 'alur':
+        return '<ol class="alur isi-lebar muncul">' + (b.isi || []).map(function (x, k) { return '<li><span class="alur-no">' + pad2(k + 1) + '</span><h4>' + esc(x.judul) + '</h4><p>' + esc(x.teks) + '</p></li>'; }).join('') + '</ol>';
       case 'galeri':
         return (b.subjudul ? '<h3 class="sub-blok isi-lebar">' + sorotKata(b.subjudul) + '</h3>' : '') + (b.paragraf ? '<div class="isi-kolom" style="margin-bottom:26px">' + paragraf(b.paragraf) + '</div>' : '') + '<div class="galeri isi-lebar muncul">' + (b.foto || []).map(function (f) {
           return '<figure>' + img(f.file, f.keterangan + (f.sumber ? ' Foto: ' + f.sumber : ''), 'zoom', 0.75) + '<figcaption>' + esc(f.keterangan) + (f.sumber ? '<br>Foto: ' + (f.tautan ? '<a href="' + esc(f.tautan) + '" target="_blank" rel="noopener">' + esc(f.sumber) + '</a>' : esc(f.sumber)) : '') + '</figcaption></figure>';
@@ -202,7 +204,7 @@
     return '<section class="bagian" data-warna="' + (b.warna || WARNA[i % WARNA.length]) + '" id="' + id + '" data-label="' + esc(b.label) + '" data-no="' + no + '"><div class="wrap">' + kep + isi + '</div></section>';
   }).join('');
   var P = I.penutup || {};
-  html += '<section class="penutup" data-warna="' + WARNA[B.length % WARNA.length] + '" data-label="Penutup" data-no="0"><div class="wrap"><div class="kode">Penutup</div><h2 style="margin-top:14px">' + sorotKata(P.judul) + '</h2><p>' + esc(P.teks) + '</p></div></section>';
+  html += '<section class="penutup" id="penutup" data-warna="' + WARNA[B.length % WARNA.length] + '" data-label="Penutup" data-no="0"><div class="wrap"><div class="kode">Penutup</div><h2 style="margin-top:14px">' + sorotKata(P.judul) + '</h2><p>' + esc(P.teks) + '</p></div></section>';
   var main = document.getElementById('cerita'); main.innerHTML = html;
 
   /* --- tepi (marginalia lembar peta) --- */
@@ -390,11 +392,27 @@
     main.querySelectorAll('.langkah').forEach(function (l) { ioL.observe(l); });
 
     /* --- nomor lembar di bar atas --- */
+    (function () {
+      var bar = document.querySelector('.lembar-in'), btn = document.createElement('button'), pan = document.createElement('nav');
+      btn.type = 'button'; btn.className = 'lb-menu'; btn.setAttribute('aria-expanded', 'false'); btn.innerHTML = '<i></i><i></i><i></i><span>Daftar isi</span>';
+      pan.className = 'lb-panel'; pan.hidden = true; pan.setAttribute('aria-label', 'Daftar isi');
+      var it = [{ id: 'sampul', no: '00', l: 'Sampul', j: (I.judul || '').replace(/\*/g, '') }];
+      main.querySelectorAll('section[data-label]').forEach(function (s) { var h = s.querySelector('h2'); it.push({ id: s.id || '', no: +s.dataset.no ? pad2(+s.dataset.no) : '—', l: s.dataset.label, j: h ? h.textContent : '' }); });
+      pan.innerHTML = '<ol>' + it.map(function (x) { return '<li><a href="#' + x.id + '" data-l="' + esc(x.l) + '"><b>' + x.no + '</b><span>' + esc(x.l) + '<small>' + esc(x.j) + '</small></span></a></li>'; }).join('') + '</ol>';
+      bar.insertBefore(btn, bar.firstChild); document.querySelector('.lembar-bar').appendChild(pan);
+      document.querySelector('.lembar-bar').removeAttribute('aria-hidden');
+      var tutup = function () { pan.hidden = true; btn.setAttribute('aria-expanded', 'false'); };
+      btn.addEventListener('click', function (e) { e.stopPropagation(); pan.hidden = !pan.hidden; btn.setAttribute('aria-expanded', String(!pan.hidden)); });
+      pan.addEventListener('click', function (e) { if (e.target.closest('a')) tutup(); });
+      document.addEventListener('click', function (e) { if (!pan.hidden && !pan.contains(e.target)) tutup(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') tutup(); });
+      window.__menuAktif = function (lbl) { pan.querySelectorAll('a').forEach(function (a) { a.classList.toggle('aktif', a.dataset.l === lbl); }); };
+    })();
     var lbL = document.getElementById('lbLabel'), lbN = document.getElementById('lbNo');
     lbN.textContent = '00 / ' + pad2(total);
     var noTxt = function (n) { return +n ? pad2(+n) + ' / ' + pad2(total) : '—'; };
     var ioS = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { if (e.isIntersecting) { lbL.textContent = e.target.dataset.label; lbN.textContent = noTxt(e.target.dataset.no); } });
+      es.forEach(function (e) { if (e.isIntersecting) { lbL.textContent = e.target.dataset.label; lbN.textContent = noTxt(e.target.dataset.no); if (window.__menuAktif) window.__menuAktif(e.target.dataset.label); } });
     }, { rootMargin: '-40% 0px -55% 0px' });
     main.querySelectorAll('[data-label]').forEach(function (s) { ioS.observe(s); });
   }
