@@ -33,7 +33,7 @@
       if (!el.dataset.file) gagal();
     });
   }
-  function paragraf(arr) { return (arr || []).map(function (p) { return '<p>' + esc(p).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<em>$1</em>') + '</p>'; }).join(''); }
+  function paragraf(arr) { return (arr || []).map(function (p) { return '<p' + (/^\*\*/.test(p) ? ' class="tb"' : '') + '>' + esc(p).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<em>$1</em>') + '</p>'; }).join(''); }
   function gambarBingkai(g) {
     if (!g || !g.file) return '';
     return '<figure class="isi-lebar" style="margin:36px 0 0 174px"><div class="bingkai">' + img(g.file, g.keterangan, 'zoom') + '</div><figcaption>' + esc(g.keterangan) + '</figcaption></figure>';

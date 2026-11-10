@@ -741,3 +741,4 @@ body,html{background:#26381f}
   .samping .sp-ubin,.samping.kiri .sp-ubin,.samping.kanan .sp-ubin{display:grid;grid-template-columns:repeat(3,1fr);align-content:center}
   .samping .sp-ubin img{position:static;width:100%;height:auto;aspect-ratio:1;max-width:none;display:block}
 }
+.isi-kolom p.tb::first-letter{font-family:inherit;font-weight:inherit;color:inherit}
