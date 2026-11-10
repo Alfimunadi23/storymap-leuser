@@ -727,6 +727,7 @@
       siap.then(function () {
         if (cfg.label !== false) tambahLabel(map, folder);
         var bb = cfg.awal || bbDas; if (bb) { map.fitBounds(bb, { padding: [8, 8] }); setTimeout(function () { map.invalidateSize(); map.fitBounds(bb, { padding: [8, 8] }); }, 400); }
+        if (bb && 'IntersectionObserver' in window) { var sekali = false; new IntersectionObserver(function (es, o) { if (es[0].isIntersecting && !sekali) { sekali = true; map.invalidateSize(); map.fitBounds(bb, { padding: [8, 8] }); o.disconnect(); } }, { threshold: .3 }).observe(el); }
         pilih(cfg.mulai == null ? 0 : cfg.mulai);
       });
       btn.forEach(function (b) { b.addEventListener('click', function () { stop(); pilih(+b.dataset.k); }); });
