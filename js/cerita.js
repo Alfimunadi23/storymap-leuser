@@ -292,7 +292,7 @@
     var GR = 'rgba(254,250,224,.12)', s = '';
     if (datar) {
       var X = function (v) { return m.l + (W - m.l - m.r) * (v - sk.lo) / (sk.hi - sk.lo); }, bh = (H - m.t - m.b) / kat.length;
-      for (var v = sk.lo; v <= sk.hi + 1e-9; v += sk.st) s += '<line x1="' + X(v) + '" x2="' + X(v) + '" y1="' + m.t + '" y2="' + (H - m.b) + '" stroke="' + GR + '"/><text x="' + X(v) + '" y="' + (H - m.b + 18) + '" text-anchor="middle">' + f(v, 0) + '</text>';
+      for (var v = sk.lo; v <= sk.hi + 1e-9; v += sk.st) s += '<line x1="' + X(v) + '" x2="' + X(v) + '" y1="' + m.t + '" y2="' + (H - m.b) + '" stroke="' + GR + '"/>' + ((W - m.l - m.r) / ((sk.hi - sk.lo) / sk.st) > 64 ? '<text x="' + X(v) + '" y="' + (H - m.b + 18) + '" text-anchor="middle">' + f(v, 0) + '</text>' : '');
       kat.forEach(function (c, k) {
         var x = aktif[0] || seri[0], val = +x.s.nilai[k], y0 = m.t + bh * k + bh * .18, hh = bh * .64, col = (x.s.warnaPer || [])[k] || x.s.warna;
         s += '<text x="' + (m.l - 10) + '" y="' + (y0 + hh / 2 + 4) + '" text-anchor="end" class="gp-kat">' + esc(c) + '</text>';
