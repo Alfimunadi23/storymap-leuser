@@ -157,8 +157,8 @@ window.ISI = {
         { jenis: 'teks',
           subjudul: '1.1 Bentang alam DAS Tamiang',
           paragraf: [
-            'DAS Tamiang membentang dari pegunungan berhutan di Gayo Lues dan Aceh Timur sampai dataran rendah di pesisir Aceh Tamiang. Luasnya 562.251 ha dan melintasi enam kabupaten/kota.',
-            'Semua air hujan yang jatuh di wilayah ini akhirnya berkumpul ke satu sungai. Sebagian ditahan oleh tajuk pohon (**intersepsi**), sebagian meresap ke tanah (**infiltrasi**), dan sisanya mengalir di permukaan (**limpasan**) menuju Sungai Tamiang.'
+            'DAS Tamiang (562.251 ha) membentang dari pegunungan berhutan di Gayo Lues dan Aceh Timur hingga dataran pesisir Aceh Tamiang, melintasi enam kabupaten/kota.',
+            'Sebagai satu sistem hidrologi, air hujan di DAS ini mengalami **intersepsi** oleh tajuk, **infiltrasi** ke dalam tanah, dan **limpasan permukaan** menuju Sungai Tamiang.'
           ]
         },
         { jenis: 'alur',
@@ -172,15 +172,13 @@ window.ISI = {
         { jenis: 'teks',
           subjudul: '1.2 Keterkaitan dengan *Ekosistem Leuser*',
           paragraf: [
-            'Sekitar 70% DAS Tamiang berada di dalam Kawasan Ekosistem Leuser (KEL). Hampir seluruh bagian hulunya adalah hutan Leuser, jadi apa yang terjadi pada hutan ini langsung memengaruhi air yang turun ke hilir.',
-            'Karena itu, kajian kami berfokus pada bagian DAS yang masuk KEL: bagaimana tutupan hutannya berubah, bagaimana lahannya dipakai, dan bagaimana kondisi vegetasi di sepanjang sungai.'
+            'Sekitar 70% DAS Tamiang berada di Kawasan Ekosistem Leuser (KEL), mencakup hampir seluruh wilayah hulu. Kajian ini berfokus pada bagian tersebut untuk menilai perubahan tutupan hutan, penggunaan lahan, dan vegetasi sempadan sungai.'
           ]
         },
         { jenis: 'teks',
           subjudul: '1.3 Dari *hulu* menuju *hilir*',
           paragraf: [
-            'Untuk memudahkan pembacaan, DAS kami bagi menjadi tiga zona. Di hulu, kami melihat hutan, kemiringan lereng, dan tepi sungai. Di tengah, kami melihat hubungan sungai dengan penggunaan lahan. Di hilir, kami melihat genangan dan siapa saja yang terdampak.',
-            'Ketiganya kami baca sebagai satu rangkaian, karena air dari hulu selalu berakhir di hilir.'
+            'DAS dibagi menjadi tiga zona analisis. Zona hulu dikaji dari aspek tutupan hutan, topografi, dan sempadan; zona tengah dari keterhubungan sungai dan penggunaan lahan; zona hilir dari genangan dan paparan masyarakat. Ketiganya dianalisis sebagai satu kesatuan sistem.'
           ]
         },
         { jenis: 'kartu',
@@ -220,9 +218,9 @@ window.ISI = {
         { jenis: 'teks',
           subjudul: 'Ketinggian, lereng, dan jaringan sungai',
           paragraf: [
-            '**2.1 Ketinggian.** Dari data DEMNAS, hulu DAS Tamiang berada di ketinggian 500 sampai 2.500 mdpl, zona tengah 50–500 mdpl, dan hilir di bawah 50 mdpl. Air dari pegunungan turun ke dataran yang hampir datar dalam jarak yang tidak terlalu jauh.',
-            '**2.2 Kemiringan lereng.** Separuh DAS (49,7%) landai, tetapi hampir sepertiganya (31,9%) sangat curam, di atas 40%. Di lereng seperti ini air mengalir lebih cepat di permukaan, apalagi kalau hutannya sudah terbuka dan hujan turun deras.',
-            '**2.3 Jaringan sungai.** Dari DEM kami menurunkan 4.989 alur air: alur kecil di hulu sepanjang 2.322 km, anak sungai 2.278 km, dan aliran utama 1.366 km. Semuanya bermuara ke Simpang Kiri dan Simpang Kanan, lalu bersatu menjadi Sungai Tamiang.'
+            '**2.1 Ketinggian.** Elevasi DAS berkisar 500–2.500 mdpl di hulu, 50–500 mdpl di zona tengah, dan kurang dari 50 mdpl di hilir (DEMNAS). Gradien yang tajam ini mempercepat aliran air menuju dataran rendah.',
+            '**2.2 Kemiringan lereng.** Sebanyak 49,7% wilayah DAS tergolong landai, sedangkan 31,9% sangat curam (>40%). Lereng sangat curam berpotensi tinggi menghasilkan limpasan permukaan, terutama bila tutupan vegetasinya hilang.',
+            '**2.3 Jaringan sungai.** Ekstraksi DEM menghasilkan 4.989 segmen alur dengan panjang total sekitar 5.966 km. Seluruhnya bermuara ke Sungai Simpang Kiri dan Simpang Kanan yang membentuk Sungai Tamiang.'
           ]
         },
         { jenis: 'peta-web',
@@ -262,12 +260,12 @@ window.ISI = {
       pengantar: 'Bagaimana hutan di hulu DAS Tamiang berubah selama 2019–2025.',
       blok: [
         { jenis: 'teks',
-          subjudul: 'Hutan di hulu, dari tahun ke tahun',
+          subjudul: 'Dinamika tutupan hutan',
           paragraf: [
-            '**3.1 Sebaran hutan.** Menurut data tutupan hutan HAkA, pada 2019 hutan menutupi 319.739 ha atau 56,9% DAS Tamiang. Sebagian besar berada di zona hulu yang masuk KEL, dengan tutupan 89%. Di hilir, hutan tinggal sekitar 3%.',
-            '**3.2 Perubahan luas.** Selama 2019–2024 luas hutan turun perlahan, sekitar 3.000 ha. Pada 2025 penurunannya melonjak: 8.358 ha hilang dalam satu tahun, sehingga tutupan hutan tersisa 308.381 ha (54,9%).',
-            '**3.3 Kehilangan dan penambahan.** Data yang kami pakai mencatat hutan yang hilang setiap bulan. Penambahan hutan tidak tercatat dalam data ini, sehingga yang kami tampilkan hanya sisi kehilangannya.',
-            '**3.4 Lokasinya.** Kehilangan terbesar tahun 2025 terjadi di zona hulu (81%), terutama di Pining (Gayo Lues) dan Serbajadi (Aceh Timur). Peta di bawah bisa diputar per tahun untuk melihat perubahannya.'
+            '**3.1 Sebaran hutan.** Pada 2019, tutupan hutan mencakup 319.739 ha (56,9% DAS), terkonsentrasi di zona hulu dengan tutupan 89,3%. Zona hilir hanya menyisakan 3,2%.',
+            '**3.2 Perubahan luas.** Selama 2019–2024 luas hutan berkurang sekitar 3.000 ha. Pada 2025 kehilangan melonjak menjadi 8.358 ha dalam satu tahun, sehingga tutupan tersisa 308.381 ha (54,9%).',
+            '**3.3 Kehilangan dan penambahan.** Data HAkA hanya merekam kehilangan tutupan hutan bulanan; penambahan tutupan tidak tersedia sehingga tidak dianalisis.',
+            '**3.4 Sebaran kehilangan.** Sebanyak 81% kehilangan hutan 2025 terjadi di zona hulu, terutama di Kecamatan Pining (Gayo Lues) dan Serbajadi (Aceh Timur).'
           ]
         },
         { jenis: 'peta-web', waktu: true,
@@ -464,9 +462,9 @@ window.ISI = {
         { jenis: 'teks',
           subjudul: 'Koridor sempadan sungai',
           paragraf: [
-            '**4.1 Koridor yang diamati.** Kami membuat koridor 100 meter di kiri-kanan sungai, lalu melihat tutupan vegetasinya dari tahun ke tahun.',
-            '**4.2 Tiga kondisi.** Koridor ini kami bagi menjadi tiga: masih berhutan, rusak atau tidak berhutan (kritis), dan hutan yang baru dibuka pada tahun tertentu. Pada 2025, sekitar 25.782 ha sempadan masih berhutan dan 24.247 ha sudah rusak.',
-            '**4.3 Sebarannya.** Di hulu, sempadan umumnya masih terjaga; hanya 21% yang rusak di Simpang Kiri Hulu. Semakin ke hilir kondisinya semakin buruk, sampai 97% di Cempegih (Tamiang Hilir).'
+            '**4.1 Koridor sempadan.** Sempadan didefinisikan sebagai zona penyangga 100 m di kiri dan kanan sungai, kemudian ditumpangsusunkan dengan tutupan hutan tahunan.',
+            '**4.2 Klasifikasi kondisi.** Sempadan dikelompokkan menjadi berhutan, kritis (tidak berhutan), dan terdeforestasi pada tahun berjalan. Pada 2025 tercatat 25.782 ha berhutan dan 24.247 ha kritis.',
+            '**4.3 Sebaran spasial.** Proporsi sempadan kritis meningkat ke arah hilir: 21% di Sub-DAS Simpang Kiri Hulu hingga 97% di Sub-DAS Cempegih.'
           ]
         },
         { jenis: 'peta-web',
@@ -509,11 +507,11 @@ window.ISI = {
       pengantar: 'Kehilangan hutan memperparah dampak, tetapi pemicunya tetap hujan ekstrem.',
       blok: [
         { jenis: 'teks',
-          subjudul: 'Hujan dari tahun ke tahun, lalu November 2025',
+          subjudul: 'Curah hujan historis dan kejadian November 2025',
           paragraf: [
-            '**5.1 Hujan historis.** Dari data CHIRPS, curah hujan tahunan rata-rata DAS Tamiang berkisar 2.450–3.930 mm selama 2019–2025. Tahun 2025 mencatat 3.549 mm, di atas rata-rata tetapi bukan yang tertinggi.',
-            '**5.2 Intensitas November 2025.** Data GPM IMERG per 30 menit menunjukkan hujan lebat datang bergelombang pada 24–27 November 2025, dengan puncak 35,15 mm/jam pada 26 November pukul 04.30 WIB.',
-            '**5.3 Sebaran hujan.** Akumulasi hujan 24–26 November tidak merata di seluruh DAS. Kami memakainya sebagai konteks, bukan satu-satunya penjelasan, saat membaca peta genangan di bagian berikutnya.'
+            '**5.1 Curah hujan historis.** Curah hujan tahunan rata-rata DAS (CHIRPS) berkisar 2.453–3.933 mm selama 2019–2025. Nilai 2025 sebesar 3.549 mm berada di atas rata-rata, tetapi bukan yang tertinggi.',
+            '**5.2 Intensitas November 2025.** Data GPM IMERG resolusi 30 menit menunjukkan hujan lebat bergelombang pada 24–27 November 2025 dengan intensitas puncak 35,15 mm/jam pada 26 November pukul 04.30 WIB.',
+            '**5.3 Sebaran spasial.** Akumulasi hujan 24–26 November tidak merata di seluruh DAS dan digunakan sebagai konteks dalam membaca pola genangan.'
           ]
         },
         { jenis: 'grafik-plus',
@@ -552,11 +550,11 @@ window.ISI = {
       pengantar: 'Ke mana air pergi setelah turun dari hulu.',
       blok: [
         { jenis: 'teks',
-          subjudul: 'Wilayah yang tergenang',
+          subjudul: 'Sebaran genangan',
           paragraf: [
-            '**6.1 Area genangan.** Data UNOSAT dari citra 28 November 2025 mencatat sekitar 10.035 ha wilayah tergenang di dalam DAS Tamiang.',
-            '**6.2 Sebarannya.** Sebanyak 92% genangan (9.217 ha) berada di zona hilir, sisanya 818 ha di zona tengah. Di zona hulu tidak ada genangan yang terekam.',
-            '**6.3 Kaitannya dengan kondisi wilayah.** Ketika kami tumpangkan dengan peta indeks bahaya banjir, sekitar 85% genangan jatuh di kelas bahaya tinggi dan sangat tinggi: dataran rendah di dekat sungai. Genangan ini terbentuk dari gabungan banyak faktor, bukan satu penyebab saja.'
+            '**6.1 Luas genangan.** Berdasarkan citra UNOSAT 28 November 2025, genangan di dalam DAS Tamiang mencapai sekitar 10.035 ha.',
+            '**6.2 Distribusi per zona.** Sebanyak 92% genangan (9.217 ha) berada di zona hilir dan 818 ha di zona tengah; tidak terdeteksi genangan di zona hulu.',
+            '**6.3 Kesesuaian dengan indeks bahaya.** Sekitar 85% genangan berada pada kelas bahaya tinggi dan sangat tinggi, yaitu dataran rendah di sekitar sungai. Genangan merupakan hasil kombinasi berbagai faktor, bukan satu penyebab tunggal.'
           ]
         },
         { jenis: 'peta-web',
@@ -592,12 +590,12 @@ window.ISI = {
       pengantar: 'Siapa dan apa yang berada di wilayah tergenang.',
       blok: [
         { jenis: 'teks',
-          subjudul: 'Penduduk, lahan, dan jalan yang terdampak',
+          subjudul: 'Paparan penduduk, lahan, dan infrastruktur',
           paragraf: [
-            '**7.1 Penduduk.** Dengan menumpangkan genangan dan batas desa Dukcapil, kami memperkirakan 34.956 jiwa (9.763 KK) di 219 desa tinggal di wilayah yang tergenang. Angka ini dihitung dari porsi luas desa yang terendam.',
-            '**7.2 Lahan pertanian.** Data Pemkab Aceh Tamiang mencatat 8.242 ha lahan pertanian terdampak. Hampir 75% ada di empat kecamatan hilir: Manyak Payed, Bendahara, Banda Mulia, dan Karang Baru.',
-            '**7.3 Infrastruktur dan fasilitas umum.** Sepanjang 11,3 km jalan berada di bawah genangan, termasuk ruas Jalan Raya Medan–Banda Aceh. Data Pemkab Aceh Tamiang mencatat 543 fasilitas pendidikan, 192 fasilitas kesehatan, 724 sarana ibadah, 15 pasar, dan 156 ruko rusak di seluruh kabupaten.',
-            '**7.4 Per wilayah.** Kecamatan dengan penduduk terpapar terbanyak adalah Manyak Payed (9.130 jiwa), disusul Banda Mulia, Bendahara, dan Karang Baru.'
+            '**7.1 Penduduk terpapar.** Estimasi berbasis proporsi luas desa tergenang menunjukkan 34.956 jiwa (9.763 KK) di 219 desa berada di wilayah genangan.',
+            '**7.2 Lahan pertanian.** Pemkab Aceh Tamiang mencatat 8.242 ha lahan pertanian terdampak; 75% di antaranya berada di Kecamatan Manyak Payed, Bendahara, Banda Mulia, dan Karang Baru.',
+            '**7.3 Infrastruktur.** Sepanjang 11,3 km jalan tergenang, termasuk ruas Medan–Banda Aceh. Tercatat pula 543 fasilitas pendidikan, 192 fasilitas kesehatan, dan 724 sarana ibadah rusak di tingkat kabupaten.',
+            '**7.4 Sebaran administratif.** Penduduk terpapar terbanyak berada di Kecamatan Manyak Payed (9.130 jiwa), diikuti Banda Mulia, Bendahara, dan Karang Baru.'
           ]
         },
         { jenis: 'angka', isi: [
@@ -671,8 +669,8 @@ window.ISI = {
         },
         { jenis: 'teks',
           paragraf: [
-            '**8.1 Satu rangkaian.** Tahun 2025, hulu DAS Tamiang kehilangan 8.358 ha hutan, separuhnya di lereng sangat curam. Hutan di tepi sungai ikut terbuka 1.268 ha. Akhir November, hujan lebat turun dengan puncak 35 mm per jam. Air dari hulu mengalir lebih cepat dan membawa lebih banyak lumpur, lalu menggenangi 10.035 ha dataran hilir.',
-            '**8.2 Wilayah prioritas.** Dari gabungan semua lapisan data, ada dua wilayah yang paling perlu perhatian: lereng curam di hulu Pining, Serbajadi, dan Tamiang Hulu yang hutannya baru terbuka; serta dataran hilir Manyak Payed, Bendahara, Banda Mulia, dan Karang Baru yang paling banyak warganya terdampak.'
+            '**8.1 Integrasi hulu–hilir.** Pada 2025, kehilangan 8.358 ha hutan hulu, separuhnya di lereng sangat curam, dan terbukanya 1.268 ha sempadan bertepatan dengan hujan berintensitas tinggi. Kombinasi ini berkaitan dengan genangan 10.035 ha di dataran hilir.',
+            '**8.2 Wilayah prioritas.** Prioritas mitigasi mencakup lereng curam terbuka di hulu (Pining, Serbajadi, Tamiang Hulu) serta dataran hilir dengan paparan penduduk tertinggi (Manyak Payed, Bendahara, Banda Mulia, Karang Baru).'
           ],
         },
         { jenis: 'peta-web',
