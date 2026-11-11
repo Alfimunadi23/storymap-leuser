@@ -132,7 +132,7 @@ window.ISI = {
           'Banjir bukan peristiwa baru bagi Aceh Tamiang. Namun, skala kejadian kali ini jauh lebih besar dibandingkan sebelumnya. Hal ini memunculkan pertanyaan: perubahan apa yang terjadi di wilayah hulu sebelum air mencapai hilir?'
         ]},
         { jenis: 'angka', isi: [
-          { nilai: '287.168', satuan: 'jiwa', keterangan: 'Warga Aceh Tamiang terdampak (72.813 KK)', sumber: 'Pemkab Aceh Tamiang, cekdatabencana' },
+          { nilai: '287.168', satuan: 'jiwa', keterangan: 'Warga Aceh Tamiang terdampak', sumber: 'Pemkab Aceh Tamiang, cekdatabencana' },
           { nilai: '101',     satuan: 'jiwa', keterangan: 'Korban meninggal; 18 luka-luka', sumber: 'Pemkab Aceh Tamiang, cekdatabencana' },
           { nilai: '75.088',  satuan: 'rumah', keterangan: 'Rumah rusak', sumber: 'Pemkab Aceh Tamiang, cekdatabencana' },
           { nilai: '562.251', satuan: 'ha',    keterangan: 'Luas DAS Tamiang', sumber: 'Batas DAS KLHK (DAS130029)' }
