@@ -815,3 +815,6 @@ body,html{background:#26381f}
 }
 @media (max-width:1499px){.bagian{background:rgba(36,54,29,.66)}.penutup{background:rgba(36,54,29,.7)}}
 @media (max-width:860px){.lh-lbl{display:none}}
+@media (max-width:640px){.gplus .gp-kat{font-size:12.5px}.gplus .nilai{font-size:13px}.gplus .gp-sub{font-size:10px}.gplus{overflow:hidden}.gp-tabel{max-width:100%}}
+.gp-tabel th{white-space:normal}.gp-tabel table{font-size:.72rem}
+@media (max-width:640px){.galeri figure,.galeri figure:nth-child(odd),.galeri figure:nth-child(even){transform:none}}

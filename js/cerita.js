@@ -276,7 +276,7 @@
     var H = datar ? Math.max(170, kat.length * 64 + 40) : (W < 520 ? 270 : 330);
     var pjg = Math.max.apply(null, kat.map(function (c) { return String(c).length; }));
     var m = { t: 26, r: datar ? 150 : 18, b: 34, l: datar ? Math.min(170, pjg * 7.6 + 16) : 58 };
-    if (W < 520 && datar) { m.r = 118; m.l = Math.min(120, pjg * 6.6 + 12); }
+    if (W < 520 && datar) { m.r = 104; m.l = Math.min(W * 0.4, pjg * 6.4 + 14); }
     var seri = V.seri.map(function (s, i) { return { s: s, i: i, on: !st.mati[s.nama] }; }), aktif = seri.filter(function (x) { return x.on; });
     var dec = V.desimal == null ? 0 : V.desimal, f = function (v, d) { return (+v).toLocaleString('id-ID', { minimumFractionDigits: d == null ? dec : d, maximumFractionDigits: d == null ? dec : d }); };
     var tumpuk = V.tipe === 'tumpuk';
@@ -301,6 +301,7 @@
         s += '<rect class="hit" data-k="' + k + '" x="' + m.l + '" y="' + (m.t + bh * k) + '" width="' + (W - m.l - m.r) + '" height="' + bh + '"/>';
       });
     } else {
+      if (pjg * 7 > (W - m.l - m.r) / kat.length) m.l = Math.max(m.l, String(kat[0]).length * 5.2 + 6);
       var n = kat.length, bw = (W - m.l - m.r) / n, X = function (k) { return m.l + bw * k + bw / 2; }, Y = function (v) { return m.t + (H - m.t - m.b) * (1 - (v - sk.lo) / (sk.hi - sk.lo)); };
       for (var v = sk.lo; v <= sk.hi + 1e-9; v += sk.st) s += '<line x1="' + m.l + '" x2="' + (W - m.r) + '" y1="' + Y(v) + '" y2="' + Y(v) + '" stroke="' + GR + '"/><text x="' + (m.l - 8) + '" y="' + (Y(v) + 4) + '" text-anchor="end">' + f(v, sk.st < 1 ? 1 : 0) + '</text>';
       var lewat = n > 14 ? Math.ceil(n / 9) : 1;
