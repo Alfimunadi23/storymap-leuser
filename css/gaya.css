@@ -839,3 +839,8 @@ body,html{background:#26381f}
 }
 .riwayat .sumber{display:block;line-height:1.4;margin-top:8px}
 @media (min-width:861px){.riwayat li.sorot{margin-top:0;padding-top:0;background:none;border-top:0}.riwayat li.sorot::before{left:0;top:-39px}.riwayat li.sorot .r-tahun{color:#E07A2E}}
+/* logo sedikit lebih besar */
+.logo-atas img,.tepi .logo-atas img{height:76px;width:76px}
+.logo-atas img.polos{height:80px;width:auto}
+.logo-atas .kanan{gap:16px}
+@media (max-width:640px){.logo-atas img,.tepi .logo-atas img{height:62px;width:62px}.logo-atas img.polos{height:66px;width:auto}}
