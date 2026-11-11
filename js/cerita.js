@@ -590,7 +590,7 @@
         masker['-tmg'] = L.geoJSON(d[1], { interactive: false, style: gm }); masker[''] = L.geoJSON(d[2], { interactive: false, style: gm });
         var kab = L.geoJSON(d[0], { interactive: false, style: function (f) { var t = f.properties.kab === (cfg.sorotKab || ''); return { color: '#FEFAE0', weight: t ? 3 : 1.2, opacity: t ? 1 : .6, dashArray: t ? null : '6 5', fill: false }; } }).addTo(map);
         kab.eachLayer(function (l) { if (l.feature.properties.kab === cfg.sorotKab) bbTmg = l.getBounds(); });
-        var das = L.geoJSON(d[3], { style: { stroke: false, fill: true, fillOpacity: 0 }, onEachFeature: function (f, l) {
+        var das = L.geoJSON(d[3], { style: { color: '#DC143C', weight: 3, fill: true, fillOpacity: 0 }, onEachFeature: function (f, l) {
           var p = f.properties;
           l.bindPopup('<div class="pint-pop"><b>' + esc(p.NAMA_DAS) + '</b><span>' + esc(p.KODE_DAS) + ' / ' + esc(p.NAMA_KLHK) + '</span>' +
             [['Luas', fmt(p.LUAS_HA) + ' ha'], ['Di dalam KEL', fmt(p.LUAS_KEL) + ' ha (' + p.PERSEN_KEL + '%)'], ['Sungai', p.SUNGAI], ['Hulu', p.HULU], ['Hilir', p.HILIR], ['Kabupaten', p.KABUPATEN], ['Status', p.LINTAS]].map(function (r) { return '<div class="pop-baris"><em>' + r[0] + '</em><strong>' + esc(r[1]) + '</strong></div>'; }).join('') +
@@ -718,14 +718,15 @@
           if (cur !== k0) return;
           tampil.forEach(function (l) { map.removeLayer(l); }); tampil = ls;
           ls.forEach(function (l) { l.addTo(map); });
-          if (inst.__das) inst.__das.bringToFront();
+          if (inst.__das) { var adaBatas = (T.lapis || []).concat(T.geser ? T.geser.kiri.concat(T.geser.kanan) : []).some(function (id) { return /^(zona|zonaGaris|subdas)$/.test(id); });
+            inst.__das.setStyle(adaBatas ? { stroke: false } : { stroke: true, color: '#DC143C', weight: 2.6 }); inst.__das.bringToFront(); }
           info.classList.remove('memuat'); klip();
           if (T.fit) map.flyToBounds(T.fit === 'das' ? bbDas : T.fit, { duration: .8, padding: [8, 8] });
         }).catch(function () { info.classList.remove('memuat'); });
       }
       var siap = cfg.das === false ? Promise.resolve() : Promise.all([ambil(folder + 'das-tamiang.geojson'), ambil(folder + 'masker-das.geojson')]).then(function (d) {
         L.geoJSON(d[1], { interactive: false, style: { stroke: false, fillColor: '#283618', fillOpacity: cfg.masker == null ? .6 : cfg.masker } }).addTo(map);
-        inst.__das = L.geoJSON(d[0], { interactive: false, style: { stroke: false, fill: false } }).addTo(map);
+        inst.__das = L.geoJSON(d[0], { interactive: false, style: { color: '#DC143C', weight: 2.6, fill: false } }).addTo(map);
         bbDas = inst.__das.getBounds();
       });
       siap.then(function () {
@@ -803,7 +804,7 @@
           setTimeout(function () { map.invalidateSize(); map.fitBounds(bbK, { padding: [10, 10] }); }, 400);
           if (cfg.das) Promise.all([ambil(folder + 'das-tamiang.geojson'), ambil(folder + 'masker-das.geojson')]).then(function (dd) {
             L.geoJSON(dd[1], { interactive: false, style: { stroke: false, fillColor: '#283618', fillOpacity: .55 } }).addTo(map);
-            var dl = L.geoJSON(dd[0], { interactive: false, style: { stroke: false, fill: false } }).addTo(map);
+            var dl = L.geoJSON(dd[0], { interactive: false, style: { color: '#DC143C', weight: 2.8, fill: false } }).addTo(map);
             bbK = dl.getBounds(); map.fitBounds(bbK, { padding: [8, 8] });
           });
           tambahLabel(map, folder);

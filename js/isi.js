@@ -196,7 +196,7 @@ window.ISI = {
           tab: [
             { label: 'Letak', besar: 'DAS Tamiang', judul: 'DAS130029 (Manyak Payed/Tamiang)', lapis: ['kel', 'sungai'],
               angka: [ { keterangan: 'Luas DAS', nilai: '562.251', satuan: 'ha' }, { keterangan: 'Masuk Kawasan Ekosistem Leuser', nilai: '70', satuan: '%' }, { keterangan: 'Kabupaten/kota yang dilalui', nilai: '6', satuan: '' } ],
-              legenda: [ { warna: '#7CFC9A', label: 'Batas KEL di dalam DAS', garis: true }, { warna: '#5BB8FF', label: 'Sungai', garis: true } ],
+              legenda: [ { warna: '#DC143C', label: 'Batas DAS Tamiang', garis: true }, { warna: '#7CFC9A', label: 'Batas KEL di dalam DAS', garis: true }, { warna: '#5BB8FF', label: 'Sungai', garis: true } ],
               teks: 'Hulunya di pegunungan Leuser (Gayo Lues, Aceh Tenggara, Aceh Tengah). Airnya turun lewat Simpang Kiri dan Simpang Kanan, bertemu jadi Sungai Tamiang, lalu bermuara di Selat Malaka.' },
             { label: 'Hulu–tengah–hilir', besar: '3 zona', lapis: ['zona'], fit: 'das',
               angka: [ { keterangan: 'Hulu, >500–2.500 mdpl', nilai: '48,9', satuan: '%' }, { keterangan: 'Tengah, 50–500 mdpl', nilai: '31,1', satuan: '%' }, { keterangan: 'Hilir, <50 mdpl', nilai: '20,1', satuan: '%' } ],
