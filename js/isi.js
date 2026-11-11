@@ -127,7 +127,7 @@ window.ISI = {
       judul: 'Air dari *Hulu*',
       blok: [
         { jenis: 'teks', paragraf: [
-          'Banjir datang membawa air, lumpur, dan material kayu yang terbawa arus. Di sejumlah wilayah, genangan mencapai permukiman, sekolah, dan fasilitas umum, meninggalkan kerusakan serta material yang harus dibersihkan masyarakat.',
+          'Hujan turun berhari-hari di pegunungan. Pada 26 November 2025, Sungai Tamiang meluap dan menyapu Kuala Simpang, Karang Baru, sampai pesisir Bendahara dan Seruway. Banjir datang membawa air, lumpur, dan material kayu yang terbawa arus. Di sejumlah wilayah, genangan mencapai permukiman, sekolah, dan fasilitas umum, meninggalkan kerusakan serta material yang harus dibersihkan masyarakat.',
           'Menurut data Pemkab Aceh Tamiang, 287.168 warga terdampak dan 101 orang meninggal. Lebih dari 75 ribu rumah rusak, dan sebagian warga bertahan berhari-hari di atap rumah.',
           'Tapi ini bukan pertama kalinya Tamiang kebanjiran. Jadi pertanyaannya: kenapa kali ini jauh lebih parah, dan apa yang terjadi di hulu sebelum air sampai ke hilir?'
         ]},
