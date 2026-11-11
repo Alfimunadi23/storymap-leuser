@@ -129,7 +129,7 @@ window.ISI = {
         { jenis: 'teks', paragraf: [
           'Hujan turun berhari-hari di pegunungan. Pada 26 November 2025, Sungai Tamiang meluap dan menyapu Kuala Simpang, Karang Baru, sampai pesisir Bendahara dan Seruway. Banjir datang membawa air, lumpur, dan material kayu yang terbawa arus. Di sejumlah wilayah, genangan mencapai permukiman, sekolah, dan fasilitas umum, meninggalkan kerusakan serta material yang harus dibersihkan masyarakat.',
           'Menurut data Pemkab Aceh Tamiang, 287.168 warga terdampak dan 101 orang meninggal. Lebih dari 75 ribu rumah rusak, dan sebagian warga bertahan berhari-hari di atap rumah.',
-          'Tapi ini bukan pertama kalinya Tamiang kebanjiran. Jadi pertanyaannya: kenapa kali ini jauh lebih parah, dan apa yang terjadi di hulu sebelum air sampai ke hilir?'
+          'Banjir bukan peristiwa baru bagi Aceh Tamiang. Namun, skala kejadian kali ini jauh lebih besar dibandingkan sebelumnya. Hal ini memunculkan pertanyaan: perubahan apa yang terjadi di wilayah hulu sebelum air mencapai hilir?'
         ]},
         { jenis: 'angka', isi: [
           { nilai: '287.168', satuan: 'jiwa', keterangan: 'Warga Aceh Tamiang terdampak (72.813 KK)', sumber: 'Pemkab Aceh Tamiang, cekdatabencana' },
