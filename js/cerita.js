@@ -818,7 +818,7 @@
 
   /* --- panel samping: citra satelit Leuser, berganti mengikuti bagian (layar lebar saja) --- */
   (function () {
-    if (window.innerWidth < 1500) return;
+    var lebar = window.innerWidth >= 1500;
     function ko(lat, lon) { var f = function (v, a, b) { var d = Math.floor(Math.abs(v)), m = Math.round((Math.abs(v) - d) * 60); return d + '°' + (m < 10 ? '0' : '') + m + '′ ' + (v >= 0 ? a : b); }; return f(lat, 'LU', 'LS') + ' · ' + f(lon, 'BT', 'BB'); }
     function ubin(lat, lon, z) {
       var cols = 3, rows = 9, n = Math.pow(2, z), la = lat * Math.PI / 180, fx = (lon + 180) / 360 * n, fy = (1 - Math.log(Math.tan(la) + 1 / Math.cos(la)) / Math.PI) / 2 * n;
@@ -840,6 +840,18 @@
       'Sintesis':      [[3.86, 97.42, 11, 'Hulu'], [4.30, 98.08, 11, 'Hilir']],
       'Penutup':       [[3.86, 97.42, 12, 'Hulu · Leuser'], [4.28, 98.06, 12, 'Hilir · Tamiang']]
     };
+    /* layar kecil: pita citra satelit di kepala tiap bagian */
+    if (!lebar) {
+      document.querySelectorAll('#cerita section[data-label]').forEach(function (sec) {
+        var q = (S[sec.dataset.label] || S['Sampul'])[0], n = Math.pow(2, 12), la = q[0] * Math.PI / 180;
+        var fx = (q[1] + 180) / 360 * n, fy = (1 - Math.log(Math.tan(la) + 1 / Math.cos(la)) / Math.PI) / 2 * n, x0 = Math.floor(fx) - 1, y0 = Math.floor(fy), t = '';
+        for (var i = 0; i < 4; i++) t += '<img alt="" loading="lazy" onerror="ubinGagal(this)" src="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/12/' + y0 + '/' + (x0 + i) + '">';
+        var d = document.createElement('div'); d.className = 'pita'; d.setAttribute('aria-hidden', 'true');
+        d.innerHTML = '<div class="pita-ubin">' + t + '</div><span class="pita-lbl">' + esc(q[3]) + ' · ' + ko(q[0], q[1]) + '</span>';
+        sec.insertBefore(d, sec.firstChild);
+      });
+      return;
+    }
     var panel = {};
     ['kiri', 'kanan'].forEach(function (sisi) {
       var d = document.createElement('div'); d.className = 'samping ' + sisi; d.setAttribute('aria-hidden', 'true');

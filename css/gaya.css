@@ -778,3 +778,18 @@ body,html{background:#26381f}
 }
 .angka div:last-child:nth-child(odd){grid-column:1/-1}
 @media (min-width:641px){.angka div:last-child:nth-child(odd){grid-column:auto}}
+/* pita citra satelit untuk layar < 1500px (HP, tablet, laptop kecil) */
+.pita{display:none}
+@media (max-width:1499px){
+  .pita{display:block;position:absolute;left:0;right:0;top:0;height:clamp(150px,34vw,300px);overflow:hidden;pointer-events:none;z-index:0;
+    -webkit-mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.75) 45%,transparent 100%);mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.75) 45%,transparent 100%)}
+  .pita-ubin{display:grid;grid-template-columns:repeat(4,1fr);width:100%;filter:saturate(.85) brightness(.78)}
+  .pita-ubin img{width:100%;aspect-ratio:1;display:block;object-fit:cover}
+  .pita::after{content:"";position:absolute;inset:0;background:rgba(38,56,31,.35)}
+  .pita-lbl{position:absolute;right:14px;top:58px;z-index:1;font-family:var(--f-kode);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:#FEFAE0;text-shadow:0 1px 4px rgba(0,0,0,.8)}
+  .bagian{padding-top:clamp(96px,22vw,180px)}
+  .bagian > .wrap{position:relative;z-index:1}
+}
+/* rasio di layar sangat lebar */
+@media (min-width:1800px){:root{--lebar:1500px}body{font-size:23px}}
+@media (min-width:2200px){:root{--lebar:1640px}body{font-size:24.5px}}
