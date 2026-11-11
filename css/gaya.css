@@ -742,3 +742,39 @@ body,html{background:#26381f}
   .samping .sp-ubin img{position:static;width:100%;height:auto;aspect-ratio:1;max-width:none;display:block}
 }
 .isi-kolom p.tb::first-letter{font-family:inherit;font-weight:inherit;color:inherit}
+/* petunjuk tepat di bawah peta */
+.peta-petunjuk{margin:10px 2px 2px;font-family:var(--f-isi);font-size:.95rem;line-height:1.4;color:#d8d6b8;padding-left:26px;position:relative}
+.peta-petunjuk::before{content:"☝";position:absolute;left:0;top:-1px;color:#DDA15E}
+/* ===== tampilan HP ===== */
+@media (max-width:640px){
+  body{font-size:17.5px}
+  .wrap{padding-left:14px;padding-right:14px}
+  .kepala h2{font-size:clamp(1.9rem,8vw,2.4rem)}
+  .sub-blok{font-size:1.4rem}
+  .waktu .ptab-nav{display:grid;grid-template-columns:repeat(7,1fr);overflow:visible;padding:14px 0 4px;gap:0}
+  .waktu .ptab-nav button[data-k]{min-width:0;flex:none;font-size:.78rem;padding:14px 0 4px}
+  .waktu .ptab-nav .ptab-putar{grid-column:1/-1;justify-self:end;margin-top:10px;padding:8px 14px;font-size:.78rem}
+  .plg.waktu .ptab-nav{grid-template-columns:repeat(7,1fr)}
+  .ptab-nav:not(.waktu .ptab-nav){gap:6px}
+  .ptab-nav button{font-size:.72rem;padding:8px 10px}
+  .peta-leaflet{height:62vh;min-height:340px;max-height:520px}
+  .bingkai{padding:6px}
+  .cap-tahun{left:52px;top:8px;font-size:1.7rem}
+  .pweb-dasar{top:8px;right:8px;bottom:auto}
+  .ptab-besar{font-size:2.6rem!important}
+  .pint-info dl div,.ptab-isi dl div{gap:10px}
+  .pint-info dd b,.ptab-isi dd b{font-size:1.35rem}
+  .angka{grid-template-columns:1fr 1fr}
+  .angka div{padding:16px 12px}
+  .angka b{font-size:1.75rem}
+  .gplus{padding:14px 10px}
+  .gp-ringkas{grid-template-columns:1fr 1fr}
+  .gp-ganti button{padding:6px 9px;font-size:.66rem}
+  .plg-kelas label{padding:7px 8px}
+  .alur{grid-template-columns:1fr 1fr!important}
+  .riwayat{margin-left:0!important}
+  .lb-panel{left:8px;width:calc(100vw - 16px)}
+  .galeri{grid-template-columns:1fr}
+}
+.angka div:last-child:nth-child(odd){grid-column:1/-1}
+@media (min-width:641px){.angka div:last-child:nth-child(odd){grid-column:auto}}

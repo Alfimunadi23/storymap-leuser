@@ -128,13 +128,13 @@ window.ISI = {
       blok: [
         { jenis: 'teks', paragraf: [
           'Hujan turun berhari-hari di pegunungan. Pada 26 November 2025, Sungai Tamiang meluap dan menyapu Kuala Simpang, Karang Baru, sampai pesisir Bendahara dan Seruway. Warga menyebutnya tsunami bandang: air setinggi atap, lumpur tebal, dan ribuan batang kayu gelondongan yang menumpuk di halaman rumah, sekolah, dan pesantren.',
-          'Lebih dari 300 ribu warga Aceh Tamiang terdampak. Sebagian bertahan berhari-hari di atap rumah, dan ribuan rumah hilang tersapu.',
+          'Menurut data Pemkab Aceh Tamiang, 287.168 warga terdampak dan 101 orang meninggal. Lebih dari 75 ribu rumah rusak, dan sebagian warga bertahan berhari-hari di atap rumah.',
           'Tapi ini bukan pertama kalinya Tamiang kebanjiran. Jadi pertanyaannya: kenapa kali ini jauh lebih parah, dan apa yang terjadi di hulu sebelum air sampai ke hilir?'
         ]},
         { jenis: 'angka', isi: [
-          { nilai: '300.000', satuan: 'jiwa', keterangan: 'Lebih dari sekian warga Aceh Tamiang terdampak', sumber: 'Pratama dkk., Jurnal Ibnu Sina (2026)' },
-          { nilai: '80',      satuan: 'jiwa', keterangan: 'Lebih dari sekian warga Aceh Tamiang meninggal (BNPB, 17 Des 2025)', sumber: 'BNPB via Investortrust' },
-          { nilai: '4.839',   satuan: 'rumah', keterangan: 'Rumah hilang tersapu banjir', sumber: 'Kompas.com, 30 Des 2025' },
+          { nilai: '287.168', satuan: 'jiwa', keterangan: 'Warga Aceh Tamiang terdampak (72.813 KK)', sumber: 'Pemkab Aceh Tamiang, cekdatabencana' },
+          { nilai: '101',     satuan: 'jiwa', keterangan: 'Korban meninggal; 18 luka-luka', sumber: 'Pemkab Aceh Tamiang, cekdatabencana' },
+          { nilai: '75.088',  satuan: 'rumah', keterangan: 'Rumah rusak', sumber: 'Pemkab Aceh Tamiang, cekdatabencana' },
           { nilai: '562.251', satuan: 'ha',    keterangan: 'Luas DAS Tamiang', sumber: 'Batas DAS KLHK (DAS130029)' }
         ]},
         { jenis: 'riwayat',
@@ -413,7 +413,7 @@ window.ISI = {
         },
         { jenis: 'angka',
           isi: [
-            { nilai: '8.352', satuan: 'ha', keterangan: 'Hutan hilang di lereng DAS Tamiang tahun 2025, dua kali lipat total enam tahun sebelumnya (4.057 ha)', sumber: 'Hasil analisis tim' },
+            { nilai: '8.358', satuan: 'ha', keterangan: 'Hutan hilang di lereng DAS Tamiang tahun 2025, dua kali lipat total enam tahun sebelumnya (4.057 ha)', sumber: 'Hasil analisis tim' },
             { nilai: '52', satuan: '%', keterangan: 'Porsi lereng sangat curam pada 2025 (4.339 ha). Tahun 2019–2024 hanya 11–24%', sumber: 'Hasil analisis tim' },
             { nilai: '604', satuan: 'ha', keterangan: 'Bagiannya di Kab. Aceh Tamiang, 11 kali lipat tahun 2024 (55 ha)', sumber: 'Hasil analisis tim' },
             { nilai: '3.270', satuan: 'ha', keterangan: 'Kec. Pining (Gayo Lues), hulu terparah, 61% di lereng sangat curam', sumber: 'Hasil analisis tim' }
@@ -424,7 +424,7 @@ window.ISI = {
           kategori: THN,
           tampilan: [
             { label: 'Per tahun', tipe: 'tumpuk', satuan: 'ha', sorot: '2025',
-              seri: [ { nama: 'Landai (<25%)', warna: WK[0], nilai: [659.0, 852.3, 460.3, 178.5, 146.0, 264.0, 1805.72] }, { nama: 'Curam (25–40%)', warna: WK[1], nilai: [241.1, 302.4, 134.4, 67.5, 48.0, 38.6, 2207.72] }, { nama: 'Sangat curam (>40%)', warna: WK[2], nilai: [160.3, 185.5, 190.7, 56.5, 34.8, 37.0, 4339.03] } ],
+              seri: [ { nama: 'Landai (<25%)', warna: WK[0], nilai: [659.0, 852.3, 460.3, 178.5, 146.0, 264.0, 1811.72] }, { nama: 'Curam (25–40%)', warna: WK[1], nilai: [241.1, 302.4, 134.4, 67.5, 48.0, 38.6, 2207.72] }, { nama: 'Sangat curam (>40%)', warna: WK[2], nilai: [160.3, 185.5, 190.7, 56.5, 34.8, 37.0, 4339.03] } ],
               ket: 'Sembunyikan kelas Landai lewat legenda: terlihat lereng curam dan sangat curam nyaris diam selama enam tahun, lalu meledak di 2025.' }
           ],
           sumber: 'Sumber: Deforestasi_Lereng_Kritis 2019–2025, hasil analisis tim.'
@@ -433,8 +433,8 @@ window.ISI = {
           subjudul: '2025: luas dan *intensitasnya*',
           kategori: ['Landai', 'Curam', 'Sangat curam'],
           tampilan: [
-            { label: 'Luas kehilangan', tipe: 'mendatar', satuan: 'ha', desimal: 2, labelBatang: ['21,62%', '26,43%', '51,95%'],
-              seri: [ { nama: 'Kehilangan hutan 2025', warna: WK[0], warnaPer: WK, nilai: [1805.72, 2207.72, 4339.03] } ],
+            { label: 'Luas kehilangan', tipe: 'mendatar', satuan: 'ha', desimal: 2, labelBatang: ['21,7%', '26,4%', '51,9%'],
+              seri: [ { nama: 'Kehilangan hutan 2025', warna: WK[0], warnaPer: WK, nilai: [1811.72, 2207.72, 4339.03] } ],
               ket: 'Lebih dari separuh hutan yang hilang di 2025 ada di lereng sangat curam.' },
             { label: 'Intensitas', tipe: 'batang', satuan: '% luas kelas lereng', satuanTip: '%', desimal: 2, labelNilai: 'semua',
               seri: [ { nama: 'Intensitas deforestasi 2025', warna: WK[0], warnaPer: WK, nilai: [0.65, 2.15, 2.44] } ],
@@ -446,7 +446,7 @@ window.ISI = {
           subjudul: 'Apa yang *berubah* di 2025',
           paragraf: [
             '**2019–2024: hilangnya di dataran.** Selama enam tahun, sekitar enam dari sepuluh hektare hutan yang hilang ada di lereng landai. Pusatnya di Birem Bayeun (Aceh Timur) dan Sekerak (Aceh Tamiang), pola yang cocok dengan pembukaan lahan untuk kebun di kaki bukit. Jumlahnya juga terus turun, dari 1.340 ha di 2020 sampai sekitar 230–340 ha di 2023–2024.',
-            '**2025: polanya terbalik.** Luasnya melonjak jadi 8.352 ha dan pindah ke atas. Lereng sangat curam menyumbang lebih dari separuh (4.339 ha), ditambah 2.208 ha lereng curam. Artinya hampir 8 dari 10 hektare yang hilang ada di lereng yang rawan longsor dan erosi.',
+            '**2025: polanya terbalik.** Luasnya melonjak jadi 8.358 ha dan pindah ke atas. Lereng sangat curam menyumbang lebih dari separuh (4.339 ha), ditambah 2.208 ha lereng curam. Artinya hampir 8 dari 10 hektare yang hilang ada di lereng yang rawan longsor dan erosi.',
             '**Titik panasnya di hulu.** Pining (Gayo Lues) dan Serbajadi (Aceh Timur) mendominasi, dua kecamatan di punggung pegunungan tempat anak-anak Sungai Tamiang bermula. Dari sinilah air dan lumpur turun ke Kuala Simpang dan Karang Baru di hilir.',
             '**Di Aceh Tamiang sendiri.** Selama 2019–2024, hutan yang hilang di lereng Aceh Tamiang kebanyakan di Sekerak dan Bandar Pusaka, sebagian besar di lereng landai. Tahun 2025 pusatnya pindah ke Tamiang Hulu dan Tenggulun, dua kecamatan paling hulu di kabupaten ini. Di Tenggulun, dua pertiga yang hilang (67%) ada di lereng sangat curam.',
             '**Satu catatan penting.** Data kehilangan hutan mencatat semua tajuk yang hilang, termasuk yang tersapu longsor saat hujan ekstrem akhir November. Jadi sebagian angka 2025 di lereng sangat curam bisa jadi *akibat* bencana, bukan hanya penyebabnya. Coba bandingkan di peta bagian sebelumnya: warna cokelat tua menandai hutan yang hilang tepat pada November–Desember 2025.',
@@ -596,10 +596,16 @@ window.ISI = {
           paragraf: [
             '**7.1 Penduduk.** Dengan menumpangkan genangan dan batas desa Dukcapil, kami memperkirakan 34.956 jiwa (9.763 KK) di 219 desa tinggal di wilayah yang tergenang. Angka ini dihitung dari porsi luas desa yang terendam.',
             '**7.2 Lahan pertanian.** Data Pemkab Aceh Tamiang mencatat 8.242 ha lahan pertanian terdampak. Hampir 75% ada di empat kecamatan hilir: Manyak Payed, Bendahara, Banda Mulia, dan Karang Baru.',
-            '**7.3 Jalan.** Sepanjang 11,3 km jalan berada di bawah genangan, termasuk ruas Jalan Raya Medan–Banda Aceh. Data fasilitas pendidikan dan kesehatan belum tersedia sehingga belum kami hitung.',
+            '**7.3 Infrastruktur dan fasilitas umum.** Sepanjang 11,3 km jalan berada di bawah genangan, termasuk ruas Jalan Raya Medan–Banda Aceh. Data Pemkab Aceh Tamiang mencatat 543 fasilitas pendidikan, 192 fasilitas kesehatan, 724 sarana ibadah, 15 pasar, dan 156 ruko rusak di seluruh kabupaten.',
             '**7.4 Per wilayah.** Kecamatan dengan penduduk terpapar terbanyak adalah Manyak Payed (9.130 jiwa), disusul Banda Mulia, Bendahara, dan Karang Baru.'
           ]
         },
+        { jenis: 'angka', isi: [
+          { nilai: '543', satuan: 'unit', keterangan: 'Fasilitas pendidikan rusak', sumber: 'Pemkab Aceh Tamiang' },
+          { nilai: '192', satuan: 'unit', keterangan: 'Fasilitas kesehatan rusak', sumber: 'Pemkab Aceh Tamiang' },
+          { nilai: '724', satuan: 'unit', keterangan: 'Sarana ibadah rusak', sumber: 'Pemkab Aceh Tamiang' },
+          { nilai: '1.396', satuan: 'jiwa', keterangan: 'Warga mengungsi di 13 titik pengungsian', sumber: 'Pemkab Aceh Tamiang' }
+        ]},
         { jenis: 'peta-web',
           subjudul: 'Desa dan jalan yang kena banjir',
           lapis: LAPIS,
@@ -718,7 +724,7 @@ window.ISI = {
     'Curah hujan: CHIRPS dan NASA GPM IMERG',
     'Genangan banjir: UNOSAT, citra 28 November 2025',
     'Jaringan jalan: OpenStreetMap',
-    'Lahan pertanian terdampak: Pemkab Aceh Tamiang (cekdatabencana.acehtamiangkab.go.id)',
+    'Data korban, kerusakan, dan lahan pertanian terdampak: Pemkab Aceh Tamiang (cekdatabencana.acehtamiangkab.go.id)',
     'Foto lapangan: Kompas.com, Antara Foto, dan Liputan6.com'
   ],
   metode: 'Seluruh data diolah tim menggunakan QGIS. Perhitungan luas memakai sistem koordinat UTM zona 47N (EPSG:32647).',

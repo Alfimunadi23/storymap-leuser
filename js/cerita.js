@@ -115,7 +115,7 @@
           (b.subjudul ? '<h3 class="sub-blok">' + sorotKata(b.subjudul) + '</h3>' : '') +
           '<div class="ptab-nav" role="tablist">' + TT.map(function (y, k) { return '<button type="button" role="tab" data-k="' + k + '">' + y + '</button>'; }).join('') +
           '<button type="button" class="ptab-putar">▶ Putar</button></div>' +
-          '<div class="ptab-badan"><div class="bingkai"><div class="peta-leaflet" role="application" aria-label="Peta interaktif"></div></div><div class="pint-info ptab-isi"><p class="kode">Memuat peta…</p></div></div>' +
+          '<div class="ptab-badan"><div class="bingkai"><div class="peta-leaflet" role="application" aria-label="Peta interaktif"></div><p class="peta-petunjuk">Klik tahun di atas, lalu klik kecamatan di peta untuk melihat angkanya.</p></div><div class="pint-info ptab-isi"><p class="kode">Memuat peta…</p></div></div>' +
           (b.legenda ? '<div class="legenda">' + b.legenda.map(function (l) { return '<span><i style="background:' + esc(l.warna) + '"></i>' + esc(l.label) + '</span>'; }).join('') + '</div>' : '') +
           (b.sumber ? '<div class="sumber">' + esc(b.sumber) + '</div>' : '') + '</div>';
       case 'peta-web':
@@ -128,7 +128,7 @@
           '<div class="ptab-badan"><div class="bingkai"><div class="pweb-wadah"><div class="peta-leaflet" role="application" aria-label="Peta interaktif"></div>' +
           (b.pilihDasar !== false ? '<div class="pweb-dasar">' + ['citra', 'relief', 'topo'].map(function (d) { return '<button type="button" data-d="' + d + '">' + { citra: 'Citra', relief: 'Relief', topo: 'Topografi' }[d] + '</button>'; }).join('') + '</div>' : '') +
           (TW.some(function (t) { return t.geser; }) ? '<div class="pweb-geser" hidden tabindex="0" role="slider" aria-label="Swipe perbandingan"><span class="gk"></span><span class="gn"></span><i></i></div>' : '') +
-          '</div></div><div class="pint-info ptab-isi"><p class="kode">Memuat peta…</p></div></div>' +
+          '</div><p class="peta-petunjuk" hidden></p></div><div class="pint-info ptab-isi"><p class="kode">Memuat peta…</p></div></div>' +
           (b.sumber ? '<div class="sumber">' + esc(b.sumber) + '</div>' : '') + '</div>';
       case 'peta-lereng':
         PINT.push(b); var TL = b.tahun || [];
@@ -138,7 +138,7 @@
           '<div class="plg-wil" role="group" aria-label="Wilayah"><button type="button" data-w="" class="aktif">DAS Tamiang</button><button type="button" data-w="-tmg">Kab. Aceh Tamiang saja</button></div>' +
           '<div class="ptab-nav" role="tablist">' + TL.map(function (y, k) { return '<button type="button" role="tab" data-k="' + k + '">' + y + '</button>'; }).join('') +
           '<button type="button" class="ptab-putar">▶ Putar</button></div>' +
-          '<div class="ptab-badan"><div class="bingkai"><div class="peta-leaflet" role="application" aria-label="Peta interaktif deforestasi lereng"></div></div><div class="pint-info ptab-isi"><p class="kode">Memuat peta…</p></div></div>' +
+          '<div class="ptab-badan"><div class="bingkai"><div class="peta-leaflet" role="application" aria-label="Peta interaktif deforestasi lereng"></div><p class="peta-petunjuk">Klik tahun di atas. Centang kelas lereng di samping peta untuk menyaring, klik area berwarna untuk detail.</p></div><div class="pint-info ptab-isi"><p class="kode">Memuat peta…</p></div></div>' +
           '<div class="plg-batang" aria-label="Luas hutan hilang per kelas lereng per tahun"></div>' +
           (b.sumber ? '<div class="sumber">' + esc(b.sumber) + '</div>' : '') + '</div>';
       case 'grafik-plus':
@@ -285,7 +285,7 @@
     if (V.rujukan) vals.push(V.rujukan.nilai);
     var maks = Math.max.apply(null, vals.concat([0])), min0 = 0;
     if (V.tipe === 'garis' && V.nolBebas) { var mn = Math.min.apply(null, vals); min0 = mn - (maks - mn) * .15; }
-    var nT = datar ? (W < 520 ? 3 : 6) : 6;
+    var nT = datar ? Math.max(2, Math.min(6, Math.floor((W - m.l - m.r) / 120))) : (W < 520 ? 4 : 6);
     function bulat(lo, hi) { var r = hi - lo || 1, st0 = Math.pow(10, Math.floor(Math.log10(r))), c = [1, 2, 2.5, 5, 10]; for (var i = 0; i < c.length; i++) { if (r / (st0 * c[i]) <= nT) { st0 *= c[i]; break; } } return { lo: Math.floor(lo / st0) * st0, hi: Math.ceil(hi / st0) * st0, st: st0 }; }
     var sk = bulat(min0, maks * (datar ? 1 : 1.08));
     if (V.maks) sk = { lo: 0, hi: V.maks, st: V.maks / 4 };
@@ -332,10 +332,10 @@
             } else {
               var x0 = X(k) - bw * .35 + gw * j + (g > 1 ? 1 : 0), ww = gw - (g > 1 ? 2 : 0), yv = Y(v), hb = Y(sk.lo) - yv;
               if (hb > 0) s += '<path class="gp-m tumbuh" d="M' + x0 + ',' + (yv + hb) + 'V' + (yv + Math.min(4, hb)) + 'a4,4 0 0 1 4,-4H' + (x0 + ww - 4) + 'a4,4 0 0 1 4,4V' + (yv + hb) + 'Z" fill="' + col + '" opacity="' + (on ? 1 : .45) + '"/>';
-              if (g === 1 && (V.labelNilai === 'semua' || (V.sorot ? String(c) === String(V.sorot) : false))) s += '<text x="' + X(k) + '" y="' + (yv - 8) + '" text-anchor="middle" class="nilai">' + f(v) + '</text>';
+              if (g === 1 && ((V.labelNilai === 'semua' && bw > 46) || (V.sorot ? String(c) === String(V.sorot) : false))) s += '<text x="' + X(k) + '" y="' + (yv - 8) + '" text-anchor="middle" class="nilai">' + f(v) + '</text>';
             }
           });
-          if (tumpuk && (String(c) === String(V.sorot) || V.labelNilai === 'semua')) s += '<text x="' + X(k) + '" y="' + (Y(acc) - 8) + '" text-anchor="middle" class="nilai">' + f(acc) + '</text>';
+          if (tumpuk && (String(c) === String(V.sorot) || (V.labelNilai === 'semua' && bw > 46))) s += '<text x="' + X(k) + '" y="' + (Y(acc) - 8) + '" text-anchor="middle" class="nilai">' + f(acc) + '</text>';
         });
       }
       s += '<line class="gp-x" x1="0" x2="0" y1="' + m.t + '" y2="' + (H - m.b) + '" stroke="#FEFAE0" stroke-opacity=".45" style="display:none"/>';
@@ -542,7 +542,7 @@
           R.kec[y].filter(function (r) { return r[1] + r[2] + r[3] >= 0.5; }).slice(0, 4).map(function (r) { var n = r[0].split('|'), s3 = r[1] + r[2] + r[3];
             return '<li><span>' + esc(n[0]) + '<small>' + esc(n[1]) + ' · ' + Math.round(r[3] / s3 * 100) + '% sangat curam</small></span><b>' + fmt(s3) + ' ha</b></li>'; }).join('') + '</ol>' +
           (wil ? '<p class="pint-petunjuk">Hanya bagian Aceh Tamiang yang masuk DAS. Hulu DAS lainnya ada di Gayo Lues dan Aceh Timur: klik <b>DAS Tamiang</b>.</p>' : '<p class="pint-petunjuk">Garis merah: batas DAS Tamiang (562.251 ha). Data kehilangan hutan mencakup bagian DAS di dalam Kawasan Ekosistem Leuser, sekitar 70% luas DAS. Klik garis merah untuk info DAS.</p>') +
-          '<p class="pint-petunjuk">Centang/hapus centang kelas lereng untuk menyaring peta. Klik area berwarna untuk detail risikonya.</p>';
+          '';
         [].forEach.call(info.querySelectorAll('input[data-i]'), function (c) {
           c.addEventListener('change', function () { nyala[+c.dataset.i] = c.checked; c.parentNode.classList.toggle('mati', !c.checked); if (aktif) aktif.setStyle(gaya); });
         });
@@ -696,7 +696,8 @@
           (T.angka ? '<dl>' + T.angka.map(function (a) { return '<div><dt>' + esc(a.keterangan) + '</dt><dd><b>' + esc(a.nilai) + '</b> ' + esc(a.satuan || '') + '</dd></div>'; }).join('') + '</dl>' : '') +
           (T.legenda ? '<div class="pweb-legenda">' + T.legenda.map(function (l) { return '<span><i class="' + (l.garis ? 'g' : '') + '" style="' + (l.garis ? 'border-color:' : 'background:') + esc(l.warna) + '"></i>' + esc(l.label) + '</span>'; }).join('') + '</div>' : '') +
           (T.teks ? '<p class="pweb-teks">' + esc(T.teks).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>') + '</p>' : '') +
-          (T.petunjuk || cfg.petunjuk ? '<p class="pint-petunjuk">' + esc(T.petunjuk || cfg.petunjuk) + '</p>' : '');
+          '';
+        var ph = box.querySelector('.peta-petunjuk'); if (ph) { ph.textContent = T.petunjuk || cfg.petunjuk || ''; ph.hidden = !(T.petunjuk || cfg.petunjuk); }
       }
       function pilih(k) {
         cur = k; var T = TAB[k]; if (T.dasar && T.dasar !== dAktif) pakaiDasar(T.dasar);
@@ -759,7 +760,7 @@
             '<dl><div><dt>Kehilangan hutan di DAS Tamiang</dt><dd><b>' + fmt(ringkas.total[y] || 0) + '</b> ha</dd></div></dl>' +
             '<p class="kode" style="margin-top:6px">Kecamatan terbanyak (bagian di dalam DAS)</p><ol class="pint-top">' +
             top.map(function (f) { return '<li><span>' + esc(f.properties.kec) + '<small>' + esc(f.properties.kab) + '</small></span><b>' + fmt(f.properties['h' + y]) + ' ha</b></li>'; }).join('') + '</ol>' +
-            '<p class="pint-petunjuk">Klik kecamatan di peta untuk melihat datanya per tahun.</p>';
+''; 
         }
         function popupKec(p) {
           var maks = Math.max.apply(null, T.map(function (y) { return p['h' + y] || 0; }).concat([1]));
