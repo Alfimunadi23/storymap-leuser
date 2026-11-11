@@ -825,3 +825,17 @@ body,html{background:#26381f}
 .vb-wadah{position:relative}
 .vb-suara{position:absolute;top:18px;right:18px;z-index:2;background:rgba(20,30,15,.85);color:#FEFAE0;border:1px solid rgba(221,161,94,.7);border-radius:999px;padding:8px 14px;font-family:var(--f-kode);font-size:.78rem;letter-spacing:.04em;cursor:pointer}
 .vb-suara.nyala{background:#DDA15E;color:#283618}
+/* riwayat banjir: garis waktu mendatar per tahun */
+@media (min-width:861px){
+  .riwayat{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-left:164px;padding-top:44px}
+  .riwayat::before{left:0;right:0;top:12px;bottom:auto;width:auto;height:2px}
+  .riwayat li{display:block;padding:0 22px 0 0}
+  .riwayat li::before{left:0;top:-39px}
+  .riwayat .r-tahun{text-align:left;font-size:2rem;margin-bottom:8px}
+  .riwayat li.sorot{background:rgba(188,108,37,.14);padding:14px 16px;margin-top:-14px;border-top:3px solid #BC6C25}
+  .riwayat li.sorot::before{left:16px;top:-25px}
+  .riwayat h4{font-size:1.15rem}
+  .riwayat p{font-size:.95rem}
+}
+.riwayat .sumber{display:block;line-height:1.4;margin-top:8px}
+@media (min-width:861px){.riwayat li.sorot{margin-top:0;padding-top:0;background:none;border-top:0}.riwayat li.sorot::before{left:0;top:-39px}.riwayat li.sorot .r-tahun{color:#E07A2E}}

@@ -114,7 +114,7 @@ window.ISI = {
                { file: 'foto/logo-cru.png', nama: 'Logo CRU Aceh', bentuk: 'persegi' } ],
   sampul: {
     gambar: 'peta/00-sampul.svg',
-    keterangan: 'DAS Tamiang (garis merah). Kuning: kehilangan hutan 2025. Biru muda: sungai utama. Biru: genangan 28 Nov 2025. Sumber: HAkA, UNOSAT, DEMNAS, KLHK; hasil analisis tim.'
+    keterangan: 'DAS Tamiang. Kuning: kehilangan hutan 2025. Biru muda: sungai utama. Biru: genangan 28 Nov 2025. Sumber: HAkA, UNOSAT, DEMNAS, KLHK; hasil analisis tim.'
   },
 
   /* ---------- ISI CERITA ----------
@@ -140,10 +140,11 @@ window.ISI = {
         { jenis: 'riwayat',
           subjudul: 'Tamiang dan banjir: bukan cerita baru',
           isi: [
-            { tahun: '2006', judul: 'Banjir bandang menjelang akhir tahun', teks: 'Setelah sepekan hujan deras, banjir bandang melanda Aceh Tamiang sekitar 24 Desember 2006. Sedikitnya 60 jenazah ditemukan di Aceh Tamiang, dan lebih dari 110 ribu orang di Aceh terpaksa mengungsi. Dalam catatan 2003–2018, inilah banjir paling parah di DAS Tamiang.', sumber: 'Dawn/AFP, 25 Des 2006; Azizah (2020)' },
-            { tahun: '2003–18', judul: '37 kali banjir dalam 16 tahun', teks: 'Data BNPB mencatat 37 kejadian banjir di DAS Tamiang. Hampir tiap tahun ada banjir, paling sering di bulan Oktober dan Desember. Tahun 2012 dan 2018 jadi tahun dengan kejadian terbanyak.', sumber: 'Azizah, disertasi DAS Tamiang (2020), via Kompas.com' },
-            { tahun: '2022', judul: 'Banjir luapan besar', teks: 'Sungai Tamiang kembali meluap dan merendam permukiman di bantaran, termasuk Kuala Simpang.', sumber: 'Repositori Universitas Malikussaleh' },
-            { tahun: '2025', judul: 'Banjir bandang terbesar', sorot: true, teks: 'Akhir November 2025, banjir dan longsor melanda Aceh, Sumatera Utara, dan Sumatera Barat. Aceh Tamiang jadi salah satu daerah paling parah. Data hutan menunjukkan, hanya pada November–Desember 2025, KEL kehilangan 21.244 ha hutan.', sumber: 'BNPB; Kehilangan Tutupan Hutan KEL 2025 (HAkA)' }
+            { tahun: '2006', judul: 'Banjir bandang akhir tahun', teks: 'Setelah sepekan hujan deras, banjir bandang melanda Aceh Tamiang sekitar 24 Desember 2006. Sedikitnya 60 korban jiwa ditemukan dan lebih dari 110 ribu warga Aceh mengungsi. Kejadian ini tercatat sebagai banjir terparah di DAS Tamiang pada periode 2003–2018.', sumber: 'Dawn/AFP, 25 Des 2006; Azizah (2020)' },
+            { tahun: '2012', judul: 'Frekuensi banjir tertinggi', teks: 'Salah satu tahun dengan jumlah kejadian banjir terbanyak di DAS Tamiang. Selama 2003–2018, BNPB mencatat 37 kejadian banjir, paling sering pada Oktober dan Desember.', sumber: 'Azizah (2020), via Kompas.com' },
+            { tahun: '2018', judul: 'Frekuensi banjir kembali tinggi', teks: 'Bersama 2012, tahun 2018 tercatat sebagai tahun dengan kejadian banjir terbanyak dalam periode 2003–2018.', sumber: 'Azizah (2020), via Kompas.com' },
+            { tahun: '2022', judul: 'Banjir luapan', teks: 'Sungai Tamiang kembali meluap dan merendam permukiman di bantaran sungai, termasuk Kuala Simpang.', sumber: 'Repositori Universitas Malikussaleh' },
+            { tahun: '2025', judul: 'Banjir bandang terbesar', sorot: true, teks: 'Akhir November 2025, banjir dan longsor melanda Aceh, Sumatera Utara, dan Sumatera Barat. Aceh Tamiang menjadi salah satu wilayah terdampak paling parah, dengan 287.168 warga terdampak dan 101 korban meninggal.', sumber: 'BNPB; Pemkab Aceh Tamiang' }
           ]
         }
       ]
@@ -191,11 +192,11 @@ window.ISI = {
         { jenis: 'peta-web',
           subjudul: 'Peta DAS Tamiang: klik tabnya, klik petanya',
           lapis: LAPIS,
-          petunjuk: 'Perbesar peta dan klik wilayah berwarna untuk melihat angkanya. Garis merah = batas DAS Tamiang.',
+          petunjuk: 'Perbesar peta dan klik wilayah berwarna untuk melihat angkanya.',
           tab: [
             { label: 'Letak', besar: 'DAS Tamiang', judul: 'DAS130029 (Manyak Payed/Tamiang)', lapis: ['kel', 'sungai'],
               angka: [ { keterangan: 'Luas DAS', nilai: '562.251', satuan: 'ha' }, { keterangan: 'Masuk Kawasan Ekosistem Leuser', nilai: '70', satuan: '%' }, { keterangan: 'Kabupaten/kota yang dilalui', nilai: '6', satuan: '' } ],
-              legenda: [ { warna: '#DC143C', label: 'Batas DAS Tamiang', garis: true }, { warna: '#7CFC9A', label: 'Batas KEL di dalam DAS', garis: true }, { warna: '#5BB8FF', label: 'Sungai', garis: true } ],
+              legenda: [ { warna: '#7CFC9A', label: 'Batas KEL di dalam DAS', garis: true }, { warna: '#5BB8FF', label: 'Sungai', garis: true } ],
               teks: 'Hulunya di pegunungan Leuser (Gayo Lues, Aceh Tenggara, Aceh Tengah). Airnya turun lewat Simpang Kiri dan Simpang Kanan, bertemu jadi Sungai Tamiang, lalu bermuara di Selat Malaka.' },
             { label: 'Hulu–tengah–hilir', besar: '3 zona', lapis: ['zona'], fit: 'das',
               angka: [ { keterangan: 'Hulu, >500–2.500 mdpl', nilai: '48,9', satuan: '%' }, { keterangan: 'Tengah, 50–500 mdpl', nilai: '31,1', satuan: '%' }, { keterangan: 'Hilir, <50 mdpl', nilai: '20,1', satuan: '%' } ],
@@ -355,7 +356,7 @@ window.ISI = {
           folder: 'data/',
           tahun: [2019, 2020, 2021, 2022, 2023, 2024, 2025],
           sorotKab: 'Aceh Tamiang', das: true,
-          legenda: [ { warna: '#FFD166', label: 'Kehilangan hutan' }, { warna: '#FF6B35', label: 'Kehilangan hutan Nov–Des 2025 (saat bencana)' }, { warna: 'rgba(221,161,94,.35)', label: 'Warna kecamatan: makin pekat, makin banyak hilang' }, { warna: '#DC143C', label: 'Garis merah: batas DAS Tamiang' } ],
+          legenda: [ { warna: '#FFD166', label: 'Kehilangan hutan' }, { warna: '#FF6B35', label: 'Kehilangan hutan Nov–Des 2025 (saat bencana)' }, { warna: 'rgba(221,161,94,.35)', label: 'Warna kecamatan: makin pekat, makin banyak hilang' } ],
           sumber: 'Sumber: Kehilangan Tutupan Hutan KEL (HAkA, data dasar panitia); batas kecamatan BIG 2025; hasil analisis tim.'
         },
         { jenis: 'grafik-plus',
@@ -687,7 +688,7 @@ window.ISI = {
               teks: 'Air dan lumpur berkumpul di dataran hilir, tempat permukiman paling padat.',
               legenda: [ { warna: '#1E90FF', label: 'Genangan' }, { warna: '#E34A33', label: 'Desa terpapar' } ] },
             { label: 'Semuanya', besar: 'Satu DAS', lapis: ['zonaGaris', 'hutanStatus', 'smpDef', 'genangan'], fit: 'das',
-              teks: 'Kehilangan hutan di hulu, sempadan terbuka di tengah, genangan di hilir. Semuanya dalam satu garis merah yang sama.',
+              teks: 'Kehilangan hutan di hulu, sempadan terbuka di tengah, genangan di hilir. Semuanya berada dalam satu DAS yang sama.',
               legenda: [ { warna: '#FFD400', label: 'Kehilangan hutan 2025' }, { warna: '#FF1E6E', label: 'Sempadan dibuka' }, { warna: '#1E90FF', label: 'Genangan' } ] }
           ],
           sumber: 'Sumber: gabungan seluruh data di atas, hasil analisis tim.'
