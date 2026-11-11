@@ -178,7 +178,7 @@
             return '<div style="--c:' + (WK[k.warna] || 'var(--aksen)') + '"><span class="kode">' + esc(k.label || k.warna || '') + '</span><h3>' + esc(k.judul) + '</h3><p>' + esc(k.teks) + '</p></div>';
           }).join('') + '</div>';
       case 'video':
-        return (b.subjudul ? '<h3 class="sub-blok isi-lebar">' + sorotKata(b.subjudul) + '</h3>' : '') + '<figure class="video-blok isi-lebar muncul"><div class="bingkai"><video src="' + esc(b.file) + '" poster="' + esc(b.poster || '') + '" controls muted loop playsinline preload="metadata"' + (b.otomatis ? ' data-otomatis' : '') + '></video></div><figcaption>' + esc(b.keterangan || '') + '</figcaption></figure>';
+        return (b.subjudul ? '<h3 class="sub-blok isi-lebar">' + sorotKata(b.subjudul) + '</h3>' : '') + '<figure class="video-blok isi-lebar muncul"><div class="bingkai vb-wadah"><button type="button" class="vb-suara" aria-label="Nyalakan suara">🔇 Nyalakan suara</button><video src="' + esc(b.file) + '" poster="' + esc(b.poster || '') + '" controls muted loop playsinline preload="metadata"' + (b.otomatis ? ' data-otomatis' : '') + '></video></div><figcaption>' + esc(b.keterangan || '') + '</figcaption></figure>';
       case 'alur':
         return '<ol class="alur isi-lebar muncul">' + (b.isi || []).map(function (x, k) { return '<li><span class="alur-no">' + pad2(k + 1) + '</span><h4>' + esc(x.judul) + '</h4><p>' + esc(x.teks) + '</p></li>'; }).join('') + '</ol>';
       case 'galeri':
@@ -899,6 +899,12 @@
     var ioV = new IntersectionObserver(function (es) { es.forEach(function (e) { var v = e.target; if (e.isIntersecting) { var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); } else v.pause(); }); }, { threshold: .5 });
     main.querySelectorAll('video[data-otomatis]').forEach(function (v) { ioV.observe(v); });
   }
+  main.querySelectorAll('.vb-suara').forEach(function (bt) {
+    var v = bt.parentNode.querySelector('video');
+    var upd = function () { bt.textContent = v.muted ? '🔇 Nyalakan suara' : '🔊 Suara menyala'; bt.classList.toggle('nyala', !v.muted); };
+    bt.addEventListener('click', function () { v.muted = !v.muted; if (!v.muted) { v.currentTime = 0; var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); } upd(); });
+    v.addEventListener('volumechange', upd);
+  });
   /* --- perbesar gambar --- */
   var lb = document.getElementById('lightbox'), lbImg = lb.querySelector('img'), lbCap = lb.querySelector('p');
   document.addEventListener('click', function (e) {

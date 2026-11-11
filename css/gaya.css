@@ -822,3 +822,6 @@ body,html{background:#26381f}
 .gplus .tip div{gap:10px}.gplus .tip div b{white-space:nowrap}
 @media (max-width:640px){.gplus .tip{font-size:.78rem;min-width:0;width:max-content;max-width:calc(100% - 8px);padding:8px 10px}}
 .gplus .tip{transform:none;white-space:normal}
+.vb-wadah{position:relative}
+.vb-suara{position:absolute;top:18px;right:18px;z-index:2;background:rgba(20,30,15,.85);color:#FEFAE0;border:1px solid rgba(221,161,94,.7);border-radius:999px;padding:8px 14px;font-family:var(--f-kode);font-size:.78rem;letter-spacing:.04em;cursor:pointer}
+.vb-suara.nyala{background:#DDA15E;color:#283618}

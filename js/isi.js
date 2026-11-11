@@ -664,8 +664,8 @@ window.ISI = {
       blok: [
         { jenis: 'video', otomatis: true,
           subjudul: 'Dari hulu ke hilir dalam *30 detik*',
-          file: 'video/air-dari-hulu-v3.mp4', poster: 'video/animasi-poster.jpg',
-          keterangan: 'Perjalanan air di DAS Tamiang: hutan hulu, tutupan hutan yang hilang sejak 2020, hujan lebat akhir November 2025, hingga genangan di hilir. Data dari KLHK, HAkA, DEMNAS, NASA IMERG, UNOSAT, dan Dukcapil, diolah tim.'
+          file: 'video/air-dari-hulu-v4.mp4', poster: 'video/animasi-poster.jpg',
+          keterangan: 'Tekan tombol suara untuk mendengar suasana hutan, hujan, dan arus sungai. Perjalanan air di DAS Tamiang: hutan hulu, tutupan hutan yang hilang sejak 2020, hujan lebat akhir November 2025, hingga genangan di hilir. Data dari KLHK, HAkA, DEMNAS, NASA IMERG, UNOSAT, dan Dukcapil, diolah tim.'
         },
         { jenis: 'teks',
           paragraf: [
