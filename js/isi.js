@@ -109,9 +109,9 @@ window.ISI = {
     anggota: ['Nur Jalal', 'Alfi Munadi'],
     instansi: 'Universitas Syiah Kuala'
   },
-  logoKiri:  [ { file: 'foto/logo-haka.png', nama: 'Logo Yayasan HAkA' } ],
-  logoKanan: [ { file: 'foto/logo-usk.png', nama: 'Logo Universitas Syiah Kuala', bentuk: 'polos' },
-               { file: 'foto/logo-cru.png', nama: 'Logo CRU Aceh', bentuk: 'persegi' } ],
+  logoKiri:  [],
+  logoKanan: [ { file: 'foto/logo-haka.png', nama: 'Logo Yayasan HAkA' },
+               { file: 'foto/logo-usk.png', nama: 'Logo Universitas Syiah Kuala', bentuk: 'polos' } ],
   sampul: {
     gambar: 'peta/00-sampul.svg',
     keterangan: 'DAS Tamiang. Kuning: kehilangan hutan 2025. Biru muda: sungai utama. Biru: genangan 28 Nov 2025. Sumber: HAkA, UNOSAT, DEMNAS, KLHK; hasil analisis tim.'
