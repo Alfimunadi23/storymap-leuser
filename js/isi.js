@@ -30,9 +30,9 @@
     zonaGaris: { file: 'zona.geojson', warnaDari: { field: 'KODE_ZONA', nilai: WARNA_ZONA }, isi: .08, tebal: 2.2,
               popup: { judul: 'NAMA_ZONA', sub: 'ELEVASI', baris: [ ['Luas', 'LUAS_HA', 'ha', 0], ['Porsi DAS', 'PERSEN_DAS', '%'] ], catatan: 'FUNGSI_EKO' } },
     sungai: { file: 'sungai.geojson', tipe: 'garis', warnaDari: { field: 'j', nilai: { 'Sungai': '#5BB8FF', 'Anak Sungai / Alur': '#9fd3ff' } }, tebalDari: { field: 'j', nilai: { 'Sungai': 2.6, 'Anak Sungai / Alur': 1 } },
-              tooltip: function (p) { return (p.n || 'Tanpa nama') + ' · ' + p.km + ' km'; } },
+              tooltip: function (p) { return (p.n || 'Tanpa nama') + ' / ' + p.km + ' km'; } },
     aliran: { file: 'aliran.geojson', tipe: 'garis', urut: 'o', warnaDari: { field: 'o', nilai: { 1: '#BDE3FF', 2: '#4FA8FF', 3: '#0A4FD6' } }, tebalDari: { field: 'o', nilai: { 1: .6, 2: 1.3, 3: 2.6 } },
-              tooltip: function (p) { return 'Orde ' + p.o + ' · ' + p.tipe + ' · total ' + p.km.toLocaleString('id-ID') + ' km'; } },
+              tooltip: function (p) { return 'Orde ' + p.o + ' / ' + p.tipe + ' / total ' + p.km.toLocaleString('id-ID') + ' km'; } },
     lh2019: { file: 'lahan-2019.geojson', warnaDari: { field: 'kode', nilai: { 1: '#1A5BAB', 2: '#1B7837', 3: '#C28441', 4: '#2F6146', 5: '#FFDB5C', 7: '#ED022A', 8: '#EDD9A3', 11: '#9BBF6A' } }, isi: .88, tebal: 0, animasi: true,
               popup: { judul: 'kelas', sub: 'Tutupan lahan 2019', baris: [ ['Luas kelas di DAS', 'ha', 'ha', 0] ] } },
     lh2020: { file: 'lahan-2020.geojson', warnaDari: { field: 'kode', nilai: { 1: '#1A5BAB', 2: '#1B7837', 3: '#C28441', 4: '#2F6146', 5: '#FFDB5C', 7: '#ED022A', 8: '#EDD9A3', 11: '#9BBF6A' } }, isi: .88, tebal: 0, animasi: true,
@@ -185,9 +185,9 @@ window.ISI = {
         },
         { jenis: 'kartu',
           isi: [
-            { warna: 'hijau', label: 'Hulu · 48,9% DAS · >500 mdpl', judul: 'Hutan dan lereng', teks: 'Fokus pada kondisi tutupan hutan, topografi, dan vegetasi sempadan sungai.' },
-            { warna: 'emas', label: 'Tengah · 31,1% DAS · 50–500 mdpl', judul: 'Sungai dan lahan', teks: 'Menggambarkan keterhubungan jaringan sungai dengan penggunaan lahan.' },
-            { warna: 'merah', label: 'Hilir · 20,1% DAS · <50 mdpl', judul: 'Genangan dan warga', teks: 'Fokus analisis genangan banjir dan paparan aktivitas masyarakat.' }
+            { warna: 'hijau', label: 'Hulu / 48,9% DAS / >500 mdpl', judul: 'Hutan dan lereng', teks: 'Fokus pada kondisi tutupan hutan, topografi, dan vegetasi sempadan sungai.' },
+            { warna: 'emas', label: 'Tengah / 31,1% DAS / 50–500 mdpl', judul: 'Sungai dan lahan', teks: 'Menggambarkan keterhubungan jaringan sungai dengan penggunaan lahan.' },
+            { warna: 'merah', label: 'Hilir / 20,1% DAS / <50 mdpl', judul: 'Genangan dan warga', teks: 'Fokus analisis genangan banjir dan paparan aktivitas masyarakat.' }
           ]
         },
         { jenis: 'peta-web',
@@ -195,7 +195,7 @@ window.ISI = {
           lapis: LAPIS,
           petunjuk: 'Perbesar peta dan klik wilayah berwarna untuk melihat angkanya. Garis merah = batas DAS Tamiang.',
           tab: [
-            { label: 'Letak', besar: 'DAS Tamiang', judul: 'DAS130029 · Manyak Payed/Tamiang', lapis: ['kel', 'sungai'],
+            { label: 'Letak', besar: 'DAS Tamiang', judul: 'DAS130029 (Manyak Payed/Tamiang)', lapis: ['kel', 'sungai'],
               angka: [ { keterangan: 'Luas DAS', nilai: '562.251', satuan: 'ha' }, { keterangan: 'Masuk Kawasan Ekosistem Leuser', nilai: '70', satuan: '%' }, { keterangan: 'Kabupaten/kota yang dilalui', nilai: '6', satuan: '' } ],
               legenda: [ { warna: '#DC143C', label: 'Batas DAS Tamiang', garis: true }, { warna: '#7CFC9A', label: 'Batas KEL di dalam DAS', garis: true }, { warna: '#5BB8FF', label: 'Sungai', garis: true } ],
               teks: 'Hulunya di pegunungan Leuser (Gayo Lues, Aceh Tenggara, Aceh Tengah). Airnya turun lewat Simpang Kiri dan Simpang Kanan, bertemu jadi Sungai Tamiang, lalu bermuara di Selat Malaka.' },
@@ -204,7 +204,7 @@ window.ISI = {
               legenda: [ { warna: '#2E7D32', label: 'Hulu (Ekosistem Leuser)' }, { warna: '#F57C00', label: 'Tengah (transisi)' }, { warna: '#0288D1', label: 'Hilir (dataran banjir)' } ],
               teks: 'Hampir separuh DAS adalah hulu. Tapi 92% genangan November 2025 justru ada di zona hilir, tempat orang paling banyak tinggal.' },
             { label: 'Lima sub-DAS', besar: '5 sub-DAS', lapis: ['subdas'], fit: 'das',
-              legenda: [ { warna: '#238B45', label: 'Simpang Kiri Hulu · 48,9%' }, { warna: '#41B6C4', label: 'Simpang Kiri Hilir · 19,6%' }, { warna: '#FE9929', label: 'Simpang Kanan · 6,0%' }, { warna: '#8856A7', label: 'Tenggulun · 5,4%' }, { warna: '#2B8CBE', label: 'Cempegih / Tamiang Hilir · 20,1%' } ],
+              legenda: [ { warna: '#238B45', label: 'Simpang Kiri Hulu / 48,9%' }, { warna: '#41B6C4', label: 'Simpang Kiri Hilir / 19,6%' }, { warna: '#FE9929', label: 'Simpang Kanan / 6,0%' }, { warna: '#8856A7', label: 'Tenggulun / 5,4%' }, { warna: '#2B8CBE', label: 'Cempegih / Tamiang Hilir / 20,1%' } ],
               teks: 'Simpang Kiri Hulu masih 89% berhutan, tapi kehilangan 6.777 ha hanya di 2025. Cempegih di hilir tinggal 3% berhutan dan menampung 9.283 ha genangan.' }
           ],
           sumber: 'Sumber: batas DAS KLHK; batas KEL; zona & sub-DAS hasil analisis tim; sungai OpenStreetMap; Citra Esri.'
@@ -277,25 +277,25 @@ window.ISI = {
           petunjuk: 'Klik tahun atau tekan Putar. Perhatikan bagian hutan yang menghilang di zona hulu pada 2025.',
           tab: [
             { label: '2019', besar: '2019', judul: 'tutupan hutan KEL', lapis: ['hk2019'],
-              angka: [ { keterangan: 'Luas tutupan hutan DAS', nilai: '319.739', satuan: 'ha' }, { keterangan: 'Persentase luas DAS', nilai: '56,87', satuan: '%' }, { keterangan: 'Zona hulu · tengah · hilir', nilai: '89,3 · 40,5 · 3,2', satuan: '%' }, { keterangan: 'Retensi hutan', nilai: '100', satuan: '%' } ],
+              angka: [ { keterangan: 'Luas tutupan hutan DAS', nilai: '319.739', satuan: 'ha' }, { keterangan: 'Persentase luas DAS', nilai: '56,87', satuan: '%' }, { keterangan: 'Zona hulu / tengah / hilir', nilai: '89,3 / 40,5 / 3,2', satuan: '%' }, { keterangan: 'Retensi hutan', nilai: '100', satuan: '%' } ],
               teks: 'Tahun dasar. Hutan menutupi 56,87% DAS, terutama di zona hulu (89,30%).' },
             { label: '2020', besar: '2020', judul: 'tutupan hutan KEL', lapis: ['hk2020'],
-              angka: [ { keterangan: 'Luas tutupan hutan DAS', nilai: '318.399', satuan: 'ha' }, { keterangan: 'Persentase luas DAS', nilai: '56,63', satuan: '%' }, { keterangan: 'Zona hulu · tengah · hilir', nilai: '89,2 · 40,2 · 2,8', satuan: '%' }, { keterangan: 'Kehilangan dari tahun sebelumnya', nilai: '1.340', satuan: 'ha' } ],
+              angka: [ { keterangan: 'Luas tutupan hutan DAS', nilai: '318.399', satuan: 'ha' }, { keterangan: 'Persentase luas DAS', nilai: '56,63', satuan: '%' }, { keterangan: 'Zona hulu / tengah / hilir', nilai: '89,2 / 40,2 / 2,8', satuan: '%' }, { keterangan: 'Kehilangan dari tahun sebelumnya', nilai: '1.340', satuan: 'ha' } ],
               teks: 'Penurunan tahunan terbesar sebelum 2025, terutama di zona tengah dan hilir.' },
             { label: '2021', besar: '2021', judul: 'tutupan hutan KEL', lapis: ['hk2021'],
-              angka: [ { keterangan: 'Luas tutupan hutan DAS', nilai: '317.612', satuan: 'ha' }, { keterangan: 'Persentase luas DAS', nilai: '56,49', satuan: '%' }, { keterangan: 'Zona hulu · tengah · hilir', nilai: '89,1 · 40,1 · 2,6', satuan: '%' }, { keterangan: 'Kehilangan dari tahun sebelumnya', nilai: '786', satuan: 'ha' } ],
+              angka: [ { keterangan: 'Luas tutupan hutan DAS', nilai: '317.612', satuan: 'ha' }, { keterangan: 'Persentase luas DAS', nilai: '56,49', satuan: '%' }, { keterangan: 'Zona hulu / tengah / hilir', nilai: '89,1 / 40,1 / 2,6', satuan: '%' }, { keterangan: 'Kehilangan dari tahun sebelumnya', nilai: '786', satuan: 'ha' } ],
               teks: 'Laju melambat, tetapi zona hilir masih kehilangan 9,47% hutannya.' },
             { label: '2022', besar: '2022', judul: 'tutupan hutan KEL', lapis: ['hk2022'],
-              angka: [ { keterangan: 'Luas tutupan hutan DAS', nilai: '317.309', satuan: 'ha' }, { keterangan: 'Persentase luas DAS', nilai: '56,44', satuan: '%' }, { keterangan: 'Zona hulu · tengah · hilir', nilai: '89,0 · 40,0 · 2,5', satuan: '%' }, { keterangan: 'Kehilangan dari tahun sebelumnya', nilai: '303', satuan: 'ha' } ],
+              angka: [ { keterangan: 'Luas tutupan hutan DAS', nilai: '317.309', satuan: 'ha' }, { keterangan: 'Persentase luas DAS', nilai: '56,44', satuan: '%' }, { keterangan: 'Zona hulu / tengah / hilir', nilai: '89,0 / 40,0 / 2,5', satuan: '%' }, { keterangan: 'Kehilangan dari tahun sebelumnya', nilai: '303', satuan: 'ha' } ],
               teks: 'Kehilangan tutupan hutan terendah kedua dalam periode ini.' },
             { label: '2023', besar: '2023', judul: 'tutupan hutan KEL', lapis: ['hk2023'],
-              angka: [ { keterangan: 'Luas tutupan hutan DAS', nilai: '317.080', satuan: 'ha' }, { keterangan: 'Persentase luas DAS', nilai: '56,40', satuan: '%' }, { keterangan: 'Zona hulu · tengah · hilir', nilai: '89,0 · 40,0 · 2,5', satuan: '%' }, { keterangan: 'Kehilangan dari tahun sebelumnya', nilai: '229', satuan: 'ha' } ],
+              angka: [ { keterangan: 'Luas tutupan hutan DAS', nilai: '317.080', satuan: 'ha' }, { keterangan: 'Persentase luas DAS', nilai: '56,40', satuan: '%' }, { keterangan: 'Zona hulu / tengah / hilir', nilai: '89,0 / 40,0 / 2,5', satuan: '%' }, { keterangan: 'Kehilangan dari tahun sebelumnya', nilai: '229', satuan: 'ha' } ],
               teks: 'Kehilangan tutupan hutan terendah selama 2019–2025.' },
             { label: '2024', besar: '2024', judul: 'tutupan hutan KEL', lapis: ['hk2024'],
-              angka: [ { keterangan: 'Luas tutupan hutan DAS', nilai: '316.739', satuan: 'ha' }, { keterangan: 'Persentase luas DAS', nilai: '56,34', satuan: '%' }, { keterangan: 'Zona hulu · tengah · hilir', nilai: '88,9 · 39,9 · 2,3', satuan: '%' }, { keterangan: 'Kehilangan dari tahun sebelumnya', nilai: '341', satuan: 'ha' } ],
+              angka: [ { keterangan: 'Luas tutupan hutan DAS', nilai: '316.739', satuan: 'ha' }, { keterangan: 'Persentase luas DAS', nilai: '56,34', satuan: '%' }, { keterangan: 'Zona hulu / tengah / hilir', nilai: '88,9 / 39,9 / 2,3', satuan: '%' }, { keterangan: 'Kehilangan dari tahun sebelumnya', nilai: '341', satuan: 'ha' } ],
               teks: 'Zona hilir kembali kehilangan 5,18% hutannya.' },
             { label: '2025', besar: '2025', judul: 'tutupan hutan KEL', lapis: ['hk2025'],
-              angka: [ { keterangan: 'Luas tutupan hutan DAS', nilai: '308.381', satuan: 'ha' }, { keterangan: 'Persentase luas DAS', nilai: '54,85', satuan: '%' }, { keterangan: 'Zona hulu · tengah · hilir', nilai: '86,5 · 39,2 · 2,0', satuan: '%' }, { keterangan: 'Kehilangan dari tahun sebelumnya', nilai: '8.358', satuan: 'ha' } ],
+              angka: [ { keterangan: 'Luas tutupan hutan DAS', nilai: '308.381', satuan: 'ha' }, { keterangan: 'Persentase luas DAS', nilai: '54,85', satuan: '%' }, { keterangan: 'Zona hulu / tengah / hilir', nilai: '86,5 / 39,2 / 2,0', satuan: '%' }, { keterangan: 'Kehilangan dari tahun sebelumnya', nilai: '8.358', satuan: 'ha' } ],
               teks: 'Kehilangan melonjak menjadi 8.358 ha, 81% di antaranya di zona hulu.' }
           ],
           sumber: 'Sumber: Tutupan Hutan KEL 2019–2025 (HAkA); Tabel Tutupan Hutan per Zona DAS 2019–2025, hasil analisis tim; batas DAS KLHK.'
@@ -342,7 +342,7 @@ window.ISI = {
           lapis: LAPIS,
           tab: [
             { label: 'Waktu kehilangan', besar: '2020–2025', lapis: ['hutanStatus'],
-              legenda: [ { warna: '#238B45', label: 'Tutupan hutan stabil (2019–2025)' }, { warna: '#FEE5D9', label: 'Kehilangan hutan 2020 · 1.340 ha' }, { warna: '#FCAE91', label: 'Kehilangan hutan 2021 · 786 ha' }, { warna: '#FB6A4A', label: 'Kehilangan hutan 2022 · 303 ha' }, { warna: '#DE2D26', label: 'Kehilangan hutan 2023 · 229 ha' }, { warna: '#A50F15', label: 'Kehilangan hutan 2024 · 341 ha' }, { warna: '#FFD400', label: 'Kehilangan hutan 2025 · 8.358 ha' } ],
+              legenda: [ { warna: '#238B45', label: 'Tutupan hutan stabil (2019–2025)' }, { warna: '#FEE5D9', label: 'Kehilangan hutan 2020 / 1.340 ha' }, { warna: '#FCAE91', label: 'Kehilangan hutan 2021 / 786 ha' }, { warna: '#FB6A4A', label: 'Kehilangan hutan 2022 / 303 ha' }, { warna: '#DE2D26', label: 'Kehilangan hutan 2023 / 229 ha' }, { warna: '#A50F15', label: 'Kehilangan hutan 2024 / 341 ha' }, { warna: '#FFD400', label: 'Kehilangan hutan 2025 / 8.358 ha' } ],
               teks: 'Perbesar ke bagian kuning: itu hutan yang hilang di 2025, kebanyakan di punggung hulu.' },
             { label: 'Sisa hutan per zona', besar: '2025', lapis: ['hutanZona', 'zonaGaris'],
               angka: [ { keterangan: 'Zona hulu masih berhutan', nilai: '86,5', satuan: '%' }, { keterangan: 'Zona tengah', nilai: '39,2', satuan: '%' }, { keterangan: 'Zona hilir', nilai: '2,0', satuan: '%' } ],

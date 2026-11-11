@@ -45,7 +45,7 @@
   };
   /* --- sampul --- */
   document.title = (I.judul || 'Storymap').replace(/\*/g, '');
-  document.getElementById('lbJudul').textContent = (I.judul || '').replace(/\*/g, '') + ' · ' + (I.kegiatan || '');
+  document.getElementById('lbJudul').textContent = (I.judul || '').replace(/\*/g, '') + ' / ' + (I.kegiatan || '');
   var t = I.tim || {};
   var lg = function (l) { return img(l.file, l.nama || 'Logo', l.bentuk || '', 1); };
   var logoHtml = function () { return '<div class="logo-atas"><div class="kiri">' + [].concat(I.logoKiri || []).map(lg).join('') + '</div><div class="kanan">' + [].concat(I.logoKanan || []).map(lg).join('') + '</div></div>'; };
@@ -212,7 +212,7 @@
   /* --- tepi (marginalia lembar peta) --- */
   document.getElementById('tepi').innerHTML = '<div class="wrap"><div>' + logoHtml() +
     '<h3>Kegiatan</h3><p>' + esc(I.kegiatan) + '</p><h3 style="margin-top:18px">Subtema</h3><p>' + esc(I.subtema) + '</p></div>' +
-    '<div><h3>Tim' + (t.nama ? ' · ' + esc(t.nama) : '') + '</h3><dl class="peran">' +
+    '<div><h3>Tim' + (t.nama ? ' / ' + esc(t.nama) : '') + '</h3><dl class="peran">' +
       (t.ketua ? '<dt>Ketua</dt><dd>' + esc(t.ketua) + '</dd>' : '') +
       ((t.anggota || []).length ? '<dt>Anggota</dt><dd>' + (t.anggota || []).map(esc).join('<br>') + '</dd>' : '') + '</dl>' +
       (t.instansi ? '<p style="margin-top:12px">' + esc(t.instansi) + '</p>' : '') + '</div>' +
@@ -357,10 +357,11 @@
         var kv = fig.querySelector('.gp-kanvas').getBoundingClientRect(), px = ev && ev.clientX != null ? ev.clientX - kv.left : bx * sc, py = ev && ev.clientY != null ? ev.clientY - kv.top : by * sc + 20;
         tip.classList.add('on'); var tw = tip.offsetWidth || 200;
         var left = px + 18; if (left + tw > kv.width) left = px - tw - 18; left = Math.max(0, Math.min(left, kv.width - tw));
+        if (kv.width < 520) { left = Math.max(0, (kv.width - tw) / 2); py = 40; }
         tip.style.left = left + 'px'; tip.style.top = Math.max(0, py - 30) + 'px'; tip.classList.add('on');
       };
-      r.addEventListener('mousemove', show); r.addEventListener('touchstart', function (e) { show(e.touches[0]); }, { passive: true }); r.addEventListener('click', show);
-      r.addEventListener('mouseleave', function () { tip.classList.remove('on'); if (cx) cx.style.display = 'none'; });
+      r.addEventListener('mousemove', function (e) { if (Date.now() - (fig._sentuh || 0) > 800) show(e); }); r.addEventListener('touchstart', function (e) { fig._sentuh = Date.now(); show(e.touches[0]); }, { passive: true });
+      r.addEventListener('mouseleave', function () { if (Date.now() - (fig._sentuh || 0) < 800) return; tip.classList.remove('on'); if (cx) cx.style.display = 'none'; });
     });
     var lg = fig.querySelector('.gp-legenda');
     lg.innerHTML = V.seri.length > 1 ? V.seri.map(function (x) { return '<button type="button" aria-pressed="' + !st.mati[x.nama] + '" data-n="' + esc(x.nama) + '"><i style="background:' + x.warna + '"></i>' + esc(x.nama) + '</button>'; }).join('') + '<span class="gp-pet">klik untuk sembunyikan/tampilkan</span>' : '';
@@ -373,6 +374,7 @@
       kat.map(function (c, k) { return '<tr><th>' + esc(c) + '</th>' + V.seri.map(function (x) { return '<td>' + f(x.nilai[k]) + '</td>'; }).join('') + '</tr>'; }).join('') + '</tbody></table>';
     var ket = fig.querySelector('.gp-ket'); ket.innerHTML = V.ket ? esc(V.ket).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>') : ''; ket.hidden = !V.ket;
   }
+  document.addEventListener('touchstart', function (e) { if (!e.target.closest('.gp-kanvas')) main.querySelectorAll('.gplus .tip.on').forEach(function (t) { t.classList.remove('on'); }); }, { passive: true });
   function semuaGplus() { main.querySelectorAll('[data-gplus]').forEach(function (fg) { gplus(fg, GPLUS[+fg.dataset.gplus]); }); }
   main.querySelectorAll('[data-gplus]').forEach(function (fg) {
     var b = GPLUS[+fg.dataset.gplus];
@@ -524,7 +526,7 @@
       function gaya(f) { var i = f.properties.i; return { className: 'lap-tahun', color: WL[i], weight: 1.3, fillColor: WL[i], fillOpacity: nyala[i] ? .95 : 0, opacity: nyala[i] ? 1 : 0 }; }
       function pop(p, y, RW) {
         var d = RW.info[p.kelas] || {}, tot = RW.total[y].reduce(function (a, b) { return a + b; }, 0);
-        return '<div class="pint-pop"><b>' + esc(p.kelas) + ' · ' + y + '</b><span>Kemiringan ' + esc(d.rentang) + ' (' + esc(d.derajat) + ')</span>' +
+        return '<div class="pint-pop"><b>' + esc(p.kelas) + ' / ' + y + '</b><span>Kemiringan ' + esc(d.rentang) + ' (' + esc(d.derajat) + ')</span>' +
           '<div class="pop-baris"><em>Kehilangan hutan</em><strong>' + fmt(p.ha) + ' ha</strong></div>' +
           '<div class="pop-baris"><em>Porsi tahun ini</em><strong>' + Math.round(p.ha / tot * 100) + '%</strong></div>' +
           '<p class="pop-risiko">Risiko: ' + esc(d.risiko) + '</p></div>';
@@ -541,7 +543,7 @@
           }).join('') + '</div>' +
           '<p class="kode" style="margin-top:10px">Kecamatan terbanyak</p><ol class="pint-top">' +
           R.kec[y].filter(function (r) { return r[1] + r[2] + r[3] >= 0.5; }).slice(0, 4).map(function (r) { var n = r[0].split('|'), s3 = r[1] + r[2] + r[3];
-            return '<li><span>' + esc(n[0]) + '<small>' + esc(n[1]) + ' · ' + Math.round(r[3] / s3 * 100) + '% sangat curam</small></span><b>' + fmt(s3) + ' ha</b></li>'; }).join('') + '</ol>' +
+            return '<li><span>' + esc(n[0]) + '<small>' + esc(n[1]) + ' / ' + Math.round(r[3] / s3 * 100) + '% sangat curam</small></span><b>' + fmt(s3) + ' ha</b></li>'; }).join('') + '</ol>' +
           (wil ? '<p class="pint-petunjuk">Hanya bagian Aceh Tamiang yang masuk DAS. Hulu DAS lainnya ada di Gayo Lues dan Aceh Timur: klik <b>DAS Tamiang</b>.</p>' : '<p class="pint-petunjuk">Garis merah: batas DAS Tamiang (562.251 ha). Data kehilangan hutan mencakup bagian DAS di dalam Kawasan Ekosistem Leuser, sekitar 70% luas DAS. Klik garis merah untuk info DAS.</p>') +
           '';
         [].forEach.call(info.querySelectorAll('input[data-i]'), function (c) {
@@ -590,7 +592,7 @@
         kab.eachLayer(function (l) { if (l.feature.properties.kab === cfg.sorotKab) bbTmg = l.getBounds(); });
         var das = L.geoJSON(d[3], { style: { color: '#DC143C', weight: 3, fill: true, fillOpacity: 0 }, onEachFeature: function (f, l) {
           var p = f.properties;
-          l.bindPopup('<div class="pint-pop"><b>' + esc(p.NAMA_DAS) + '</b><span>' + esc(p.KODE_DAS) + ' · ' + esc(p.NAMA_KLHK) + '</span>' +
+          l.bindPopup('<div class="pint-pop"><b>' + esc(p.NAMA_DAS) + '</b><span>' + esc(p.KODE_DAS) + ' / ' + esc(p.NAMA_KLHK) + '</span>' +
             [['Luas', fmt(p.LUAS_HA) + ' ha'], ['Di dalam KEL', fmt(p.LUAS_KEL) + ' ha (' + p.PERSEN_KEL + '%)'], ['Sungai', p.SUNGAI], ['Hulu', p.HULU], ['Hilir', p.HILIR], ['Kabupaten', p.KABUPATEN], ['Status', p.LINTAS]].map(function (r) { return '<div class="pop-baris"><em>' + r[0] + '</em><strong>' + esc(r[1]) + '</strong></div>'; }).join('') +
             '<p class="pop-risiko" style="color:#5c6440">Sumber: ' + esc(p.SUMBER) + '</p></div>', { maxWidth: 320 });
         } }).addTo(map);
@@ -765,7 +767,7 @@
         }
         function popupKec(p) {
           var maks = Math.max.apply(null, T.map(function (y) { return p['h' + y] || 0; }).concat([1]));
-          return '<div class="pint-pop"><b>' + esc(p.kec) + '</b><span>' + esc(p.kab) + ' · ' + fmt(p.luas) + ' ha</span>' +
+          return '<div class="pint-pop"><b>' + esc(p.kec) + '</b><span>' + esc(p.kab) + ' / ' + fmt(p.luas) + ' ha</span>' +
             T.map(function (y) { var v = p['h' + y] || 0; return '<div class="bar"><em>' + y + '</em><i style="width:' + (v / maks * 100) + '%"></i><strong>' + fmt(v) + ' ha</strong></div>'; }).join('') + '</div>';
         }
         function pilih(k) {
@@ -820,7 +822,7 @@
   /* --- panel samping: citra satelit Leuser, berganti mengikuti bagian (layar lebar saja) --- */
   (function () {
     var lebar = window.innerWidth >= 1500;
-    function ko(lat, lon) { var f = function (v, a, b) { var d = Math.floor(Math.abs(v)), m = Math.round((Math.abs(v) - d) * 60); return d + '°' + (m < 10 ? '0' : '') + m + '′ ' + (v >= 0 ? a : b); }; return f(lat, 'LU', 'LS') + ' · ' + f(lon, 'BT', 'BB'); }
+    function ko(lat, lon) { var f = function (v, a, b) { var d = Math.floor(Math.abs(v)), m = Math.round((Math.abs(v) - d) * 60); return d + '°' + (m < 10 ? '0' : '') + m + '′ ' + (v >= 0 ? a : b); }; return f(lat, 'LU', 'LS') + ' / ' + f(lon, 'BT', 'BB'); }
     function ubin(lat, lon, z) {
       var cols = 3, rows = 9, n = Math.pow(2, z), la = lat * Math.PI / 180, fx = (lon + 180) / 360 * n, fy = (1 - Math.log(Math.tan(la) + 1 / Math.cos(la)) / Math.PI) / 2 * n;
       var x0 = Math.floor(fx - cols / 2), y0 = Math.floor(fy - rows / 2), t = '';
@@ -856,7 +858,7 @@
           var u = document.createElement('div'); u.className = 'lh-ubin'; u.innerHTML = t; bg.querySelector('.lh-tumpuk').appendChild(u); lap[key] = u; void u.offsetWidth;
         }
         Object.keys(lap).forEach(function (k) { lap[k].classList.toggle('aktif', k === key); });
-        bg.querySelector('.lh-lbl').textContent = q[3] + ' · ' + ko(q[0], q[1]);
+        bg.querySelector('.lh-lbl').textContent = q[3] + ' / ' + ko(q[0], q[1]);
       }
       gantiH('Pembuka');
       if ('IntersectionObserver' in window) {

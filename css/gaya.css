@@ -818,3 +818,7 @@ body,html{background:#26381f}
 @media (max-width:640px){.gplus .gp-kat{font-size:12.5px}.gplus .nilai{font-size:13px}.gplus .gp-sub{font-size:10px}.gplus{overflow:hidden}.gp-tabel{max-width:100%}}
 .gp-tabel th{white-space:normal}.gp-tabel table{font-size:.72rem}
 @media (max-width:640px){.galeri figure,.galeri figure:nth-child(odd),.galeri figure:nth-child(even){transform:none}}
+.gplus .tip{max-width:calc(100% - 8px)}
+.gplus .tip div{gap:10px}.gplus .tip div b{white-space:nowrap}
+@media (max-width:640px){.gplus .tip{font-size:.78rem;min-width:0;width:max-content;max-width:calc(100% - 8px);padding:8px 10px}}
+.gplus .tip{transform:none;white-space:normal}
