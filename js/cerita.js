@@ -831,7 +831,7 @@
       'Sampul':        [[3.86, 97.42, 12, 'Hulu · pegunungan Leuser'], [4.28, 98.06, 12, 'Hilir · Kuala Simpang']],
       'Pembuka':       [[4.28, 98.06, 13, 'Kuala Simpang · lokasi banjir'], [4.33, 98.02, 13, 'Karang Baru · dataran banjir']],
       'Mengenal DAS':  [[4.05, 97.60, 11, 'DAS Tamiang · hulu'], [4.40, 98.15, 11, 'DAS Tamiang · muara']],
-      'Kondisi fisik': [[3.80, 97.38, 12, 'Punggung pegunungan hulu'], [4.00, 97.70, 12, 'Lembah sungai tengah']],
+      'Kondisi fisik': [[3.93, 97.52, 12, 'Punggung pegunungan hulu'], [4.00, 97.70, 12, 'Lembah sungai tengah']],
       'Tutupan hutan': [[3.97, 97.47, 13, 'Hutan hulu · bukaan baru'], [4.12, 97.70, 13, 'Batas hutan & kebun']],
       'Sempadan sungai': [[4.10, 97.80, 13, 'Koridor Simpang Kiri'], [4.20, 97.93, 13, 'Tepi Sungai Tamiang']],
       'Curah hujan':   [[3.78, 97.45, 11, 'Hulu · daerah tangkapan hujan'], [4.05, 97.85, 11, 'Aliran ke hilir']],
@@ -840,16 +840,28 @@
       'Sintesis':      [[3.86, 97.42, 11, 'Hulu'], [4.30, 98.08, 11, 'Hilir']],
       'Penutup':       [[3.86, 97.42, 12, 'Hulu · Leuser'], [4.28, 98.06, 12, 'Hilir · Tamiang']]
     };
-    /* layar kecil: pita citra satelit di kepala tiap bagian */
+    /* layar kecil: latar citra satelit penuh di belakang isi, berganti per bagian */
     if (!lebar) {
-      document.querySelectorAll('#cerita section[data-label]').forEach(function (sec) {
-        var q = (S[sec.dataset.label] || S['Sampul'])[0], n = Math.pow(2, 12), la = q[0] * Math.PI / 180;
-        var fx = (q[1] + 180) / 360 * n, fy = (1 - Math.log(Math.tan(la) + 1 / Math.cos(la)) / Math.PI) / 2 * n, x0 = Math.floor(fx) - 1, y0 = Math.floor(fy), t = '';
-        for (var i = 0; i < 4; i++) t += '<img alt="" loading="lazy" onerror="ubinGagal(this)" src="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/12/' + y0 + '/' + (x0 + i) + '">';
-        var d = document.createElement('div'); d.className = 'pita'; d.setAttribute('aria-hidden', 'true');
-        d.innerHTML = '<div class="pita-ubin">' + t + '</div><span class="pita-lbl">' + esc(q[3]) + ' · ' + ko(q[0], q[1]) + '</span>';
-        sec.insertBefore(d, sec.firstChild);
-      });
+      var bg = document.createElement('div'); bg.className = 'latar-hp'; bg.setAttribute('aria-hidden', 'true');
+      bg.innerHTML = '<div class="lh-tumpuk"></div><span class="lh-lbl"></span>'; document.body.insertBefore(bg, document.body.firstChild);
+      var lap = {}, kiniH = null;
+      function gantiH(lbl) {
+        var q = (S[lbl] || S['Sampul'])[lbl === 'Sampul' ? 0 : (S[lbl] ? 0 : 0)], key = q.join('|');
+        if (key === kiniH) return; kiniH = key;
+        if (!lap[key]) {
+          var n = Math.pow(2, 12), la = q[0] * Math.PI / 180, fx = (q[1] + 180) / 360 * n, fy = (1 - Math.log(Math.tan(la) + 1 / Math.cos(la)) / Math.PI) / 2 * n;
+          var x0 = Math.floor(fx) - 1, y0 = Math.floor(fy) - 3, t = '';
+          for (var j = 0; j < 7; j++) for (var i = 0; i < 3; i++) t += '<img alt="" onerror="ubinGagal(this)" src="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/12/' + (y0 + j) + '/' + (x0 + i) + '">';
+          var u = document.createElement('div'); u.className = 'lh-ubin'; u.innerHTML = t; bg.querySelector('.lh-tumpuk').appendChild(u); lap[key] = u; void u.offsetWidth;
+        }
+        Object.keys(lap).forEach(function (k) { lap[k].classList.toggle('aktif', k === key); });
+        bg.querySelector('.lh-lbl').textContent = q[3] + ' · ' + ko(q[0], q[1]);
+      }
+      gantiH('Pembuka');
+      if ('IntersectionObserver' in window) {
+        var ioH = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) gantiH(e.target.dataset.label); }); }, { rootMargin: '-45% 0px -50% 0px' });
+        document.querySelectorAll('#cerita section[data-label], .penutup').forEach(function (x) { ioH.observe(x); });
+      }
       return;
     }
     var panel = {};

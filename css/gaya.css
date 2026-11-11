@@ -793,3 +793,25 @@ body,html{background:#26381f}
 /* rasio di layar sangat lebar */
 @media (min-width:1800px){:root{--lebar:1500px}body{font-size:23px}}
 @media (min-width:2200px){:root{--lebar:1640px}body{font-size:24.5px}}
+/* latar citra satelit penuh untuk HP/tablet */
+.pita{display:none!important}
+.latar-hp{display:none}
+@media (max-width:1499px){
+  .bagian{padding-top:76px}
+  @media (max-width:860px){.bagian{padding-top:60px}}
+  .latar-hp{display:block;position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:#26381f}
+  .lh-tumpuk{position:absolute;inset:0}
+  .lh-ubin{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:max(100vw,48vh);display:grid;grid-template-columns:repeat(3,1fr);opacity:0;transition:opacity 1.2s ease;filter:saturate(.85) brightness(.9)}
+  .lh-ubin.aktif{opacity:1}
+  .lh-ubin img{width:100%;aspect-ratio:1;display:block;object-fit:cover}
+  .latar-hp::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 70% at 50% 50%,rgba(31,46,25,.55) 0%,rgba(31,46,25,.35) 100%)}
+  .lh-lbl{position:absolute;right:12px;bottom:10px;z-index:1;font-family:var(--f-kode);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:#FEFAE0;text-shadow:0 1px 4px #000;opacity:.85}
+  body,html{background:transparent}
+  #cerita,.tepi,.penutup{position:relative;z-index:1}
+  .bagian{background:rgba(36,54,29,.78)}
+  .penutup{background:rgba(36,54,29,.8)}
+  .bagian::before{display:none}
+  .bagian > .wrap{background:none}
+}
+@media (max-width:1499px){.bagian{background:rgba(36,54,29,.66)}.penutup{background:rgba(36,54,29,.7)}}
+@media (max-width:860px){.lh-lbl{display:none}}
