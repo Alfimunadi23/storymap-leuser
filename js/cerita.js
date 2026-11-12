@@ -2,6 +2,16 @@
    Tidak perlu diubah untuk mengisi konten. */
 (function () {
   'use strict';
+  /* data peta ikut versi halaman, supaya pembaruan data tidak tertahan cache browser */
+  (function () {
+    var s = document.querySelector('script[src*="cerita.js"]'), m = s && s.src.match(/[?&]v=([^&]+)/);
+    if (!m || !window.fetch) return;
+    var f0 = window.fetch.bind(window), v = m[1];
+    window.fetch = function (u, o) {
+      if (typeof u === 'string' && /\.(geo)?json$/.test(u)) u += '?v=' + v;
+      return f0(u, o);
+    };
+  })();
   var I = window.ISI || {};
   document.documentElement.classList.add('js');
   var WARNA = ['peta'];
@@ -632,7 +642,8 @@
           var t = L0.tebalDari ? (L0.tebalDari.nilai[p[L0.tebalDari.field]] || 1) : (L0.tebal || 1.5);
           return { color: w, weight: t, opacity: L0.opasitas == null ? .95 : L0.opasitas, lineCap: 'round' };
         }
-        return { className: L0.animasi ? 'lap-tahun' : '', color: L0.garis || w, weight: L0.tebal == null ? .8 : L0.tebal, opacity: 1, fillColor: w, fillOpacity: L0.isi == null ? .65 : L0.isi, dashArray: L0.putus || null };
+        var sr = L0.sorot && L0.warnaDari && p[L0.warnaDari.field] === L0.sorot.nilai;
+        return { className: L0.animasi ? 'lap-tahun' : '', color: L0.garis || w, weight: sr ? L0.sorot.tebal : (L0.tebal == null ? .8 : L0.tebal), opacity: 1, fillColor: w, fillOpacity: sr ? 1 : (L0.isi == null ? .65 : L0.isi), dashArray: L0.putus || null };
       };
     }
     function popupLapis(L0, p) {
