@@ -625,12 +625,9 @@ window.ISI = {
               petunjuk: 'Klik kecamatan untuk melihat luas lahan pertanian yang terdampak.' },
             { label: 'Sawah & kebun 2025', besar: 'Lahan', judul: 'pertanian dan kebun di bawah genangan', lapis: ['lahanTani', 'genanganTipis'], fit: HILIR,
               legenda: [ { warna: '#FFDB5C', label: 'Pertanian & tanaman semusim' }, { warna: '#C28441', label: 'Kebun kelapa sawit' }, { warna: '#5BB8FF', label: 'Genangan 28 Nov 2025' } ],
-              teks: 'Tumpang-susun tutupan lahan 2025 dengan genangan: sebagian besar dataran hilir adalah sawah, ladang, dan kebun, jadi setiap banjir besar langsung jadi kerugian panen.' },
-            { label: 'Jalan terendam', besar: '11,3 km', judul: 'jalan terendam (59 ruas)', lapis: ['genanganTipis', 'jalan', 'jalanAir'],
-              legenda: [ { warna: '#FF3D7F', label: 'Jalan terendam', garis: true }, { warna: '#F4E9C8', label: 'Jalan utama', garis: true }, { warna: '#5BB8FF', label: 'Genangan' } ],
-              teks: 'Termasuk 220 m Jalan Raya Medan–Banda Aceh, jalur utama Sumatra. Kalau jalan ini putus, bantuan dan evakuasi ikut tertahan.' }
+              teks: 'Tumpang-susun tutupan lahan 2025 dengan genangan: sebagian besar dataran hilir adalah sawah, ladang, dan kebun, jadi setiap banjir besar langsung jadi kerugian panen.' }
           ],
-          sumber: 'Sumber: genangan UNOSAT; batas & penduduk desa Dukcapil; lahan pertanian terdampak cekdatabencana.acehtamiangkab.go.id; tutupan lahan 2025; jalan OpenStreetMap; hasil analisis tim.'
+          sumber: 'Sumber: genangan UNOSAT; batas & penduduk desa Dukcapil; lahan pertanian terdampak cekdatabencana.acehtamiangkab.go.id; tutupan lahan 2025; hasil analisis tim.'
         },
         { jenis: 'grafik-plus',
           subjudul: 'Lahan pertanian terdampak *per kecamatan*',
