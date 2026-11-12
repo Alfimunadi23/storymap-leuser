@@ -44,7 +44,7 @@
     im.style.visibility = 'hidden';
   };
   /* --- sampul --- */
-  document.title = (I.judul || 'Storymap').replace(/\*/g, '');
+  document.title = (I.judul || 'Storymap').replace(/\*/g, '') + (I.tim && I.tim.nama ? ' | Tim ' + I.tim.nama : '');
   document.getElementById('lbJudul').textContent = (I.judul || '').replace(/\*/g, '') + ' / ' + (I.kegiatan || '');
   var t = I.tim || {};
   var lg = function (l) { return img(l.file, l.nama || 'Logo', l.bentuk || '', 1); };
