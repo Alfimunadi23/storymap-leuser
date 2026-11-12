@@ -104,7 +104,7 @@ window.ISI = {
   subtema: 'Mitigasi Bencana Hidrometeorologi',
   wilayah: 'DAS Tamiang, Aceh',
   tim: {
-    nama: '',                              // isi nama tim kalau ada
+    nama: 'Alue Lhee',
     ketua: 'Muhammad Farhan',
     anggota: ['Nur Jalal', 'Alfi Munadi'],
     instansi: 'Universitas Syiah Kuala'

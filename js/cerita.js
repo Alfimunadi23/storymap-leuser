@@ -217,7 +217,8 @@
       ((t.anggota || []).length ? '<dt>Anggota</dt><dd>' + (t.anggota || []).map(esc).join('<br>') + '</dd>' : '') + '</dl>' +
       (t.instansi ? '<p style="margin-top:12px">' + esc(t.instansi) + '</p>' : '') + '</div>' +
     '<div><h3>Sumber data</h3><ul>' + (I.sumberData || []).map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ul>' +
-    (I.metode ? '<p class="catatan-kecil">' + esc(I.metode) + '</p>' : '') + (I.catatanAI ? '<p class="catatan-kecil">' + esc(I.catatanAI) + '</p>' : '') + '</div></div>';
+    (I.metode ? '<p class="catatan-kecil">' + esc(I.metode) + '</p>' : '') + (I.catatanAI ? '<p class="catatan-kecil">' + esc(I.catatanAI) + '</p>' : '') + '</div></div>' +
+    (t.nama ? '<div class="kolofon"><div class="wrap"><span class="tn">Tim ' + esc(t.nama) + '</span><span>' + esc(t.instansi || '') + ' / ' + esc(I.kegiatan || '') + '</span></div></div>' : '');
 
   pasangPenanda(document.body);
 
