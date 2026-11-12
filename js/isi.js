@@ -60,6 +60,8 @@
               popup: { judul: 's', sub: 'Hutan yang sudah hilang', baris: [ ['Luas di DAS', 'ha', 'ha', 0] ] } },
     hutanStatus: { file: 'hutan-status.geojson', warnaDari: { field: 's', nilai: { 'Tutupan hutan stabil (2019–2025)': '#238B45', 'Kehilangan hutan 2020': '#FEE5D9', 'Kehilangan hutan 2021': '#FCAE91', 'Kehilangan hutan 2022': '#FB6A4A', 'Kehilangan hutan 2023': '#DE2D26', 'Kehilangan hutan 2024': '#A50F15', 'Kehilangan hutan 2025': '#FFD400' } }, isi: .85, tebal: .3,
               popup: { judul: 's', baris: [ ['Luas di DAS', 'ha', 'ha', 0] ] } },
+    hutanStatus25: { file: 'hutan-status.geojson', warnaDari: { field: 's', nilai: { 'Tutupan hutan stabil (2019–2025)': '#238B45', 'Kehilangan hutan 2020': 'rgba(0,0,0,0)', 'Kehilangan hutan 2021': 'rgba(0,0,0,0)', 'Kehilangan hutan 2022': 'rgba(0,0,0,0)', 'Kehilangan hutan 2023': 'rgba(0,0,0,0)', 'Kehilangan hutan 2024': 'rgba(0,0,0,0)', 'Kehilangan hutan 2025': '#FFD400' } }, isi: .85, tebal: .3,
+              popup: { judul: 's', baris: [ ['Luas di DAS', 'ha', 'ha', 0] ] } },
     hutanZona: { file: 'hutan-zona-2025.geojson', warnaDari: { field: 'KODE_ZONA', nilai: { 1: '#1B5E20', 2: '#43A047', 3: '#A5D6A7' } }, isi: .82, tebal: .4,
               popup: { judul: 'NAMA_ZONA', sub: 'Hutan tersisa 2025', baris: [ ['Luas hutan', 'LUAS_HA', 'ha', 0], ['Porsi zona yang berhutan', 'PCT_ZONA', '%'], ['Porsi seluruh DAS', 'PCT_DAS', '%'] ] } },
     lahan19: { file: 'lahan-2019.geojson', warnaDari: { field: 'kode', nilai: { 1: '#1A5BAB', 2: '#1B7837', 3: '#C28441', 4: '#2F6146', 5: '#FFDB5C', 7: '#ED022A', 8: '#EDD9A3', 11: '#9BBF6A' } }, isi: .85, tebal: 0,
@@ -675,7 +677,7 @@ window.ISI = {
           subjudul: 'Satu peta, hulu sampai hilir',
           lapis: LAPIS,
           tab: [
-            { label: 'Hulu', besar: '8.358 ha', judul: 'kehilangan hutan 2025', lapis: ['zonaGaris', 'hutanStatus'],
+            { label: 'Hulu', besar: '8.358 ha', judul: 'kehilangan hutan 2025', lapis: ['zonaGaris', 'hutanStatus25'],
               teks: 'Hutan di punggung hulu hilang, sebagian besar di lereng sangat curam.',
               legenda: [ { warna: '#FFD400', label: 'Kehilangan hutan 2025' }, { warna: '#238B45', label: 'Tutupan hutan stabil' } ] },
             { label: 'Sungai', besar: '1.268 ha', judul: 'hutan sempadan dibuka 2025', lapis: ['zonaGaris', 'smpDef', 'sungai'],
@@ -684,7 +686,7 @@ window.ISI = {
             { label: 'Hilir', besar: '34.956', judul: 'jiwa terpapar genangan', lapis: ['desaJiwa', 'genangan'], fit: HILIR,
               teks: 'Air dan lumpur berkumpul di dataran hilir, tempat permukiman paling padat.',
               legenda: [ { warna: '#1E90FF', label: 'Genangan' }, { warna: '#E34A33', label: 'Desa terpapar' } ] },
-            { label: 'Semuanya', besar: 'Satu DAS', lapis: ['zonaGaris', 'hutanStatus', 'smpDef', 'genangan'], fit: 'das',
+            { label: 'Semuanya', besar: 'Satu DAS', lapis: ['zonaGaris', 'hutanStatus25', 'smpDef', 'genangan'], fit: 'das',
               teks: 'Kehilangan hutan di hulu, sempadan terbuka di tengah, genangan di hilir. Semuanya berada dalam satu DAS yang sama.',
               legenda: [ { warna: '#FFD400', label: 'Kehilangan hutan 2025' }, { warna: '#FF1E6E', label: 'Sempadan dibuka' }, { warna: '#1E90FF', label: 'Genangan' } ] }
           ],
