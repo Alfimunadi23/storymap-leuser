@@ -849,5 +849,6 @@ body,html{background:#26381f}
 .kolofon{border-top:1px solid rgba(221,161,94,.35);margin-top:8px;padding:22px 0 6px}
 .kolofon .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 24px}
 .kolofon .tn{font-family:var(--f-judul,'Schibsted Grotesk',sans-serif);font-weight:800;font-size:1.35rem;letter-spacing:.02em;color:#DDA15E}
-.kolofon span:last-child{font-size:.92rem;color:#d8d6b8}
+.kolofon .kt{font-size:.92rem;line-height:1.5;color:#d8d6b8;text-align:right}
+@media (max-width:640px){.kolofon .kt{text-align:left}}
 @media (max-width:640px){.kolofon .wrap{flex-direction:column}}
