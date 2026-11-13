@@ -184,8 +184,9 @@
       case 'kartu':
         return (b.subjudul ? '<h3 class="sub-blok isi-lebar">' + sorotKata(b.subjudul) + '</h3>' : '') +
           gambarBingkai(b.gambar).replace('margin:36px 0 0 174px', 'margin:0 0 0 174px') +
+          (b.pengantar ? '<p class="kartu-pengantar isi-lebar">' + esc(b.pengantar) + '</p>' : '') +
           '<div class="kartu isi-lebar muncul">' + (b.isi || []).map(function (k) {
-            return '<div style="--c:' + (WK[k.warna] || 'var(--aksen)') + '"><span class="kode">' + esc(k.label || k.warna || '') + '</span><h3>' + esc(k.judul) + '</h3><p>' + esc(k.teks) + '</p></div>';
+            return '<div style="--c:' + (WK[k.warna] || 'var(--aksen)') + '"><span class="kode">' + esc(k.label || k.warna || '') + '</span><h3>' + esc(k.judul) + '</h3>' + (k.sub ? '<p class="kartu-sub">' + esc(k.sub) + '</p>' : '') + '<p>' + esc(k.teks) + '</p></div>';
           }).join('') + '</div>';
       case 'video':
         return (b.subjudul ? '<h3 class="sub-blok isi-lebar">' + sorotKata(b.subjudul) + '</h3>' : '') + '<figure class="video-blok isi-lebar muncul"><div class="bingkai vb-wadah"><video src="' + esc(b.file) + '" poster="' + esc(b.poster || '') + '" controls muted loop playsinline preload="metadata"' + (b.otomatis ? ' data-otomatis' : '') + '></video></div><figcaption>' + esc(b.keterangan || '') + '</figcaption></figure>';

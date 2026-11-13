@@ -414,7 +414,7 @@ window.ISI = {
         },
         { jenis: 'angka',
           isi: [
-            { nilai: '8.358', satuan: 'ha', keterangan: 'Hutan hilang di lereng DAS Tamiang tahun 2025, dua kali lipat total enam tahun sebelumnya (4.057 ha)', sumber: 'Hasil analisis tim' },
+            { nilai: '8.358', satuan: 'ha', keterangan: 'Hutan hilang di lereng DAS Tamiang tahun 2025, dua kali lipat total enam tahun sebelumnya (4.061 ha)', sumber: 'Hasil analisis tim' },
             { nilai: '52', satuan: '%', keterangan: 'Porsi lereng sangat curam pada 2025 (4.339 ha). Tahun 2019–2024 hanya 11–24%', sumber: 'Hasil analisis tim' },
             { nilai: '604', satuan: 'ha', keterangan: 'Bagiannya di Kab. Aceh Tamiang, 11 kali lipat tahun 2024 (55 ha)', sumber: 'Hasil analisis tim' },
             { nilai: '3.270', satuan: 'ha', keterangan: 'Kec. Pining (Gayo Lues), hulu terparah, 61% di lereng sangat curam', sumber: 'Hasil analisis tim' }
@@ -699,10 +699,11 @@ window.ISI = {
         },
         { jenis: 'kartu',
           subjudul: '8.3 Rekomendasi',
+          pengantar: 'Banjir 2025 tidak bisa dicegah sepenuhnya, tetapi dampaknya bisa ditekan. Rekomendasi disusun dari hulu ke hilir: mengurangi air dan lumpur yang turun, menjauhkan permukiman dari jalur air, dan memberi warga waktu untuk menyelamatkan diri.',
           isi: [
-            { warna: 'merah', label: 'Hulu', judul: 'Pulihkan dan lindungi', teks: 'Lindungi hutan yang tersisa dan pulihkan lereng curam serta sempadan sungai yang sudah terbuka.' },
-            { warna: 'hijau', label: 'Tengah', judul: 'Tata ruang berbasis risiko', teks: 'Atur penggunaan lahan di sepanjang sungai dengan memperhatikan peta bahaya banjir.' },
-            { warna: 'biru',  label: 'Hilir', judul: 'Siaga bersama warga', teks: 'Pantau hujan di hulu sebagai peringatan dini, dan siapkan jalur evakuasi di desa-desa hilir.' }
+            { warna: 'merah', label: 'Hulu', judul: 'Kurangi limpasan', sub: 'Pulihkan lereng kritis dan sempadan', teks: 'Prioritaskan lereng sangat curam yang terbuka di Pining, Serbajadi, dan Tamiang Hulu, tempat 52% kehilangan hutan 2025 terjadi. Pulihkan sempadan sungai 100 m yang kini 48% terbuka. Pemulihan ini mengurangi limpasan dan longsor sebelum hujan ekstrem berikutnya.' },
+            { warna: 'hijau', label: 'Tengah', judul: 'Hindari risiko', sub: 'Tata ruang berbasis peta bahaya', teks: 'Gunakan peta indeks bahaya banjir sebagai dasar izin pemanfaatan lahan di sempadan dan dataran banjir. Sekitar 85% genangan 2025 jatuh pada kelas bahaya tinggi dan sangat tinggi, sehingga zona ini perlu diatur sebelum dibangun atau dibuka.' },
+            { warna: 'biru',  label: 'Hilir', judul: 'Siap menghadapi', sub: 'Peringatan dini dan evakuasi', teks: 'Jadikan hujan di hulu sebagai pemicu peringatan. Pada November 2025, intensitas sudah naik sejak pagi 25 November, hampir sehari sebelum puncaknya pada 26 November pukul 04.30 WIB. Sebarkan peringatan ke 219 desa yang tergenang, mulai dari Manyak Payed, Bendahara, Banda Mulia, dan Karang Baru. Siapkan jalur evakuasi dan titik kumpul yang tidak ikut terendam, termasuk akses Jalan Medan–Banda Aceh, karena 11,3 km jalan ikut tergenang.' }
           ]
         }
       ]

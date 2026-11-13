@@ -852,3 +852,7 @@ body,html{background:#26381f}
 .kolofon .kt{font-size:.92rem;line-height:1.5;color:#d8d6b8;text-align:right}
 @media (max-width:640px){.kolofon .kt{text-align:left}}
 @media (max-width:640px){.kolofon .wrap{flex-direction:column}}
+
+/* rekomendasi: pengantar dan subjudul kartu */
+.kartu-pengantar{font-size:1.08rem;line-height:1.6;color:#e3e1c4;margin-top:4px;margin-bottom:22px;max-width:62em}
+.kartu .kartu-sub{font-style:italic;color:#DDA15E;margin:-2px 0 8px;font-size:1rem}
