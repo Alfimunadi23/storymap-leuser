@@ -713,7 +713,7 @@ window.ISI = {
   /* ---------- PENUTUP ---------- */
   penutup: {
     judul: 'Menjaga hulu, *melindungi hilir*',
-    teks: 'DAS Tamiang menunjukkan bahwa hutan, hujan, dan kehidupan warga saling terhubung. Banjir di hilir berawal dari apa yang terjadi di hulu. Selama hutan Leuser di hulu terjaga, air punya tempat untuk meresap dan warga di hilir punya waktu untuk bersiap.'
+    teks: 'Hujan ekstrem memicu banjir 2025, tetapi hutan hulu yang terbuka, sempadan yang rusak, dan permukiman di dataran rendah memperbesar dampaknya. Karena hujan seperti ini bisa datang lagi, kita perlu memulihkan hulu, menata ruang berdasarkan risiko, dan memberi peringatan dini kepada warga hilir. Menjaga hulu adalah cara paling awal melindungi hilir.'
   },
   sumberData: [
     'Batas DAS Tamiang: KLHK, Batas DAS se-Indonesia',
