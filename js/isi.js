@@ -659,7 +659,7 @@ window.ISI = {
 
     /* ===== 8. SINTESIS DAN REKOMENDASI ===== */
     { label: 'Sintesis',
-      judul: 'Sintesis dan *rekomendasi*',
+      judul: 'Sintesis dan *mitigasi*',
       pengantar: 'Menyatukan temuan dari hulu sampai hilir.',
       blok: [
         { jenis: 'video', otomatis: true,
@@ -698,8 +698,8 @@ window.ISI = {
           paragraf: [ 'Petuah ini mengajarkan bahwa hidup bersama di Aceh berarti saling menjaga, di hutan, di kebun, dan di sawah. Menjaga hutan hulu bukan hanya urusan orang yang tinggal di gunung, tetapi juga tanggung jawab bersama warga hilir yang hidupnya bergantung pada air yang sama.' ]
         },
         { jenis: 'kartu',
-          subjudul: '8.3 Rekomendasi',
-          pengantar: 'Banjir 2025 tidak bisa dicegah sepenuhnya, tetapi dampaknya bisa ditekan. Rekomendasi disusun dari hulu ke hilir: mengurangi air dan lumpur yang turun, menjauhkan permukiman dari jalur air, dan memberi warga waktu untuk menyelamatkan diri.',
+          subjudul: '8.3 Strategi mitigasi *hulu–hilir*',
+          pengantar: 'Banjir 2025 tidak bisa dicegah sepenuhnya, tetapi dampaknya bisa ditekan. Strategi mitigasi disusun dari hulu ke hilir: mengurangi air dan lumpur yang turun, menjauhkan permukiman dari jalur air, dan memberi warga waktu untuk menyelamatkan diri.',
           isi: [
             { warna: 'merah', label: 'Hulu', judul: 'Kurangi limpasan', sub: 'Pulihkan lereng kritis dan sempadan', teks: 'Prioritaskan lereng sangat curam yang terbuka di Pining, Serbajadi, dan Tamiang Hulu, tempat 52% kehilangan hutan 2025 terjadi. Pulihkan sempadan sungai 100 m yang kini 48% terbuka. Pemulihan ini mengurangi limpasan dan longsor sebelum hujan ekstrem berikutnya.' },
             { warna: 'hijau', label: 'Tengah', judul: 'Hindari risiko', sub: 'Tata ruang berbasis peta bahaya', teks: 'Gunakan peta indeks bahaya banjir sebagai dasar izin pemanfaatan lahan di sempadan dan dataran banjir. Sekitar 85% genangan 2025 jatuh pada kelas bahaya tinggi dan sangat tinggi, sehingga zona ini perlu diatur sebelum dibangun atau dibuka.' },
