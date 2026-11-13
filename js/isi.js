@@ -266,7 +266,7 @@ window.ISI = {
           subjudul: 'Dinamika tutupan hutan',
           paragraf: [
             '**3.1 Sebaran hutan.** Pada 2019, tutupan hutan mencakup 319.739 ha (56,9% DAS), terkonsentrasi di zona hulu dengan tutupan 89,3%. Zona hilir hanya menyisakan 3,2%.',
-            '**3.2 Perubahan luas.** Selama 2019–2024 luas hutan berkurang sekitar 3.000 ha. Pada 2025 kehilangan melonjak menjadi 8.358 ha dalam satu tahun, sehingga tutupan tersisa 308.381 ha (54,9%).',
+            '**3.2 Perubahan luas.** Selama 2019–2024 luas hutan berkurang 4.061 ha. Pada 2025 kehilangan melonjak menjadi 8.358 ha dalam satu tahun, sehingga tutupan tersisa 308.381 ha (54,9%).',
             '**3.3 Kehilangan dan penambahan.** Data HAkA hanya merekam kehilangan tutupan hutan bulanan; penambahan tutupan tidak tersedia sehingga tidak dianalisis.',
             '**3.4 Sebaran kehilangan.** Sebanyak 81% kehilangan hutan 2025 terjadi di zona hulu, terutama di Kecamatan Pining (Gayo Lues) dan Serbajadi (Aceh Timur).'
           ]
