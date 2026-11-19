@@ -1,5 +1,6 @@
-/* Mesin storymap: membaca window.ISI (js/isi.js) lalu menyusun halaman.
-   Tidak perlu diubah untuk mengisi konten. */
+/* Air dari Hulu: penyusun halaman storymap.
+   Membaca window.ISI dari js/isi.js, lalu membangun bagian cerita,
+   peta interaktif (Leaflet), grafik SVG, dan navigasi. */
 (function () {
   'use strict';
   /* data peta ikut versi halaman, supaya pembaruan data tidak tertahan cache browser */

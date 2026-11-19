@@ -1,20 +1,10 @@
 /* =====================================================================
-   ISI STORYMAP — cukup file ini yang diubah
+   Air dari Hulu: narasi, angka, dan konfigurasi peta storymap
    ---------------------------------------------------------------------
-   • Ganti tulisan di antara tanda kutip '...'. Tanda kutip, koma, dan
-     kurung { } [ ] jangan ikut dihapus.
-   • Peta : ekspor dari Layout QGIS (PNG, 150–200 dpi), taruh di folder
-            "peta/" dengan nama PERSIS seperti yang tertulis di bawah.
-            Selama filenya belum ada, di website muncul kotak bertuliskan
-            nama file yang harus kamu taruh.
-   • Satu bagian bisa berisi beberapa "blok" (peta, grafik, teks, dst).
-   • Jenis blok: 'teks', 'angka', 'peta-scroll', 'peta-tab', 'grafik',
-     'perbandingan', 'kutipan', 'kartu', 'galeri', 'tabel', 'peta-web'.
-   • 'peta-tab' = peta yang bisa diklik per tahun / per kategori.
-       waktu: true  → tombolnya tampil sebagai garis waktu
-       putar: true  → ada tombol ▶ Putar untuk memutar otomatis
-   • Kata yang diapit *bintang* jadi berwarna, contoh: 'Air dari *Hulu*'.
-   • Angka bertanda '…' belum diisi. Ganti dengan hasil olahan kalian.
+   Berkas ini memuat isi setiap bagian storymap DAS Tamiang:
+   identitas karya, gaya lapisan peta, teks, grafik, dan sumber data.
+   Tampilan disusun oleh js/cerita.js berdasarkan objek window.ISI.
+   Kata yang diapit *tanda bintang* ditampilkan dengan warna aksen.
    ===================================================================== */
 
 
@@ -99,7 +89,7 @@
 
 window.ISI = {
 
-  /* ---------- IDENTITAS (wajib ada untuk lomba) ---------- */
+  /* ---------- identitas karya ---------- */
   judul: 'Air dari *Hulu*',
   subjudul: 'Membaca DAS Tamiang dari pegunungan Leuser sampai ke rumah-rumah yang terendam November 2025.',
   kegiatan: 'Leuser GeoStory Challenge | Festival Rimba Leuser 2026',
@@ -119,9 +109,7 @@ window.ISI = {
     keterangan: 'DAS Tamiang. Kuning: kehilangan hutan 2025. Biru muda: sungai utama. Biru: genangan 28 Nov 2025. Sumber: HAkA, UNOSAT, DEMNAS, KLHK; hasil analisis tim.'
   },
 
-  /* ---------- ISI CERITA ----------
-     Urutan mengikuti struktur storymap tim: 8 bagian utama.
-     Warna latar: olive (#606C38) di semua bagian.          */
+  /* ---------- isi cerita: pembuka dan delapan bagian ---------- */
   bagian: [
 
     /* ===== PEMBUKA (tanpa nomor) ===== */
@@ -657,7 +645,7 @@ window.ISI = {
       ]
     },
 
-    /* ===== 8. SINTESIS DAN REKOMENDASI ===== */
+    /* ===== 8. SINTESIS DAN MITIGASI ===== */
     { label: 'Sintesis',
       judul: 'Sintesis dan *mitigasi*',
       pengantar: 'Menyatukan temuan dari hulu sampai hilir.',

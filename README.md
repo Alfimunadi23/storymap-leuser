@@ -1,104 +1,69 @@
-# Template Storymap — Leuser GeoStory Challenge 2026
+# Air dari Hulu
 
-Template storymap kosong dengan desain "lembar peta". Isi cerita, angka, dan peta
-cukup diubah di **satu file: `js/isi.js`**. Kode lain tidak perlu disentuh.
+Storymap interaktif tentang hubungan perubahan tutupan hutan di hulu Daerah Aliran Sungai (DAS) Tamiang dengan banjir besar Aceh Tamiang pada November 2025.
 
-## Struktur folder
+Karya Tim Alue Lhee, Universitas Syiah Kuala, untuk Leuser GeoStory Challenge, Festival Rimba Leuser 2026. Subtema: Mitigasi Bencana Hidrometeorologi.
 
-```
-index.html      halaman utama (jangan diubah)
-css/gaya.css    desain (warna dan huruf ada di bagian paling atas)
-js/isi.js       ← SEMUA ISI DI SINI: judul, tim, teks, angka, grafik, nama file peta
-js/cerita.js    mesin penyusun halaman (jangan diubah)
-peta/           taruh peta hasil ekspor QGIS (PNG/JPG) di sini
-foto/           taruh foto dan logo di sini
-peta-web/       (opsional) hasil ekspor plugin qgis2web
-```
+**Tautan:** https://alfimunadi23.github.io/storymap-leuser/
 
-## Cara mengisi
+## Tim
 
-1. **Ekspor peta dari QGIS.** Project → New Print Layout → susun peta → Layout →
-   Export as Image (PNG, 150–200 dpi untuk web). Simpan dengan nama seperti
-   `peta-1.png`, `peta-2.png`, dan seterusnya.
-2. **Unggah ke folder `peta/`.** Di GitHub: buka folder `peta` → Add file →
-   Upload files → seret file → Commit changes.
-3. **Edit `js/isi.js`.** Di GitHub: buka file → ikon pensil (Edit) → ganti teks di
-   antara tanda kutip `'...'` → Commit changes. Jangan hapus koma dan kurung.
-4. **Tunggu 1–2 menit**, lalu muat ulang website. Peta yang filenya belum ada
-   akan tampil sebagai kotak bertuliskan nama file yang perlu ditambahkan.
-
-## Jenis bagian yang tersedia
-
-| Jenis | Fungsi |
+| Peran | Nama |
 | --- | --- |
-| `teks` | Judul + paragraf, opsional satu peta di bawahnya |
-| `angka` | Deretan angka kunci (luas, persen, jumlah warga) |
-| `peta-scroll` | Peta berganti saat pembaca menggulir (inti storymap) |
-| `grafik` | Grafik garis atau batang dari angka yang kamu tulis |
-| `perbandingan` | Dua peta/citra yang bisa digeser (sebelum vs sesudah) |
-| `kutipan` | Ayat, petuah adat, atau kutipan narasumber |
-| `kartu` | Rekomendasi per zona, opsional peta zonasi |
-| `galeri` | Beberapa foto lapangan |
-| `peta-web` | Peta interaktif hasil qgis2web (opsional) |
-| `tabel` | Tabel sumber data dan metodologi |
+| Ketua | Muhammad Farhan |
+| Anggota | Nur Jalal |
+| Anggota | Alfi Munadi |
 
-Untuk menambah bagian, salin satu blok `{ jenis: ... },` lalu tempel di urutan
-yang diinginkan. Nomor "LEMBAR" di setiap bagian dibuat otomatis.
+## Ringkasan isi
 
-## Elemen wajib lomba
+Storymap disusun dalam delapan bagian yang mengikuti alur hulu ke hilir:
 
-Nama tim dan anggota, logo HAkA (`foto/logo-haka.png`), nama kegiatan, dan sumber
-data sudah punya tempat di `js/isi.js`. Pastikan semuanya diisi.
+1. Mengenal DAS Tamiang
+2. Kondisi fisik hulu
+3. Dinamika tutupan hutan 2019–2025
+4. Vegetasi dan sempadan sungai
+5. Karakteristik curah hujan
+6. Distribusi genangan banjir
+7. Paparan wilayah hilir
+8. Sintesis dan strategi mitigasi hulu–hilir
 
-## Kalau perubahan belum muncul di HP
+## Data dan metode
 
-HP dan browser menyimpan file lama (cache) sampai sekitar 10 menit. Agar langsung
-diperbarui setelah mengubah `js/isi.js` atau `css/gaya.css`, buka `index.html` lalu
-naikkan angka versinya, misalnya `?v=2` menjadi `?v=3` (ada di 3 baris), lalu commit.
-## Daftar file peta yang dibutuhkan
+| Data | Sumber |
+| --- | --- |
+| Batas DAS | Kementerian Lingkungan Hidup dan Kehutanan (KLHK) |
+| Batas KEL, tutupan dan kehilangan hutan 2019–2025 | Yayasan HAkA |
+| Batas kecamatan dan desa | BIG, Dukcapil |
+| Ketinggian dan kemiringan lereng | DEMNAS (BIG) |
+| Curah hujan | CHIRPS, NASA GPM IMERG |
+| Genangan banjir 28 November 2025 | UNOSAT |
+| Data korban, kerusakan, dan lahan pertanian terdampak | Pemerintah Kabupaten Aceh Tamiang |
 
-Ekspor dari Layout QGIS (PNG, 150–200 dpi, lebar sekitar 1600–2000 px), lalu unggah ke folder `peta/`
-dengan nama persis seperti ini. Total 42 file:
+Seluruh data spasial diolah dengan QGIS. Perhitungan luas memakai sistem koordinat UTM zona 47N (EPSG:32647). Indeks bahaya banjir, zonasi DAS, dan tumpang-susun genangan dengan data desa merupakan hasil analisis tim.
 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
+## Struktur berkas
+
+```
+index.html      halaman utama
+css/gaya.css    tata letak dan gaya tampilan
+js/isi.js       narasi, angka, dan konfigurasi peta setiap bagian
+js/cerita.js    penyusun halaman, peta interaktif, dan grafik
+data/           data spasial (GeoJSON) dan ringkasan angka
+peta/           gambar peta sampul
+foto/           foto lapangan dan logo
+video/          animasi ringkasan
+```
+
+## Teknologi
+
+Situs statis tanpa server, ditayangkan melalui GitHub Pages. Peta interaktif memakai Leaflet dengan citra dasar Esri World Imagery. Grafik dibuat dengan SVG.
+
+## Menjalankan secara lokal
+
+Buka folder proyek melalui server lokal, misalnya:
+
+```
+python -m http.server 8000
+```
+
+lalu akses `http://localhost:8000`.
